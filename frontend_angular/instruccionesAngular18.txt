@@ -1,2 +1,0 @@
-crear componente 
-ng generate component carpeta/nombre componente
