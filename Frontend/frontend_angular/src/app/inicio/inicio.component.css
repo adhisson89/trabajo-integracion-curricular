@@ -1,0 +1,94 @@
+/* Asegúrate de enlazar este CSS en tu archivo HTML */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    
+}
+
+body {
+    background-image: url('/assets/imagenes/normal/fondos/EPN/fondo0.jpg') ;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    width: 80%;
+    max-width: 900px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+    display: flex;
+    padding: 20px;
+    gap: 20px;
+    overflow: hidden;
+}
+
+.header h1 {
+    display: flex;
+    align-items: center;
+    font-size: 1.5em;
+    color: #0a369d;
+    margin-bottom: 10px;
+}
+
+.header .logo {
+    margin-right: 10px;
+}
+
+.content {
+    flex: 1;
+    padding: 20px;
+}
+
+.content h1 {
+    font-size: 1.8em;
+    color: #0a369d;
+}
+
+.content h2 {
+    font-size: 1.4em;
+    font-weight: 500;
+    color: #333;
+    margin-top: 10px;
+}
+
+.content p {
+    font-size: 1em;
+    color: #666;
+    margin-top: 15px;
+    line-height: 1.6;
+}
+
+.content button {
+    background-color: #8e99f3;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.content button:hover {
+    background-color: #6979f8;
+}
+
+.illustration {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.illustration img {
+    width: 200px;
+    height: 200px;
+    border-radius: 10px;
+    object-fit: cover;
+}
