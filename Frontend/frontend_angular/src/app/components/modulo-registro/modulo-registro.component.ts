@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
- @Component({
+@Component({
   selector: 'app-modulo-registro',
   standalone: true,
   imports: [],
@@ -8,11 +8,19 @@ import { Router } from '@angular/router';
   styleUrl: './modulo-registro.component.css'
 })
 export class ModuloRegistroComponent {
-constructor(
-    private router: Router,
-    
-  ) { }
-  redirectTo(route: string) {
-    this.router.navigate([route]);
+
+  
+
+  // Variable para almacenar el modo seleccionado
+  selectedMode: string = '';
+
+  constructor(private router: Router) { }
+
+  // Actualiza el modo seleccionado y redirige a la ruta indicada
+  redirectTo(route: string, mode: string) {
+    this.selectedMode = mode;  // Establece el modo seleccionado
+    this.router.navigate([route]);  // Redirige a la ruta indicada
   }
+
+
 }

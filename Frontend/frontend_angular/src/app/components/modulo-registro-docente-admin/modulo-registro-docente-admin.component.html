@@ -1,1 +1,42 @@
-<p>modulo-registro-docente-admin works!</p>
+
+<!DOCTYPE html>
+<html lang="es">
+
+<body>
+    <div class="container">
+        <h2>Formulario de Registro</h2>
+        <form>
+            <!-- Foto -->
+            <label for="foto">Foto:</label>
+            <input type="file" id="foto" name="foto" accept="image/*" required>
+
+            <!-- Modo -->
+            <label>Modo:</label>
+            <div class="radio-group">
+                <label><input type="radio" name="modo" value="estudiante"  (click)="redirectTo('moduloRegistro')" required> Estudiante</label>
+                <label><input type="radio" name="modo" value="docente"  (click)="redirectTo('moduloRegistroDocente')" required> Docente</label>
+                <label><input type="radio" name="modo" value="administrativo" (click)="redirectTo('moduloRegistroDocente')" required> Administrativo</label>
+            </div>
+
+            <!-- Cédula o Pasaporte -->
+            <label for="identificacion">Cédula o Pasaporte:</label>
+            <input type="text" id="identificacion" name="identificacion" required>
+
+            <!-- Nombres -->
+            <label for="nombres">Nombres:</label>
+            <input type="text" id="nombres" name="nombres" required>
+
+            <!-- Apellidos -->
+            <label for="apellidos">Apellidos:</label>
+            <input type="text" id="apellidos" name="apellidos" required>
+
+            <!--  Dirección Administrativa  -->
+            <label for="direccionAdministrativa">Dirección Administrativa:</label>
+            <input type="text" id="direccionAdministrativa" name="direccionAdministrativa" required>
+
+            <!-- Botón Guardar -->
+            <button type="submit">Guardar</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -13,9 +13,38 @@
             <!-- Modo -->
             <label>Modo:</label>
             <div class="radio-group">
-                <label><input type="radio" name="modo" value="estudiante" required> Estudiante</label>
+                <!--forma 1  <label><input type="radio" name="modo" value="estudiante"  (click)="redirectTo('moduloRegistro')" required> Estudiante</label>
                 <label><input type="radio" name="modo" value="docente"  (click)="redirectTo('moduloRegistroDocente')" required> Docente</label>
-                <label><input type="radio" name="modo" value="administrativo" (click)="redirectTo('moduloRegistroDocente')" required> Administrativo</label>
+                <label><input type="radio" name="modo" value="administrativo" (click)="redirectTo('moduloRegistroDocente')" required> Administrativo</label> -->
+
+                <label>
+                    <input 
+                        type="radio" 
+                        name="modo" 
+                        value="estudiante"  
+                        (click)="redirectTo('moduloRegistro', 'estudiante')" 
+                        [checked]="selectedMode === 'estudiante'"
+                        required> Estudiante
+                </label>
+                <label>
+                    <input 
+                        type="radio" 
+                        name="modo" 
+                        value="docente"  
+                        (click)="redirectTo('moduloRegistroDocente', 'docente')" 
+                        [checked]="selectedMode === 'docente'"
+                        required> Docente
+                </label>
+                <label>
+                    <input 
+                        type="radio" 
+                        name="modo" 
+                        value="administrativo" 
+                        (click)="redirectTo('moduloRegistroDocente', 'administrativo')" 
+                        [checked]="selectedMode === 'administrativo'"
+                        required> Administrativo
+                </label>
+                
             </div>
 
             <!-- Cédula o Pasaporte -->
