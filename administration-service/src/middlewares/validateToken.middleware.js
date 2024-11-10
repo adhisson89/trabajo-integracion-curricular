@@ -3,7 +3,7 @@ const Administrator = require('../models/administrator.model.js');
 
 const postAuthRequired = async (req, res, next) => {
     try {
-        const { token } = req.body.payload;
+        const { token } = req.body;
 
         if (!token) return res.status(401).json({ message: "No token, autorización denegada" });
 
