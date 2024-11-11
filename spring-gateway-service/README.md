@@ -1,14 +1,22 @@
-# Microservicio de Sproing Gateway
+# Microservicio de Spring Gateway
 
 Este microservicio es el encargado de enrutar las peticiones a los microservicios que se encuentran en la red. Para ello, se utiliza el servidor de descubrimiento Eureka.
 
 ## Requerimientos
 
 - Java 21
+- Maven
 
 ## Configuración
 
-El archivo de configuración de Eureka se encuentra en la carpeta `src/main/resources` y se llama [application.properties](./src/main/resources/application.properties). En este archivo se pueden configurar los parametros de Eureka.
+El archivo de configuración de Eureka se encuentra en la carpeta `src/main/resources` y se llama [application.properties](./src/main/resources/application.properties). En este archivo se pueden configurar los parametros del gateway.
+Si se desea incluir un nuevo microservicio, se debe agregar la siguiente configuración en el archivo `application.properties`:
+
+```properties
+spring.cloud.gateway.routes[numero_correspondiente].id=nombre_microservicio
+spring.cloud.gateway.routes[numero_correspondiente].uri=lb://nombre_microservicio
+spring.cloud.gateway.routes[numero_correspondiente].predicates[0]=Path=/nombre_microservicio/**
+```
 
 
 ## Instalación y Ejecución

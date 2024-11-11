@@ -5,6 +5,7 @@ Este microservicio es el encargado de registrar y descubrir los microservicios q
 ## Requerimientos
 
 - Java 21
+- Maven
 
 ## Configuración
 
