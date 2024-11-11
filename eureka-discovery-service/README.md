@@ -5,6 +5,7 @@ Este microservicio es el encargado de registrar y descubrir los microservicios q
 ## Requerimientos
 
 - Java 21
+- Maven
 
 ## Configuración
 
@@ -18,3 +19,6 @@ Todo el proceso de instalación y ejecución se realiza automaticamente gracias 
 ```bash
 docker compose up
 ```
+
+Para poder revisar el estado de los microservicios registrados, una vez levantado el servicio, se puede acceder a la siguiente URL: http://localhost:8761/
+
