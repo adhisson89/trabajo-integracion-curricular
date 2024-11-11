@@ -1,0 +1,17 @@
+services:
+  administration-service:
+    build:
+      context: ./administration-service
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+    networks:
+      tic-network:
+        ipv4_address: 172.25.0.4
+
+networks:
+  tic-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.25.0.0/24

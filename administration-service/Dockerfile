@@ -1,0 +1,23 @@
+# PRIMERA ETAPA
+FROM node:20-alpine3.20 AS builder
+RUN npm install -g pnpm
+
+WORKDIR /app
+COPY package*.json ./
+RUN pnpm install
+COPY . .
+
+# SEGUNDA ETAPA
+FROM node:20-alpine3.20 as produccion
+
+WORKDIR /app
+
+COPY --chown=node:node --from=builder /app . 
+USER node
+EXPOSE 3001
+
+# Para producción
+# CMD ["npm", "start"]
+
+# Para desarrollo
+CMD ["npm", "run", "dev"]
