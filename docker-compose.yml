@@ -1,10 +1,36 @@
 services:
+
+  eureka-discovery-service:
+    build:
+      context: ./eureka-discovery-service
+      dockerfile: Dockerfile
+    ports:
+      - "8761:8761"
+    networks:
+      tic-network:
+        ipv4_address: 172.25.0.3
+
+  spring-gateway-service:
+    build:
+      context: ./spring-gateway-service
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - eureka-discovery-service
+    networks:
+      tic-network:
+        ipv4_address: 172.25.0.2
+
   administration-service:
     build:
       context: ./administration-service
       dockerfile: Dockerfile
     ports:
       - "3001:3001"
+    depends_on:
+      - eureka-discovery-service
+      - spring-gateway-service
     networks:
       tic-network:
         ipv4_address: 172.25.0.4
