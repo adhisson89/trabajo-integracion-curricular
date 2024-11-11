@@ -14,7 +14,6 @@ WORKDIR /app
 
 COPY --chown=node:node --from=builder /app . 
 USER node
-EXPOSE 3001
 
 # Para producción
 # CMD ["npm", "start"]
