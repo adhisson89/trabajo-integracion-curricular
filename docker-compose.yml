@@ -24,6 +24,11 @@ services:
     depends_on:
       eureka-discovery-service:
         condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider http://localhost:8080/actuator/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     networks:
       tic-network:
         ipv4_address: 172.25.0.2
@@ -34,6 +39,8 @@ services:
       dockerfile: Dockerfile
     depends_on:
       eureka-discovery-service:
+        condition: service_healthy
+      spring-gateway-service:
         condition: service_healthy
     networks:
      - tic-network
