@@ -1,1 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
+@font-face {
+    font-family: "WebSymbolsRegulars";
+    src: url('assets/fonts/WebSymbols-Regular.otf');
+}
+
+.icon {
+    font-family: WebSymbolsRegulars;
+}
+
+@font-face {
+    font-family: "Asap";
+    src: url('./assets/fonts/Asap-MediumItalic.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Hug";
+    /*src: url('fonts/First.ttf');
+    ../assets/fonts/Asap-MediumItalic.ttf*/
+    src: url('assets/fonts/Hugshack.otf');
+    font-weight: normal;
+    font-style: normal;
+}

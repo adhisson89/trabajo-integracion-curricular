@@ -1,14 +1,32 @@
-/* Asegúrate de enlazar este CSS en tu archivo HTML */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    
+@font-face {
+    font-family: "WebSymbolsRegulars";
+    src: ('fonts/WebSymbols-Regular.otf');
 }
+
+.icon {
+    font-family: WebSymbolsRegulars;
+}
+
+@font-face {
+    font-family: "Asap";
+    src: ('../fonts');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Hug";
+    /*src: url('fonts/First.ttf');
+    ../assets/fonts/Asap-MediumItalic.ttf*/
+    src: ('fonts/Hugshack.otf');
+    font-weight: normal;
+    font-style: normal;
+}
+
 
 body {
     background-image: url('/assets/imagenes/normal/fondos/EPN/fondo0.jpg') ;
-    font-family: Arial, sans-serif;
+    font-family: 'Hug';
     background-color: #f0f0f5;
     display: flex;
     justify-content: center;

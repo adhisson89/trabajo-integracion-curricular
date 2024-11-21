@@ -1,1 +1,50 @@
-<p>modulo-listado works!</p>
+<body>
+    <div class="container">
+        <h1>Listado de Ítems</h1>
+
+        <!-- Combo box para filtrar -->
+        <div class="filter">
+            <label for="filterSelect">Filtrar por categoría:</label>
+            <select id="filterSelect" onchange="filterItems()">
+                <option value="all">Todos</option>
+                <option value="categoria1">Categoría 1</option>
+                <option value="categoria2">Categoría 2</option>
+            </select>
+        </div>
+
+        <!-- Listado de ítems -->
+        <ul id="itemList">
+            <li class="item" data-category="categoria1">
+                <span class="item-text">Ítem 1 - Categoría 1</span>
+                <button class="edit-btn">Editar</button>
+                <button class="delete-btn">Borrar</button>
+            </li>
+            <li class="item" data-category="categoria2">
+                <span class="item-text">Ítem 2 - Categoría 2</span>
+                <button class="edit-btn">Editar</button>
+                <button class="delete-btn">Borrar</button>
+            </li>
+            <li class="item" data-category="categoria1">
+                <span class="item-text">Ítem 3 - Categoría 1</span>
+                <button class="edit-btn">Editar</button>
+                <button class="delete-btn">Borrar</button>
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        function filterItems() {
+            const filterValue = document.getElementById("filterSelect").value;
+            const items = document.querySelectorAll(".item");
+
+            items.forEach(item => {
+                const itemCategory = item.getAttribute("data-category");
+                if (filterValue === "all" || itemCategory === filterValue) {
+                    item.style.display = "flex";
+                } else {
+                    item.style.display = "none";
+                }
+            });
+        }
+    </script>
+</body>

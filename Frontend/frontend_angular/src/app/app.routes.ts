@@ -6,8 +6,7 @@ import { ModuloListadoComponent} from './components/modulo-listado/modulo-listad
 import { ModuloRegistroComponent } from './components/modulo-registro/modulo-registro.component';
 import { ModuloRegistroDocenteAdminComponent } from './components/modulo-registro-docente-admin/modulo-registro-docente-admin.component';
 import { PantallaAnalisisComponent } from './components/pantalla-analisis/pantalla-analisis.component';
-import { PopupBorrarComponent } from './components/popup-borrar/popup-borrar.component';
-import { PopupEditarComponent } from './components/popup-editar/popup-editar.component';
+
 
 //base import {  } from './components/';
 //import { PrincipalComponent } from './components/principal/principal.component';
@@ -23,6 +22,5 @@ export const routes: Routes = [
   { path: 'moduloRegistro', component: ModuloRegistroComponent },
   { path: 'moduloRegistroDocente', component: ModuloRegistroDocenteAdminComponent },
   { path: 'pantallaAnalisis', component: PantallaAnalisisComponent },
-  { path: 'popupBorrar', component: PopupBorrarComponent },
-  { path: 'popupEditar', component: PopupEditarComponent },
+
 ];
