@@ -1,42 +1,71 @@
+<div class="container">
+    <h2>Formulario de Registro</h2>
+    <form [formGroup]="registroForm" (ngSubmit)="onSubmit()">
+        <!-- Foto -->
+        <label for="foto">Foto:</label>
+        <input type="file" id="foto" formControlName="foto" accept="image/*">
+        <div *ngIf="hasError('foto', 'required')" class="error">
+            La foto es obligatoria.
+        </div>
 
-<!DOCTYPE html>
-<html lang="es">
+        <!-- Modo -->
+        <label>Modo:</label>
+        <div class="radio-group">
+            <label>
+                <input type="radio" formControlName="modo" value="estudiante" (click)="redirectTo('moduloRegistro')">
+                Estudiante
+            </label>
+            <label>
+                <input type="radio" formControlName="modo" value="docente"
+                    (click)="redirectTo('moduloRegistroDocente')"> Docente
+            </label>
+            <label>
+                <input type="radio" formControlName="modo" value="administrativo"
+                    (click)="redirectTo('moduloRegistroDocente')"> Administrativo
+            </label>
+        </div>
+        <div *ngIf="hasError('modo', 'required')" class="error">
+            Debe seleccionar un modo.
+        </div>
 
-<body>
-    <div class="container">
-        <h2>Formulario de Registro</h2>
-        <form>
-            <!-- Foto -->
-            <label for="foto">Foto:</label>
-            <input type="file" id="foto" name="foto" accept="image/*" required>
+        <!-- Cédula o Pasaporte -->
+        <label for="identificacion">Cédula o Pasaporte:</label>
+        <input type="text" id="identificacion" formControlName="identificacion">
+        <div *ngIf="hasError('identificacion', 'required')" class="error">
+            La cédula o pasaporte es obligatorio.
+        </div>
+        <div *ngIf="hasError('identificacion', 'pattern')" class="error">
+            La cédula debe tener exactamente 10 dígitos numéricos.
+        </div>
 
-            <!-- Modo -->
-            <label>Modo:</label>
-            <div class="radio-group">
-                <label><input type="radio" name="modo" value="estudiante"  (click)="redirectTo('moduloRegistro')" required> Estudiante</label>
-                <label><input type="radio" name="modo" value="docente"  (click)="redirectTo('moduloRegistroDocente')" required> Docente</label>
-                <label><input type="radio" name="modo" value="administrativo" (click)="redirectTo('moduloRegistroDocente')" required> Administrativo</label>
-            </div>
+        <!-- Nombres -->
+        <label for="nombres">Nombres:</label>
+        <input type="text" id="nombres" formControlName="nombres">
+        <div *ngIf="hasError('nombres', 'required')" class="error">
+            Los nombres son obligatorios.
+        </div>
+        <div *ngIf="hasError('nombres', 'pattern')" class="error">
+            Ingrese dos nombres correctamente separados por un espacio.
+        </div>
 
-            <!-- Cédula o Pasaporte -->
-            <label for="identificacion">Cédula o Pasaporte:</label>
-            <input type="text" id="identificacion" name="identificacion" required>
+        <!-- Apellidos -->
+        <label for="apellidos">Apellidos:</label>
+        <input type="text" id="apellidos" formControlName="apellidos">
+        <div *ngIf="hasError('apellidos', 'required')" class="error">
+            Los apellidos son obligatorios.
+        </div>
+        <div *ngIf="hasError('apellidos', 'pattern')" class="error">
+            Ingrese dos apellidos correctamente separados por un espacio.
+        </div>
 
-            <!-- Nombres -->
-            <label for="nombres">Nombres:</label>
-            <input type="text" id="nombres" name="nombres" required>
+        <!-- Dirección Administrativa -->
+        <label for="direccionAdministrativa">Dirección Administrativa:</label>
+        <input type="text" id="direccionAdministrativa" formControlName="direccionAdministrativa">
+        <div *ngIf="hasError('direccionAdministrativa', 'required')" class="error">
+            La dirección administrativa es obligatoria.
+        </div>
 
-            <!-- Apellidos -->
-            <label for="apellidos">Apellidos:</label>
-            <input type="text" id="apellidos" name="apellidos" required>
-
-            <!--  Dirección Administrativa  -->
-            <label for="direccionAdministrativa">Dirección Administrativa:</label>
-            <input type="text" id="direccionAdministrativa" name="direccionAdministrativa" required>
-
-            <!-- Botón Guardar -->
-            <button type="submit">Guardar</button>
-        </form>
-    </div>
-</body>
-</html>
+        <!-- Botón Guardar -->
+        <button type="submit">Guardar</button>
+    </form>
+</div>

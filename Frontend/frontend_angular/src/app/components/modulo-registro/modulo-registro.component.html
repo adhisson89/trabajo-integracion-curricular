@@ -1,75 +1,81 @@
+<div class="container">
+    <h2>Formulario de Registro</h2>
+    <form [formGroup]="registroForm" (ngSubmit)="onSubmit()">
+        <!-- Foto -->
+        <label for="foto">Foto:</label>
+        <input type="file" id="foto" formControlName="foto" accept="image/*">
+        <div *ngIf="hasError('foto', 'required')" class="error">
+            La foto es obligatoria.
+        </div>
 
-<!DOCTYPE html>
-<html lang="es">
+        <!-- Modo -->
+        <label>Modo:</label>
+        <div class="radio-group">
+            <label>
+                <input type="radio" formControlName="modo" value="estudiante"
+                    (click)="redirectTo('moduloRegistro', 'estudiante')" checked> Estudiante
+            </label>
+            <label>
+                <input type="radio" formControlName="modo" value="docente"
+                    (click)="redirectTo('moduloRegistroDocente', 'docente')"> Docente
+            </label>
+            <label>
+                <input type="radio" formControlName="modo" value="administrativo"
+                    (click)="redirectTo('moduloRegistroDocente', 'administrativo')"> Administrativo
+            </label>
+        </div>
+        <div *ngIf="hasError('modo', 'required')" class="error">
+            Debe seleccionar un modo.
+        </div>
 
-<body>
-    <div class="container">
-        <h2>Formulario de Registro</h2>
-        <form>
-            <!-- Foto -->
-            <label for="foto">Foto:</label>
-            <input type="file" id="foto" name="foto" accept="image/*" required>
+        <!-- Cédula o Pasaporte -->
+        <label for="identificacion">Cédula o Pasaporte:</label>
+        <input type="text" id="identificacion" formControlName="identificacion">
+        <div *ngIf="hasError('identificacion', 'required')" class="error">
+            La cédula o pasaporte es obligatorio.
+        </div>
+        <div *ngIf="hasError('identificacion', 'pattern')" class="error">
+            La cédula debe tener exactamente 10 dígitos numéricos.
+        </div>
 
-            <!-- Modo -->
-            <label>Modo:</label>
-            <div class="radio-group">
-                <!--forma 1  <label><input type="radio" name="modo" value="estudiante"  (click)="redirectTo('moduloRegistro')" required> Estudiante</label>
-                <label><input type="radio" name="modo" value="docente"  (click)="redirectTo('moduloRegistroDocente')" required> Docente</label>
-                <label><input type="radio" name="modo" value="administrativo" (click)="redirectTo('moduloRegistroDocente')" required> Administrativo</label> -->
+        <!-- Nombres -->
+        <label for="nombres">Nombres:</label>
+        <input type="text" id="nombres" formControlName="nombres">
+        <div *ngIf="hasError('nombres', 'required')" class="error">
+            Los nombres son obligatorios.
+        </div>
+        <div *ngIf="hasError('nombres', 'pattern')" class="error">
+            Ingrese dos nombres correctamente separados por un espacio.
+        </div>
 
-                <label>
-                    <input 
-                        type="radio" 
-                        name="modo" 
-                        value="estudiante"  
-                        (click)="redirectTo('moduloRegistro', 'estudiante')" 
-                        [checked]="selectedMode === 'estudiante'"
-                        required> Estudiante
-                </label>
-                <label>
-                    <input 
-                        type="radio" 
-                        name="modo" 
-                        value="docente"  
-                        (click)="redirectTo('moduloRegistroDocente', 'docente')" 
-                        [checked]="selectedMode === 'docente'"
-                        required> Docente
-                </label>
-                <label>
-                    <input 
-                        type="radio" 
-                        name="modo" 
-                        value="administrativo" 
-                        (click)="redirectTo('moduloRegistroDocente', 'administrativo')" 
-                        [checked]="selectedMode === 'administrativo'"
-                        required> Administrativo
-                </label>
-                
-            </div>
+        <!-- Apellidos -->
+        <label for="apellidos">Apellidos:</label>
+        <input type="text" id="apellidos" formControlName="apellidos">
+        <div *ngIf="hasError('apellidos', 'required')" class="error">
+            Los apellidos son obligatorios.
+        </div>
+        <div *ngIf="hasError('apellidos', 'pattern')" class="error">
+            Ingrese dos apellidos correctamente separados por un espacio.
+        </div>
 
-            <!-- Cédula o Pasaporte -->
-            <label for="identificacion">Cédula o Pasaporte:</label>
-            <input type="text" id="identificacion" name="identificacion" required>
+        <!-- Número Único -->
+        <label for="numeroUnico">Número Único:</label>
+        <input type="text" id="numeroUnico" formControlName="numeroUnico">
+        <div *ngIf="hasError('numeroUnico', 'required')" class="error">
+            El número único es obligatorio.
+        </div>
+        <div *ngIf="hasError('numeroUnico', 'pattern')" class="error">
+            Solo se permiten números en este campo.
+        </div>
 
-            <!-- Nombres -->
-            <label for="nombres">Nombres:</label>
-            <input type="text" id="nombres" name="nombres" required>
+        <!-- Unidad Académica -->
+        <label for="unidadAcademica">Unidad Académica:</label>
+        <input type="text" id="unidadAcademica" formControlName="unidadAcademica">
+        <div *ngIf="hasError('unidadAcademica', 'required')" class="error">
+            La unidad académica es obligatoria.
+        </div>
 
-            <!-- Apellidos -->
-            <label for="apellidos">Apellidos:</label>
-            <input type="text" id="apellidos" name="apellidos" required>
-
-            <!-- Número Único -->
-            <label for="numeroUnico">Número Único:</label>
-            <input type="text" id="numeroUnico" name="numeroUnico" required>
-
-            <!-- Unidad Académica -->
-            <label for="unidadAcademica">Unidad Académica:</label>
-            <input type="text" id="unidadAcademica" name="unidadAcademica" required>
-
-            <!-- Botón Guardar -->
-            <button type="submit">Guardar</button>
-        </form>
-    </div>
-</body>
-</html>
+        <!-- Botón Guardar -->
+        <button type="submit">Guardar</button>
+    </form>
+</div>

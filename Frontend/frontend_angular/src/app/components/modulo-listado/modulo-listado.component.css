@@ -61,7 +61,8 @@ li:last-child {
     flex-grow: 1;
 }
 
-.edit-btn, .delete-btn {
+.edit-btn,
+.delete-btn {
     padding: 5px 10px;
     margin-left: 10px;
     border: none;

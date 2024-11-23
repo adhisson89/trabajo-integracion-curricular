@@ -1,39 +1,28 @@
-@font-face {
-    font-family: "WebSymbolsRegulars";
-    src: ('fonts/WebSymbols-Regular.otf');
+/* Elimina márgenes y padding globales */
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box; 
 }
 
-.icon {
-    font-family: WebSymbolsRegulars;
+html, body {
+    height: 100%; 
+    width: 100%;
 }
-
-@font-face {
-    font-family: "Asap";
-    src: ('../fonts');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: "Hug";
-    /*src: url('fonts/First.ttf');
-    ../assets/fonts/Asap-MediumItalic.ttf*/
-    src: ('fonts/Hugshack.otf');
-    font-weight: normal;
-    font-style: normal;
-}
-
 
 body {
-    background-image: url('/assets/imagenes/normal/fondos/EPN/fondo0.jpg') ;
-    font-family: 'Hug';
-    background-color: #f0f0f5;
+    background-image: url('/assets/imagenes/normal/fondos/EPN/fondo6.png');
+    background-size: cover; /* Hace que la imagen cubra toda la pantalla */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    background-position: center; /* Centra la imagen */
+    font-family: 'ground';
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
 }
 
+/* Contenedor principal */
 .container {
     width: 80%;
     max-width: 900px;
@@ -46,6 +35,7 @@ body {
     overflow: hidden;
 }
 
+/* Estilo del encabezado */
 .header h1 {
     display: flex;
     align-items: center;
@@ -58,6 +48,7 @@ body {
     margin-right: 10px;
 }
 
+/* Contenido principal */
 .content {
     flex: 1;
     padding: 20px;
@@ -98,6 +89,7 @@ body {
     background-color: #6979f8;
 }
 
+/* Ilustraciones */
 .illustration {
     display: flex;
     align-items: center;

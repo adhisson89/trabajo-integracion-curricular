@@ -16,10 +16,10 @@
 }
 
 @font-face {
-    font-family: "Hug";
+    font-family: "ground";
     /*src: url('fonts/First.ttf');
     ../assets/fonts/Asap-MediumItalic.ttf*/
-    src: url('assets/fonts/Hugshack.otf');
+    src: url('assets/fonts/ground.otf');
     font-weight: normal;
     font-style: normal;
 }

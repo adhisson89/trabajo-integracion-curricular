@@ -1,50 +1,69 @@
-<body>
-    <div class="container">
-        <h1>Listado de Ítems</h1>
+<div class="container">
+    <h1>Listado de Ítems</h1>
 
-        <!-- Combo box para filtrar -->
-        <div class="filter">
-            <label for="filterSelect">Filtrar por categoría:</label>
-            <select id="filterSelect" onchange="filterItems()">
-                <option value="all">Todos</option>
-                <option value="categoria1">Categoría 1</option>
-                <option value="categoria2">Categoría 2</option>
-            </select>
+    <!-- Modal para editar -->
+    <div class="modal-overlay" *ngIf="editingItem">
+        <div class="modal">
+            <h2>Editar Usuario</h2>
+            <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+                <!-- Foto -->
+                <div class="form-group">
+                    <label for="foto">Foto:</label>
+                    <input id="foto" formControlName="foto" type="file">
+                    <div *ngIf="hasError('foto', 'required')" class="error">La foto es obligatoria.</div>
+                </div>
+
+                <!-- Formulario dinámico según el modo -->
+                <ng-container *ngIf="editingItem.modo === 'estudiante'; else docenteAdminForm">
+                    <!-- Unidad Académica -->
+                    <div class="form-group">
+                        <label for="unidadAcademica">Unidad Académica:</label>
+                        <input id="unidadAcademica" formControlName="unidadAcademica" type="text">
+                        <div *ngIf="hasError('unidadAcademica', 'required')" class="error">La unidad académica es
+                            obligatoria.</div>
+                    </div>
+                </ng-container>
+
+                <ng-template #docenteAdminForm>
+                    <!-- Dirección Administrativa -->
+                    <div class="form-group">
+                        <label for="direccionAdministrativa">Dirección Administrativa:</label>
+                        <input id="direccionAdministrativa" formControlName="direccionAdministrativa" type="text">
+                        <div *ngIf="hasError('direccionAdministrativa', 'required')" class="error">
+                            La dirección administrativa es obligatoria.
+                        </div>
+                    </div>
+                </ng-template>
+
+                <!-- Nombres -->
+                <div class="form-group">
+                    <label for="nombres">Nombres:</label>
+                    <input id="nombres" formControlName="nombres" type="text">
+                    <div *ngIf="hasError('nombres', 'required')" class="error">Los nombres son obligatorios.</div>
+                </div>
+
+                <!-- Apellidos -->
+                <div class="form-group">
+                    <label for="apellidos">Apellidos:</label>
+                    <input id="apellidos" formControlName="apellidos" type="text">
+                    <div *ngIf="hasError('apellidos', 'required')" class="error">Los apellidos son obligatorios.</div>
+                </div>
+
+                <!-- Botones -->
+                <div class="modal-buttons">
+                    <button type="submit" class="save-btn">Guardar</button>
+                    <button type="button" class="cancel-btn" (click)="cancelEdit()">Cancelar</button>
+                </div>
+            </form>
         </div>
-
-        <!-- Listado de ítems -->
-        <ul id="itemList">
-            <li class="item" data-category="categoria1">
-                <span class="item-text">Ítem 1 - Categoría 1</span>
-                <button class="edit-btn">Editar</button>
-                <button class="delete-btn">Borrar</button>
-            </li>
-            <li class="item" data-category="categoria2">
-                <span class="item-text">Ítem 2 - Categoría 2</span>
-                <button class="edit-btn">Editar</button>
-                <button class="delete-btn">Borrar</button>
-            </li>
-            <li class="item" data-category="categoria1">
-                <span class="item-text">Ítem 3 - Categoría 1</span>
-                <button class="edit-btn">Editar</button>
-                <button class="delete-btn">Borrar</button>
-            </li>
-        </ul>
     </div>
 
-    <script>
-        function filterItems() {
-            const filterValue = document.getElementById("filterSelect").value;
-            const items = document.querySelectorAll(".item");
-
-            items.forEach(item => {
-                const itemCategory = item.getAttribute("data-category");
-                if (filterValue === "all" || itemCategory === filterValue) {
-                    item.style.display = "flex";
-                } else {
-                    item.style.display = "none";
-                }
-            });
-        }
-    </script>
-</body>
+    <!-- Listado de ítems -->
+    <ul>
+        <li *ngFor="let item of items; let i = index" [attr.data-category]="item.modo">
+            <span class="item-text">{{ item.nombre }} - {{ item.modo }}</span>
+            <button class="edit-btn" (click)="startEdit(item, i)" [disabled]="editingItem">Editar</button>
+            <button class="delete-btn" (click)="deleteItem(i)" [disabled]="editingItem">Borrar</button>
+        </li>
+    </ul>
+</div>
