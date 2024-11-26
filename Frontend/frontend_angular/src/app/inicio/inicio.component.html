@@ -1,31 +1,43 @@
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SR-EPN</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SR-EPN</title>
 </head>
+
 <body>
-    <div class="container">
-        <header class="header">
-          <h1><img src="assets/imagenes/png/epn0.png" width="50px" height="50px" class="logo"> EPN</h1>
-        </header>
-      
-        <div class="content">
-          <h1>Sistema de reconocimiento facial</h1>
-          <h2>"Facilitando el Control de Acceso Seguro a la Universidad"</h2>
-          <p>Automatiza el acceso de estudiantes y personal con tecnología de reconocimiento facial eficiente y segura</p>
-          <br>
-          <nav>
-            <button (click)="redirectTo('inicioSesion')">Admin</button>
-            <button (click)="redirectTo('pantallaAnalisis')"> Empezar</button>
-          </nav>
-        </div>
-      
-        <div class="illustration">
-          <img src="../assets/imagenes/normal/faceID/1.jpg" width="200px" height="200px">
-        </div>
+
+<div class="container-wrapper">
+  <div class="container">
+    <div class="content">
+      <h1>Sistema de reconocimiento facial</h1>
+      <h2>"Facilitando el Control de Acceso Seguro a la Universidad"</h2>
+    
+      <p>Automatiza el acceso de estudiantes y personal con tecnología de reconocimiento facial eficiente y segura.</p>
+      <br>
+      <nav>
+        <button class="btn_Admin" (click)="redirectTo('inicioSesion')">Admin</button>
+        <button class="btn_Empezar" (click)="redirectTo('pantallaAnalisis')"> Empezar</button>
+      </nav>
+    </div>
+    <!-- forma 1 -->
+    <div class="illustration">
+      <img src="../assets/imagenes/normal/faceID/3.jpg" width="200px" height="200px">
     </div>
 
-   
+
+  </div>
+  <!-- forma 2 
+  <div class="illustration">
+      <img src="../assets/imagenes/normal/faceID/3.jpg" width="200px" height="200px">
+    </div>
+-->
+
+
+
+</div>
+ 
 </body>
+
 </html>

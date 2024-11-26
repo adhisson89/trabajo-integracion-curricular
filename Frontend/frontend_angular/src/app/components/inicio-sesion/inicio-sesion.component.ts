@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,ViewEncapsulation  } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common'; // Importa CommonModule
@@ -8,7 +8,8 @@ import { CommonModule } from '@angular/common'; // Importa CommonModule
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule], // Agrega CommonModule aquí
   templateUrl: './inicio-sesion.component.html',
-  styleUrls: ['./inicio-sesion.component.css']
+  styleUrls: ['./inicio-sesion.component.css'],
+  encapsulation: ViewEncapsulation.None, // Esto desactiva la encapsulación
 })
 export class InicioSesionComponent {
   loginForm: FormGroup;
