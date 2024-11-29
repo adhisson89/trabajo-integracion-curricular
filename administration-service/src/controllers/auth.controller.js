@@ -26,18 +26,7 @@ const controller = {
             });
 
 
-            const serializedCookie = cookie.serialize('token', token, {
-                httpOnly: false, // set to true if your using https
-                // secure: process.env.NODE_ENV === 'production',
-                secure: true, // la cookie se envía solo a través de HTTPS con true
-                sameSite: 'none',
-                maxAge: 1000 * 60 * 60 * 2, // 2 hours
-                path: '/'
-            })
-
-
             return res
-                .setHeader('Set-Cookie', serializedCookie)
                 .json({
                     id: administratorFound._id,
                     email: administratorFound.email,
