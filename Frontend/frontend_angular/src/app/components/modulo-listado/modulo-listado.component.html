@@ -59,11 +59,12 @@
     </div>
 
     <!-- Listado de ítems -->
-    <ul>
+    <ul *ngIf="items.length > 0">
         <li *ngFor="let item of items; let i = index" [attr.data-category]="item.modo">
-            <span class="item-text">{{ item.nombre }} - {{ item.modo }}</span>
-            <button class="edit-btn" (click)="startEdit(item, i)" [disabled]="editingItem">Editar</button>
-            <button class="delete-btn" (click)="deleteItem(i)" [disabled]="editingItem">Borrar</button>
+          <span class="item-text">{{ item.nombre }} - {{ item.modo }}</span>
+          <button class="edit-btn" (click)="startEdit(item, i)" [disabled]="editingItem">Editar</button>
+          <button class="delete-btn" (click)="deleteItem(i)" [disabled]="editingItem">Borrar</button>
         </li>
-    </ul>
+      </ul>
+      <p *ngIf="items.length === 0">No se encontraron ítems.</p>
 </div>

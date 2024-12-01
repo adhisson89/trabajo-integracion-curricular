@@ -1,7 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+
+// Define la interfaz para los ítems
+interface Item {
+  modo: string;
+  nombre: string;
+  unidadAcademica?: string;
+  direccionAdministrativa?: string;
+  // Agrega más propiedades según los datos que recibes
+}
 
 @Component({
   selector: 'app-modulo-listado',
@@ -10,25 +19,60 @@ import { ReactiveFormsModule } from '@angular/forms';
   templateUrl: './modulo-listado.component.html',
   styleUrls: ['./modulo-listado.component.css'],
 })
-export class ModuloListadoComponent {
-  items = [
-    { id: 1, nombre: 'Usuario 1', modo: 'estudiante' },
-    { id: 2, nombre: 'Usuario 2', modo: 'administrativo' },
-    { id: 3, nombre: 'Usuario 3', modo: 'docente' },
-  ];
-
-  filteredItems = [...this.items];
-  editingItem: any = null;
+export class ModuloListadoComponent implements OnInit {
+  items: Item[] = [];  // Arreglo de tipo 'Item' donde se almacenarán los datos obtenidos
+  filteredItems: Item[] = [...this.items];
+  editingItem: Item | null = null;  // Aquí también se especifica el tipo 'Item'
   editForm: FormGroup;
+  isLoading: boolean = true;  // Variable para manejar el estado de carga
 
   constructor(private fb: FormBuilder) {
     this.editForm = this.fb.group({
-      foto: ['', Validators.required], // Común para todos los roles
-      nombres: ['', Validators.required], // Común para todos los roles
-      apellidos: ['', Validators.required], // Común para todos los roles
-      unidadAcademica: [''], // Solo para estudiantes
-      direccionAdministrativa: [''], // Solo para administrativos
+      foto: ['', Validators.required],
+      nombres: ['', Validators.required],
+      apellidos: ['', Validators.required],
+      unidadAcademica: [''],
+      direccionAdministrativa: [''],
     });
+  }
+
+  ngOnInit(): void {
+    // Llamar a la función para obtener los datos al iniciar el componente
+    this.fetchItems();
+  }
+
+  fetchItems() {
+    this.isLoading = true; // Establecer como cargando
+  
+    // El token de autenticación que ya tienes (este sería dinámico en un caso real)
+    const token = localStorage.getItem('authToken');
+    console.log('Token obtenido:', token); // Verifica si el token está disponible
+  
+    // Realizar la petición fetch con el método GET y el token en la cabecera de autorización
+    fetch('http://localhost:8080/api/administration/management/people/' + token, {
+      method: 'GET', // Especifica el método GET
+      headers: {
+        'Authorization': `Bearer ${token}`, // Añadir el token de autorización en los headers
+        'Content-Type': 'application/json', // Especifica el tipo de contenido (JSON)
+      }
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Error en la solicitud');
+        }
+        return response.json();
+      })
+      .then((data: Item[]) => {
+        console.log('Datos obtenidos:', data);  // Verifica que los datos sean correctos
+        this.items = data;
+        this.filteredItems = [...this.items];
+        console.log('Items:', this.items);  // Asegúrate de que los datos estén en la propiedad
+        this.isLoading = false;
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        this.isLoading = false; // Terminar de cargar incluso si hay error
+      });
   }
 
   filterItems(event: Event) {
@@ -39,13 +83,10 @@ export class ModuloListadoComponent {
         : this.items.filter((item) => item.modo === filterValue);
   }
 
-  startEdit(item: any, index: number) {
+  startEdit(item: Item, index: number) {
     this.editingItem = item;
-
-    // Limpiar el formulario antes de llenarlo
     this.editForm.reset();
 
-    // Configurar campos dinámicamente según el modo
     if (item.modo === 'estudiante') {
       this.editForm.get('unidadAcademica')?.setValidators(Validators.required);
       this.editForm.get('direccionAdministrativa')?.clearValidators();
@@ -54,13 +95,11 @@ export class ModuloListadoComponent {
       this.editForm.get('unidadAcademica')?.clearValidators();
     }
 
-    // Actualizar las validaciones
     this.editForm.get('unidadAcademica')?.updateValueAndValidity();
     this.editForm.get('direccionAdministrativa')?.updateValueAndValidity();
 
-    // Prellenar los datos del formulario
     this.editForm.patchValue({
-      foto: '', // No hay dato cargado para la foto en este ejemplo
+      foto: '',
       nombres: item.nombre.split(' ')[0] || '',
       apellidos: item.nombre.split(' ')[1] || '',
       unidadAcademica: item.modo === 'estudiante' ? item.unidadAcademica || '' : '',
@@ -69,8 +108,6 @@ export class ModuloListadoComponent {
 
     console.log('Editando el ítem con índice:', index);
   }
-
-
 
   cancelEdit() {
     this.editingItem = null;
