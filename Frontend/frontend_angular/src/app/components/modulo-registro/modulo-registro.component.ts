@@ -76,10 +76,16 @@
    }
 
 
-  onSubmit() {
+   onSubmit() {
     if (this.registroForm.valid) {
       const formData = this.registroForm.value;
-      const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MzBlZDg1YTI0ZDVhOGVhMDJlZjM1NyIsImVtYWlsIjoiYWRoaXNzb24uY2VkZW5vQGVwbi5lZHUuZWMiLCJmdWxsbmFtZSI6IkFkaGlzc29uIENlZGXDsW8iLCJpYXQiOjE3MzEyNzk0NTUsImV4cCI6MTczMTI4NjY1NX0.t_fN7PV12Or92FHzndhby74otPmuRoi5jzStUD0XtXQ';
+      const token = localStorage.getItem('authToken'); // Obtén el token de localStorage
+  
+      if (!token) {
+        alert('Por favor, inicia sesión primero.');
+        this.router.navigate(['/inicio-sesion']); // Redirige al login si no hay token
+        return;
+      }
   
       fetch('http://localhost:8080/api/administration/management/person', {
         method: 'POST',

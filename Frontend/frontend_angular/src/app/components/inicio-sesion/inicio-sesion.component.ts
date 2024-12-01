@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common'; // Importa CommonModule
 
+
 @Component({
   selector: 'app-inicio-sesion',
   standalone: true,
@@ -25,28 +26,18 @@ export class InicioSesionComponent {
       password: ['', Validators.required]
     });
   }
-
-  // onSubmit(): void {
-  //   if (this.loginForm.valid) {
-  //     const { username, password } = this.loginForm.value;
-  //     console.log('Usuario:', username);
-  //     console.log('Contraseña:', password);
-      
-  //     // Redirecciona a una ruta específica después del inicio de sesión exitoso
-  //     this.redirectTo('/ruta-destino');
-  //   }
-  // }
-onSubmit(): void {
+  // Función para manejar el envío del formulario
+  onSubmit(): void {
     if (this.loginForm.valid) {
       const { username, password } = this.loginForm.value;
-  
-      // Configuración para la solicitud fetch
+
+      // Datos para la solicitud de login
       const loginData = {
-        email: username,
+        email: username, // Si el backend espera 'email' como clave
         password: password
       };
-  
-      // Realiza la petición fetch cuando el botón es presionado
+
+      // Realizar la solicitud fetch para autenticar
       fetch('http://localhost:8080/api/administration/auth/login', {
         method: 'POST',
         headers: {
@@ -62,10 +53,11 @@ onSubmit(): void {
         })
         .then(data => {
           console.log('Respuesta del servidor:', data);
-  
-          // Redirigir si la autenticación fue exitosa
-          if (data.token) { // Ajusta según la estructura de respuesta de tu API
-            this.redirectTo('/moduloAdministrador');
+
+          // Redirigir si el token está presente (indica que la autenticación fue exitosa)
+          if (data.token) {
+            localStorage.setItem('authToken', data.token); // Guardar el token
+            this.redirectTo('/moduloAdministrador'); // Redirigir a la ruta deseada
           } else {
             alert(data.message || 'Credenciales incorrectas');
           }
@@ -78,8 +70,8 @@ onSubmit(): void {
       alert('Por favor completa todos los campos.');
     }
   }
-  
 
+  // Método para redirigir a una ruta específica
   redirectTo(route: string) {
     this.router.navigate([route]);
   }
