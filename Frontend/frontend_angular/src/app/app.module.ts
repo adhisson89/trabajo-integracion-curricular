@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { InicioSesionComponent } from './components/inicio-sesion/inicio-sesion.component';
-
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -11,7 +11,7 @@ import { InicioSesionComponent } from './components/inicio-sesion/inicio-sesion.
   ],
   imports: [
     BrowserModule,
-
+    HttpClientModule
   ],
   providers: [],
   bootstrap: []

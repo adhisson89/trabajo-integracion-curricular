@@ -1,31 +1,32 @@
-<html>
-    <body>
-    
-        <div class="login-container">
-            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-                <div>
-                    <label for="username">Usuario:</label>
-                    <input type="text" id="username" formControlName="username" placeholder="Ingresa tu usuario" required />
-                    <div *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched">
-                        <small>El usuario es requerido.</small>
-                    </div>
-                </div>
-    
-                <div>
-                    <label for="password">Contraseña:</label>
-                    <input type="password" id="password" formControlName="password" placeholder="Ingresa tu contraseña"
-                        required />
-                    <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
-                        <small>La contraseña es requerida.</small>
-                    </div>
-                </div>
-    
-                <button type="submit" [disabled]="loginForm.invalid" (click)="redirectTo('moduloAdministrador')">
-                    Iniciar Sesión
-                </button>
-    
-            </form>
-        </div>
-    
-    </body>
-</html>
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="username">Usuario:</label>
+    <input
+      type="text"
+      id="username"
+      formControlName="username"
+      placeholder="Ingresa tu usuario"
+      required
+    />
+    <div *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched">
+      <small>El usuario es requerido.</small>
+    </div>
+  </div>
+
+  <div>
+    <label for="password">Contraseña:</label>
+    <input
+      type="password"
+      id="password"
+      formControlName="password"
+      placeholder="Ingresa tu contraseña"
+      required
+    />
+    <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+      <small>La contraseña es requerida.</small>
+    </div>
+  </div>
+
+  <!-- Botón para iniciar sesión -->
+  <button type="submit" [disabled]="loginForm.invalid">Iniciar Sesión</button>
+</form>

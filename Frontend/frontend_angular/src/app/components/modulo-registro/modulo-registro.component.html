@@ -40,7 +40,10 @@
 
         <!-- Nombres -->
         <label for="nombres">Nombres:</label>
-        <input type="text" id="nombres" formControlName="nombres">
+        <input type="text"
+        id="nombres"
+        formControlName="nombres"
+        (keypress)="preventNumberInput($event)" >
         <div *ngIf="hasError('nombres', 'required')" class="error">
             Los nombres son obligatorios.
         </div>
@@ -50,7 +53,10 @@
 
         <!-- Apellidos -->
         <label for="apellidos">Apellidos:</label>
-        <input type="text" id="apellidos" formControlName="apellidos">
+        <input type="text"
+        id="apellidos"
+        formControlName="apellidos"
+        (keypress)="preventNumberInput($event)" >
         <div *ngIf="hasError('apellidos', 'required')" class="error">
             Los apellidos son obligatorios.
         </div>
@@ -60,12 +66,18 @@
 
         <!-- Número Único -->
         <label for="numeroUnico">Número Único:</label>
-        <input type="text" id="numeroUnico" formControlName="numeroUnico">
+        <input type="text"
+        id="numeroUnico"
+        formControlName="numeroUnico"
+        maxlength="9"
+        inputmode="numeric"
+        pattern="\d*"
+        (keypress)="validateNumberInput($event)">
         <div *ngIf="hasError('numeroUnico', 'required')" class="error">
             El número único es obligatorio.
         </div>
         <div *ngIf="hasError('numeroUnico', 'pattern')" class="error">
-            Solo se permiten números en este campo.
+            El número único debe tener 9 dígitos.
         </div>
 
         <!-- Unidad Académica -->
