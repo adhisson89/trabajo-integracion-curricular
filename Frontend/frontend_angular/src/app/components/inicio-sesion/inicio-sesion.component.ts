@@ -56,7 +56,9 @@ export class InicioSesionComponent {
 
           // Redirigir si el token está presente (indica que la autenticación fue exitosa)
           if (data.token) {
-            localStorage.setItem('authToken', data.token); // Guardar el token
+            localStorage.setItem('authToken', data.token);
+            console.log('Token guardado:', data.token); // Verifica si el token se guarda correctamente
+            
             this.redirectTo('/moduloAdministrador'); // Redirigir a la ruta deseada
           } else {
             alert(data.message || 'Credenciales incorrectas');
