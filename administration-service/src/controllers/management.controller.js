@@ -131,7 +131,7 @@ const controller = {
 
     deletePerson: async function (req, res) {
         
-        const { identification } = req.params;
+        const { identification } = req.body;
 
         try {
 

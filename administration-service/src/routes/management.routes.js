@@ -16,7 +16,7 @@ router.get("/people/:token", validateToken.getAuthRequired, controller.getPeople
 router.get("/person/:token/:identification", validateToken.getAuthRequired, controller.getPersonByIdentification);
 
 router.patch("/person/:identification", validateToken.postAuthRequired, validateSchema(updatePersonSchema), controller.updatePerson);
-router.delete("/person/:identification", validateToken.postAuthRequired, controller.deletePerson);
+router.delete("/person", validateToken.postAuthRequired, controller.deletePerson);
 
 
 router.post("/image", upload.single("photo"), validateToken.postAuthRequired, controller.uploadImage);
