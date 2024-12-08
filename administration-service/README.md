@@ -32,10 +32,6 @@ npm run dev
 
 ```
 
-Aquí tienes la documentación en **Markdown** traducida al español:
-
----
-
 ## API Reference
 
 ### **Gestión de Personas**
@@ -112,7 +108,6 @@ En el body de la solicitud, se debe incluir un objeto JSON con los siguientes ca
 | `identification`  | `string` | **Requerido**. Identificación única de la persona.    |
 | `token`           | `string` | **Requerido**. Token de autorización.                |
 
----
 
 ### **Gestión de Imágenes**
 
@@ -155,7 +150,6 @@ Se debe realizar una solicitud `multipart/form-data` con los siguientes campos:
 | `photo`   | `file`   | **Requerido**. Nuevo archivo de imagen.         |
 | `token`   | `string` | **Requerido**. Token de autorización.           |
 
----
 
 ### Notas
 
