@@ -96,8 +96,8 @@ En el body de la solicitud, se debe incluir un objeto JSON con los campos a modi
 | `other_data`      | `array`  | Opcional. Nuevos pares clave-valor para los datos.   |
 | `token`           | `string` | **Requerido**. Token de autorización.                |
 
-[!WARNING]
-Al actualizar el contenido de `another_data`, **es necesario proporcionar el arreglo completo de datos**, ya que este campo se sobrescribirá completamente en lugar de ser actualizado parcialmente. Incluir todos los elementos existentes junto con los nuevos para evitar la pérdida de información.
+>[!WARNING]
+>Al actualizar el contenido de `another_data`, **es necesario proporcionar el arreglo completo de datos**, ya que este campo se sobrescribirá completamente en lugar de ser actualizado parcialmente. Incluir todos los elementos existentes junto con los nuevos para evitar la pérdida de información.
 
 #### Eliminar una Persona
 
