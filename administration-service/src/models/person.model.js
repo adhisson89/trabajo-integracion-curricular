@@ -25,7 +25,6 @@ const personSchema = new Schema({
     },
     role: {
         type: String,
-        required: true,
         enum: ['ESTUDIANTE', 'PROFESOR', 'ADMINISTRATIVO', 'COLABORADOR'],
         trim: true
     },
