@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
+const upload = require('../libs/multer.lib.js');
+
 const validateToken = require("../middlewares/validateToken.middleware.js");
 const validateSchema = require("../middlewares/validateSchema.middleware.js");
 
@@ -16,6 +18,10 @@ router.get("/person/:token/:identification", validateToken.getAuthRequired, cont
 router.patch("/person/:identification", validateToken.postAuthRequired, validateSchema(updatePersonSchema), controller.updatePerson);
 router.delete("/person/:identification", validateToken.postAuthRequired, controller.deletePerson);
 
+
+router.post("/image", upload.single("photo"), validateToken.postAuthRequired, controller.uploadImage);
+router.get("/image/:token/:id", validateToken.getAuthRequired, controller.getImage);
+router.patch("/image", upload.single("photo"), validateToken.postAuthRequired, controller.updateImage);
 
 
 

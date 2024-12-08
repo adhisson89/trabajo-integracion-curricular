@@ -28,9 +28,10 @@ const personSchema = new Schema({
         enum: ['ESTUDIANTE', 'PROFESOR', 'ADMINISTRATIVO', 'COLABORADOR'],
         trim: true
     },
-    photo_path: {
-        type: String,
-        trim: true
+    photo_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Image",
+        required: false,
     },
     photo_vector: {
         type: String,
