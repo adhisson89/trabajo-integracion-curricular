@@ -1,0 +1,6 @@
+deepface
+scipy
+numpy
+cv2
+pymongo
+tempfile
