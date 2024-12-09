@@ -3,7 +3,7 @@
     <form [formGroup]="registroForm" (ngSubmit)="onSubmit()">
         <!-- Foto -->
         <label for="foto">Foto:</label>
-        <input type="file" id="foto" formControlName="foto" accept="image/*">
+        <input type="file" id="foto" (change)="onImageSelected($event)" accept="image/*">
         <div *ngIf="hasError('foto', 'required')" class="error">
             La foto es obligatoria.
         </div>
@@ -28,7 +28,7 @@
             Debe seleccionar un modo.
         </div>
 
-        <!-- Cédula o Pasaporte -->
+        <!-- Resto del formulario igual -->
         <label for="identificacion">Cédula o Pasaporte:</label>
         <input type="text" id="identificacion" formControlName="identificacion">
         <div *ngIf="hasError('identificacion', 'required')" class="error">
@@ -38,12 +38,8 @@
             La cédula debe tener exactamente 10 dígitos numéricos.
         </div>
 
-        <!-- Nombres -->
         <label for="nombres">Nombres:</label>
-        <input type="text"
-        id="nombres"
-        formControlName="nombres"
-        (keypress)="preventNumberInput($event)" >
+        <input type="text" id="nombres" formControlName="nombres" (keypress)="preventNumberInput($event)">
         <div *ngIf="hasError('nombres', 'required')" class="error">
             Los nombres son obligatorios.
         </div>
@@ -51,12 +47,8 @@
             Ingrese dos nombres correctamente separados por un espacio.
         </div>
 
-        <!-- Apellidos -->
         <label for="apellidos">Apellidos:</label>
-        <input type="text"
-        id="apellidos"
-        formControlName="apellidos"
-        (keypress)="preventNumberInput($event)" >
+        <input type="text" id="apellidos" formControlName="apellidos" (keypress)="preventNumberInput($event)">
         <div *ngIf="hasError('apellidos', 'required')" class="error">
             Los apellidos son obligatorios.
         </div>
@@ -64,15 +56,8 @@
             Ingrese dos apellidos correctamente separados por un espacio.
         </div>
 
-        <!-- Número Único -->
         <label for="numeroUnico">Número Único:</label>
-        <input type="text"
-        id="numeroUnico"
-        formControlName="numeroUnico"
-        maxlength="9"
-        inputmode="numeric"
-        pattern="\d*"
-        (keypress)="validateNumberInput($event)">
+        <input type="text" id="numeroUnico" formControlName="numeroUnico" maxlength="9" inputmode="numeric" pattern="\d*" (keypress)="validateNumberInput($event)">
         <div *ngIf="hasError('numeroUnico', 'required')" class="error">
             El número único es obligatorio.
         </div>
@@ -80,14 +65,12 @@
             El número único debe tener 9 dígitos.
         </div>
 
-        <!-- Unidad Académica -->
         <label for="unidadAcademica">Unidad Académica:</label>
         <input type="text" id="unidadAcademica" formControlName="unidadAcademica">
         <div *ngIf="hasError('unidadAcademica', 'required')" class="error">
             La unidad académica es obligatoria.
         </div>
 
-        <!-- Botón Guardar -->
         <button type="submit">Guardar</button>
     </form>
 </div>

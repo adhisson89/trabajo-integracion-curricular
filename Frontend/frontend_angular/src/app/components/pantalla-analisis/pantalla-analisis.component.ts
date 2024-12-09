@@ -1,4 +1,3 @@
-
 import * as faceapi from 'face-api.js';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -36,13 +35,19 @@ export class PantallaAnalisisComponent implements OnInit {
 
   setupCamara() {
     navigator.mediaDevices.getUserMedia({
-      video: { width: 300, height: 250 },
+      video: { width: 300, height: 250 }, // Establecer dimensiones específicas
       audio: false
     }).then(stream => {
       if (this.videoRef) {
         this.videoRef.srcObject = stream;
-        this.videoRef.play();
-        this.detectFaces();
+
+        // Asegúrate de que el video tenga dimensiones
+        this.videoRef.addEventListener('loadedmetadata', () => {
+          this.videoRef.width = this.videoRef.videoWidth || 300;
+          this.videoRef.height = this.videoRef.videoHeight || 250;
+          this.videoRef.play();
+          this.detectFaces(); // Llama a detectFaces una vez que las dimensiones están listas
+        });
       }
     }).catch(error => {
       console.error("Error al acceder a la cámara:", error);
@@ -54,12 +59,17 @@ export class PantallaAnalisisComponent implements OnInit {
 
     const videoElement = this.videoRef as HTMLVideoElement;
 
-    // Detectar rostros en tiempo real
-    videoElement.addEventListener('play', async () => {
+    // Asegurarse de que el video esté cargado antes de usarlo
+    videoElement.addEventListener('loadeddata', async () => {
+      if (videoElement.videoWidth === 0 || videoElement.videoHeight === 0) {
+        console.error("Dimensiones del video no válidas.");
+        return;
+      }
+
       const canvas = faceapi.createCanvasFromMedia(videoElement);
       document.body.append(canvas);
 
-      const displaySize = { width: videoElement.width, height: videoElement.height };
+      const displaySize = { width: videoElement.videoWidth, height: videoElement.videoHeight }; // Dimensiones válidas
       faceapi.matchDimensions(canvas, displaySize);
 
       setInterval(async () => {
@@ -101,7 +111,7 @@ export class PantallaAnalisisComponent implements OnInit {
     const blob = new Blob([Uint8Array.from(atob(base64Data), c => c.charCodeAt(0))], { type: 'image/jpeg' });
 
     // Realiza el POST al backend
-    fetch('http://tu-backend-url/api/guardar-imagen', {
+    fetch('http://localhost:3662/api/administration/management/image', {
       method: 'POST',
       body: blob,
       headers: {
