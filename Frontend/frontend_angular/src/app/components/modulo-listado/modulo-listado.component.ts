@@ -5,6 +5,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 // Define la interfaz para los ítems
 interface Item {
+role: any;
+surename: any;
+name: any;
+identification: any;
   modo: string;
   nombre: string;
   unidadAcademica?: string;

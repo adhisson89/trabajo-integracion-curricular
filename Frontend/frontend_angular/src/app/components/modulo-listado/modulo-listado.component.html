@@ -1,70 +1,66 @@
 <div class="container">
     <h1>Listado de Ítems</h1>
-
-    <!-- Modal para editar -->
-    <div class="modal-overlay" *ngIf="editingItem">
-        <div class="modal">
-            <h2>Editar Usuario</h2>
-            <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
-                <!-- Foto -->
-                <div class="form-group">
-                    <label for="foto">Foto:</label>
-                    <input id="foto" formControlName="foto" type="file">
-                    <div *ngIf="hasError('foto', 'required')" class="error">La foto es obligatoria.</div>
-                </div>
-
-                <!-- Formulario dinámico según el modo -->
-                <ng-container *ngIf="editingItem.modo === 'estudiante'; else docenteAdminForm">
-                    <!-- Unidad Académica -->
-                    <div class="form-group">
-                        <label for="unidadAcademica">Unidad Académica:</label>
-                        <input id="unidadAcademica" formControlName="unidadAcademica" type="text">
-                        <div *ngIf="hasError('unidadAcademica', 'required')" class="error">La unidad académica es
-                            obligatoria.</div>
-                    </div>
-                </ng-container>
-
-                <ng-template #docenteAdminForm>
-                    <!-- Dirección Administrativa -->
-                    <div class="form-group">
-                        <label for="direccionAdministrativa">Dirección Administrativa:</label>
-                        <input id="direccionAdministrativa" formControlName="direccionAdministrativa" type="text">
-                        <div *ngIf="hasError('direccionAdministrativa', 'required')" class="error">
-                            La dirección administrativa es obligatoria.
-                        </div>
-                    </div>
-                </ng-template>
-
-                <!-- Nombres -->
-                <div class="form-group">
-                    <label for="nombres">Nombres:</label>
-                    <input id="nombres" formControlName="nombres" type="text">
-                    <div *ngIf="hasError('nombres', 'required')" class="error">Los nombres son obligatorios.</div>
-                </div>
-
-                <!-- Apellidos -->
-                <div class="form-group">
-                    <label for="apellidos">Apellidos:</label>
-                    <input id="apellidos" formControlName="apellidos" type="text">
-                    <div *ngIf="hasError('apellidos', 'required')" class="error">Los apellidos son obligatorios.</div>
-                </div>
-
-                <!-- Botones -->
-                <div class="modal-buttons">
-                    <button type="submit" class="save-btn">Guardar</button>
-                    <button type="button" class="cancel-btn" (click)="cancelEdit()">Cancelar</button>
-                </div>
-            </form>
-        </div>
+  
+    <!-- Filtro -->
+    <div class="filter">
+      <label for="filter">Filtrar por modo:</label>
+      <select id="filter" (change)="filterItems($event)">
+        <option value="all">Todos</option>
+        <option value="estudiante">Estudiante</option>
+        <option value="administrativo">Administrativo</option>
+      </select>
     </div>
-
-    <!-- Listado de ítems -->
-    <ul *ngIf="items.length > 0">
-        <li *ngFor="let item of items; let i = index" [attr.data-category]="item.modo">
-          <span class="item-text">{{ item.nombre }} - {{ item.modo }}</span>
-          <button class="edit-btn" (click)="startEdit(item, i)" [disabled]="editingItem">Editar</button>
-          <button class="delete-btn" (click)="deleteItem(i)" [disabled]="editingItem">Borrar</button>
-        </li>
-      </ul>
-      <p *ngIf="items.length === 0">No se encontraron ítems.</p>
-</div>
+  
+    <!-- Cargando datos -->
+    <div *ngIf="isLoading" class="loading">
+      <p>Cargando...</p>
+    </div>
+  
+    <!-- Lista de ítems -->
+    <ul>
+      <li *ngFor="let item of filteredItems; let i = index">
+        <div class="item-text">
+            <p><strong>ID:</strong> {{ item.identification }}</p>
+            <p><strong>Nombre:</strong> {{ item.name }} {{ item.surename }}</p>
+            <p><strong>Rol:</strong> {{ item.role }}</p>
+        </div>
+        <button class="edit-btn" (click)="startEdit(item, i)">Editar</button>
+        <button class="delete-btn" (click)="deleteItem(i)">Eliminar</button>
+      </li>
+    </ul>
+  
+    <!-- Formulario de edición -->
+    <div *ngIf="editingItem" class="edit-form">
+      <h2>Editar ítem</h2>
+      <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+        <div>
+          <label for="foto">Foto</label>
+          <input id="foto" formControlName="foto" type="file" />
+        </div>
+  
+        <div>
+          <label for="nombres">Nombres</label>
+          <input id="nombres" formControlName="nombres" type="text" />
+        </div>
+  
+        <div>
+          <label for="apellidos">Apellidos</label>
+          <input id="apellidos" formControlName="apellidos" type="text" />
+        </div>
+  
+        <div *ngIf="editingItem.modo === 'estudiante'">
+          <label for="unidadAcademica">Unidad Académica</label>
+          <input id="unidadAcademica" formControlName="unidadAcademica" type="text" />
+        </div>
+  
+        <div *ngIf="editingItem.modo === 'administrativo'">
+          <label for="direccionAdministrativa">Dirección Administrativa</label>
+          <input id="direccionAdministrativa" formControlName="direccionAdministrativa" type="text" />
+        </div>
+  
+        <button type="submit" [disabled]="!editForm.valid">Guardar</button>
+        <button type="button" (click)="cancelEdit()">Cancelar</button>
+      </form>
+    </div>
+  </div>
+  
