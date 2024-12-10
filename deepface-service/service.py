@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request
 import uuid
-import py_eureka_client.eureka_client as eureka_client
+# import py_eureka_client.eureka_client as eureka_client
 
 from deepface import DeepFace
 import cv2
@@ -93,7 +93,7 @@ def add_face(user_id):
 
     except Exception as e:
         return jsonify({"error":str(e)}), 500
-    
+
 
 # compare img
 @app.route("/compareFace", methods=["POST"])
@@ -137,7 +137,7 @@ def compare_face():
     # finally:
     #     print("compare_face went to finally")
     #     return jsonify({"message": str(False)})
-    
+
 
 def get_embedding_representation(my_img):
     print("going to get embedding for", my_img)
@@ -157,7 +157,7 @@ def add_db_people_embedding(user_id, new_photo_vector):
         db = client["FacialDB"]  # Replace with your database name
         # Access the collection
         people = db["people"]  # Replace with your collection name
-         # add new embedding
+        # add new embedding
         person = people.update_one(
             {"identification": user_id},
             {"$set":{"photo_vector": new_photo_vector}}
@@ -175,7 +175,7 @@ def add_db_people_embedding(user_id, new_photo_vector):
         print("add_db_people_embedding went to finally")
 
 def get_db_people():
-    
+
     client = MongoClient(db_string)
 
     try:
@@ -212,5 +212,4 @@ def compare_img_people(photo_embedding, people):
         return {"status":str(False)}
 
 if __name__ == "__main__":
-    # app.run(host="172.25.0.3", port=80)
-    app.run(host="127.0.0.1", port=8761)
+    app.run(host="0.0.0.0", port=5000)

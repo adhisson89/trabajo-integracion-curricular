@@ -1,6 +1,7 @@
+Flask
+numpy
+tensorflow
 deepface
 scipy
-numpy
-cv2
+opencv-python
 pymongo
-tempfile
