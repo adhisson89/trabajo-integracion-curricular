@@ -56,12 +56,12 @@
             Ingrese dos apellidos correctamente separados por un espacio.
         </div>
 
-        <label for="numeroUnico">Número Único:</label>
-        <input type="text" id="numeroUnico" formControlName="numeroUnico" maxlength="9" inputmode="numeric" pattern="\d*" (keypress)="validateNumberInput($event)">
-        <div *ngIf="hasError('numeroUnico', 'required')" class="error">
+        <label for="codigoUnico">Código Único:</label>
+        <input type="text" id="codigoUnico" formControlName="codigoUnico" maxlength="9" inputmode="numeric" pattern="\d*" (keypress)="validateNumberInput($event)">
+        <div *ngIf="hasError('codigoUnico', 'required')" class="error">
             El número único es obligatorio.
         </div>
-        <div *ngIf="hasError('numeroUnico', 'pattern')" class="error">
+        <div *ngIf="hasError('codigoUnico', 'pattern')" class="error">
             El número único debe tener 9 dígitos.
         </div>
 

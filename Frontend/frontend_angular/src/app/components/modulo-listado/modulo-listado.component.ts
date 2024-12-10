@@ -41,7 +41,7 @@ export class ModuloListadoComponent implements OnInit {
       identificacion: ['', Validators.required],
       nombres: ['', Validators.required],
       apellidos: ['', Validators.required],
-      numeroUnico: [''],
+      codigoUnico: [''],
       unidadAcademica: [''],
       direccionAdministrativa: [''],
       modo: ['', Validators.required],
@@ -126,8 +126,9 @@ export class ModuloListadoComponent implements OnInit {
     this.editingItem = item;
 
     // Extraer valores de `other_data`
+
     const unidadAcademica = item.other_data?.find((data: { key: string; }) => data.key === 'UNIDAD ACADEMICA')?.value || '';
-    const numeroUnico = item.other_data?.find((data: { key: string; }) => data.key === 'CÓDIGO ÚNICO')?.value || '';
+    const codigoUnico = item.other_data?.find((data: { key: string; }) => data.key === 'CÓDIGO ÚNICO')?.value || '';
     const correoInstitucional = item.other_data?.find((data: { key: string; }) => data.key === 'CORREO INSTITUCIONAL')?.value || '';
 
     // Configurar valores del formulario
@@ -135,7 +136,7 @@ export class ModuloListadoComponent implements OnInit {
       identificacion: item.identification,
       nombres: item.name,
       apellidos: item.surename,
-      numeroUnico: numeroUnico,
+      codigoUnico: codigoUnico,
       unidadAcademica: unidadAcademica,
       direccionAdministrativa: '', // Si aplicara en otro contexto
       modo: item.role.toLowerCase(), // Usar `role` como `modo`
@@ -176,7 +177,7 @@ export class ModuloListadoComponent implements OnInit {
           },
           {
             key: 'CÓDIGO ÚNICO',
-            value: this.editForm.value.numeroUnico || '',
+            value: this.editForm.value.codigoUnico || '',
           },
           {
             key: 'CORREO INSTITUCIONAL',

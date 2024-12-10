@@ -29,7 +29,7 @@
 //       identificacion: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
 //       nombres: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s]+$/)]],
 //       apellidos: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s]+$/)]],
-//       numeroUnico: ['', [Validators.required, Validators.pattern(/^\d{9}$/)]],
+//       codigoUnico: ['', [Validators.required, Validators.pattern(/^\d{9}$/)]],
 //       unidadAcademica: ['', Validators.required]
 //     });
 //   }
@@ -131,7 +131,7 @@ export class ModuloRegistroComponent implements OnInit {
       identificacion: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
       nombres: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s]+$/)]],
       apellidos: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s]+$/)]],
-      numeroUnico: ['', [Validators.required, Validators.pattern(/^\d{9}$/)]],
+      codigoUnico: ['', [Validators.required, Validators.pattern(/^\d{9}$/)]],
       unidadAcademica: ['', Validators.required],
     });
   }
@@ -187,7 +187,7 @@ export class ModuloRegistroComponent implements OnInit {
         },
         {
           key: 'CÓDIGO ÚNICO',
-          value: this.registroForm.get('numeroUnico')?.value,
+          value: this.registroForm.get('codigoUnico')?.value,
         },
         {
           // key: 'CORREO INSTITUCIONAL',
