@@ -60,18 +60,9 @@
             Ingrese dos apellidos correctamente separados por un espacio.
         </div>
 
-        <label for="codigoUnico">Código Único:</label>
-        <input type="text" id="codigoUnico" formControlName="codigoUnico" maxlength="9" inputmode="numeric" pattern="\d*" (keypress)="validateNumberInput($event)">
-        <div *ngIf="hasError('codigoUnico', 'required')" class="error">
-            El número único es obligatorio.
-        </div>
-        <div *ngIf="hasError('codigoUnico', 'pattern')" class="error">
-            El número único debe tener 9 dígitos.
-        </div>
-
-        <label for="unidadAcademica">Unidad Académica:</label>
-        <input type="text" id="unidadAcademica" formControlName="unidadAcademica">
-        <div *ngIf="hasError('unidadAcademica', 'required')" class="error">
+        <label for="direccionAdministrativa">Dirección Administrativa:</label>
+        <input type="text" id="direccionAdministrativa" formControlName="direccionAdministrativa">
+        <div *ngIf="hasError('direccionAdministrativa', 'required')" class="error">
             La unidad académica es obligatoria.
         </div>
 
