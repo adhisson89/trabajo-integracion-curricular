@@ -16,7 +16,7 @@ import { HttpClientModule } from '@angular/common/http'; // Importar HttpClientM
   styleUrl: './modulo-registro-otros.component.css'
 })
 export class ModuloRegistroOtrosComponent implements OnInit {
-  
+
   registroForm!: FormGroup;
   selectedMode: string = '';
 
@@ -27,9 +27,10 @@ export class ModuloRegistroOtrosComponent implements OnInit {
       foto: [null, Validators.required], // Foto es obligatoria
       modo: ['', Validators.required],
       identificacion: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
-      nombres: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s]+$/)]],
-      apellidos: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s]+$/)]],
-      direccionAdministrativa: ['', Validators.required],
+      nombres: ['', [Validators.required, Validators.pattern(/^[a-zA-ZñÑ\s]+$/)]],
+      apellidos: ['', [Validators.required, Validators.pattern(/^[a-zA-ZñÑ\s]+$/)]],
+      direccionAdministrativa: ['', [Validators.required, Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/)]], 
+           
     });
   }
 
@@ -73,14 +74,14 @@ export class ModuloRegistroOtrosComponent implements OnInit {
     const formData = {
       token: token,
       identification: this.registroForm.get('identificacion')?.value,
-      name: this.registroForm.get('nombres')?.value,
-      surename: this.registroForm.get('apellidos')?.value,
+      name: this.registroForm.get('nombres')?.value.toUpperCase(),
+      surename: this.registroForm.get('apellidos')?.value.toUpperCase(),
       role: this.registroForm.get('modo')?.value.toUpperCase(),
       photo_id: imageId,
       other_data: [
         {
           key: 'DIRECCION ADMINISTRATIVA',
-          value: this.registroForm.get('direccionAdministrativa')?.value,
+          value: this.registroForm.get('direccionAdministrativa')?.value.toUpperCase(),
         },
         {
           key: 'CORREO INSTITUCIONAL',

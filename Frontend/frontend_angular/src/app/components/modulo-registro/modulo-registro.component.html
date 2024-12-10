@@ -75,6 +75,12 @@
             La unidad académica es obligatoria.
         </div>
 
+        <label for="carrera">Carrera/Programa:</label>
+        <input type="text" id="carrera" formControlName="carrera">
+        <div *ngIf="hasError('carrera', 'required')" class="error">
+            La unidad académica es obligatoria.
+        </div>
+
         <button type="submit">Guardar</button>
     </form>
 </div>
