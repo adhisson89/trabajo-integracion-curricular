@@ -16,12 +16,12 @@
                     (click)="redirectTo('moduloRegistro', 'estudiante')" checked> Estudiante
             </label>
             <label>
-                <input type="radio" formControlName="modo" value="docente"
-                    (click)="redirectTo('moduloRegistroDocente', 'docente')"> Docente
+                <input type="radio" formControlName="modo" value="profesor"
+                    (click)="redirectTo('moduloRegistroProfesor', 'profesor')"> Profesor
             </label>
             <label>
                 <input type="radio" formControlName="modo" value="administrativo"
-                    (click)="redirectTo('moduloRegistroDocente', 'administrativo')"> Administrativo
+                    (click)="redirectTo('moduloRegistroProfesor', 'administrativo')"> Administrativo
             </label>
         </div>
         <div *ngIf="hasError('modo', 'required')" class="error">

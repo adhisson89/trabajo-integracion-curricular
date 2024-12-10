@@ -4,7 +4,7 @@ import { InicioComponent } from './inicio/inicio.component';
 import { ModuloAdministradorComponent } from './components/modulo-administrador/modulo-administrador.component';
 import { ModuloListadoComponent} from './components/modulo-listado/modulo-listado.component';
 import { ModuloRegistroComponent } from './components/modulo-registro/modulo-registro.component';
-import { ModuloRegistroDocenteAdminComponent } from './components/modulo-registro-docente-admin/modulo-registro-docente-admin.component';
+
 import { PantallaAnalisisComponent } from './components/pantalla-analisis/pantalla-analisis.component';
 
 
@@ -20,7 +20,7 @@ export const routes: Routes = [
   { path: 'moduloAdministrador', component: ModuloAdministradorComponent },
   { path: 'moduloListado', component: ModuloListadoComponent },
   { path: 'moduloRegistro', component: ModuloRegistroComponent },
-  { path: 'moduloRegistroDocente', component: ModuloRegistroDocenteAdminComponent },
+  //{ path: 'moduloRegistroProfesor', component: ModuloRegistroProfesorAdminComponent },
   { path: 'pantallaAnalisis', component: PantallaAnalisisComponent },
 
 ];
