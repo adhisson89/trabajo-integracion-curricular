@@ -7,7 +7,7 @@
     <input type="text" id="filter" [(ngModel)]="filterIdentification" placeholder="Ingrese identificación" />
     <button (click)="filterByIdentification()">Buscar</button>
   </div>
-  
+
 
   <!-- Cargando datos -->
   <div *ngIf="isLoading" class="loading">
@@ -23,10 +23,7 @@
         <p><strong>Rol:</strong> {{ item.role }}</p>
 
       </div>
-      <button class="edit-btn" (click)="startEdit(item
-
-
-        )">Editar</button>
+      <button class="edit-btn" (click)="startEdit(item)">Editar</button>
       <button class="delete-btn" (click)="confirmDelete(item)">Eliminar</button>
     </li>
   </ul>
@@ -38,59 +35,6 @@
     <button (click)="cancelDelete()">Cancelar</button>
   </div>
 
-  <!-- Formulario de edición -->
-  <div *ngIf="editingItem" class="edit-form">
-    <h2>Editar Ítem</h2>
-    <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
-    
-      <!-- Foto -->
-      <label for="foto">Foto:</label>
-      <input type="file" id="foto" (change)="onFileSelected($event)" />
 
-      <!-- Modo -->
-      <label>Modo:</label>
-      <div class="radio-group">
-        <label>
-          <input type="radio" formControlName="modo" value="estudiante" /> Estudiante
-        </label>
-        <label>
-          <input type="radio" formControlName="modo" value="profesor" /> Profesor
-        </label>
-        <label>
-          <input type="radio" formControlName="modo" value="administrativo" /> Administrativo
-        </label>
-      </div>
 
-      <!-- Identificación -->
-      <label for="identificacion">Cédula o Pasaporte:</label>
-      <input type="text" id="identificacion" formControlName="identificacion" />
-
-      <!-- Nombres -->
-      <label for="nombres">Nombres:</label>
-      <input type="text" id="nombres" formControlName="nombres" />
-
-      <!-- Apellidos -->
-      <label for="apellidos">Apellidos:</label>
-      <input type="text" id="apellidos" formControlName="apellidos" />
-
-      <!-- Código Único -->
-      <label for="codigoUnico">Código Único:</label>
-      <input type="text" id="codigoUnico" formControlName="codigoUnico" maxlength="9" />
-
-      <!-- Unidad Académica -->
-      <div *ngIf="editingItem?.modo === 'estudiante'">
-        <label for="unidadAcademica">Unidad Académica:</label>
-        <input type="text" id="unidadAcademica" formControlName="unidadAcademica" />
-      </div>
-
-      <!-- Dirección Administrativa -->
-      <div *ngIf="editingItem?.modo === 'administrativo'">
-        <label for="direccionAdministrativa">Dirección Administrativa:</label>
-        <input type="text" id="direccionAdministrativa" formControlName="direccionAdministrativa" />
-      </div>
-
-      <button type="submit" [disabled]="!editForm.valid">Guardar</button>
-      <button type="button" (click)="cancelEdit()">Cancelar</button>
-    </form>
-  </div>
 </div>

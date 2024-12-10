@@ -64,3 +64,79 @@ body {
     height:140px;
     width: 150px; 
 }
+
+/* Original styles for desktop (above 1200px) */
+.header .logo {
+    margin-right: 10px;
+    height: 140px;
+    width: 150px;
+}
+
+/* Header text styles (assuming this is for the class above .header .logo) */
+.header-text {
+    letter-spacing: 5px;
+    font-size: 90px;
+    color: #0a369d;
+    position: absolute;
+    top: 10px;
+    left: 1080px;
+    margin: 10px;
+}
+
+/* Large laptops (1024px - 1200px) */
+@media screen and (max-width: 1200px) {
+    .header-text {
+        font-size: 70px;
+        left: 800px;
+    }
+    
+    .header .logo {
+        height: 120px;
+        width: 130px;
+    }
+}
+
+/* Tablets and small laptops (768px - 1023px) */
+@media screen and (max-width: 1024px) {
+    .header-text {
+        font-size: 50px;
+        left: 600px;
+        letter-spacing: 3px;
+    }
+    
+    .header .logo {
+        height: 100px;
+        width: 110px;
+    }
+}
+
+/* Large phones and small tablets (480px - 767px) */
+@media screen and (max-width: 768px) {
+    .header-text {
+        font-size: 40px;
+        position: relative;
+        left: 0;
+        text-align: center;
+        margin: 10px auto;
+    }
+    
+    .header .logo {
+        height: 80px;
+        width: 90px;
+        display: block;
+        margin: 0 auto;
+    }
+}
+
+/* Mobile phones (under 480px) */
+@media screen and (max-width: 480px) {
+    .header-text {
+        font-size: 30px;
+        letter-spacing: 2px;
+    }
+    
+    .header .logo {
+        height: 60px;
+        width: 70px;
+    }
+}
