@@ -1,7 +1,6 @@
-from flask import Flask, jsonify, request
-import uuid
-# import py_eureka_client.eureka_client as eureka_client
+from flask import Flask, jsonify, request, Blueprint
 
+import py_eureka_client.eureka_client as eureka_client
 from deepface import DeepFace
 import cv2
 import numpy as np
@@ -10,54 +9,36 @@ from pymongo import MongoClient
 
 import os
 import tempfile
+import random
 
 db_string = 'mongodb+srv://adhisson:XVNqbidUA8Lu7iAm@tic.cerq8.mongodb.net/FacialDB?retryWrites=true&w=majority&appName=TIC'
 
 # Generate a random ID
-service_id = str(uuid.uuid4())
 
-# Configure Eureka client
-# eureka_client.init(eureka_server="http://172.25.0.3:8761/eureka/",
-#                    app_name="deepface-service",
-#                    instance_port=8761)
-# ec = EurekaClient(
-#     app_name="deepface-service",
-#     instance_id=service_id,
-#     #eureka_domain_name="test.yourdomain.net",
-#     #region="eu-west-1",
-#     # vip_address="http://172.25.0.3:8761/eureka/",
-#     vipAddress="deepface-service",
-#     port=8761,
-#     #secure_vip_address="https://app.yourdomain.net/",
-#     #secure_port=443,
-#     # ipAddr="172.25.0.3",
-#     ipAddr="127.0.0.1",
-#     metadata={
-#         "health_check_path": "/health",
-#         "primary_endpoint": "/my-service-endpoint",
-#         "secondary_endpoint": "/secondary-endpoint",
-#         "version": "1.0.0"
-#     }
-# )
-# ec = EurekaClient("MyApplication",
-#                 #   eureka_domain_name="test.yourdomain.net",
-#                 #   region="eu-west-1",
-#                   vip_address="http://app.yourdomain.net/",
-#                   port=80,
-#                   secure_vip_address="https://app.yourdomain.net/",
-#                   secure_port=443
-# )
-# ec.register()
+
+PORT = random.randint(5000, 6000)
+
+try:
+    # Register the service in Eureka
+    eureka_client.init(eureka_server="http://172.25.0.3:8761/eureka/",
+                    app_name="deepface-service",
+                    instance_port=PORT)
+except Exception as e:
+    print(f"Error registering in Eureka: {e}")
+
 
 # Flask app
 app = Flask(__name__)
 
-@app.route("/health", methods=["GET"])
+api_bp = Blueprint('api', __name__, url_prefix='/api/deepface')
+
+
+@api_bp.route("/health", methods=["GET"])
 def health_check():
     return jsonify({"status": "UP"})
 
 # send img to save on db
-@app.route("/addFace/<user_id>", methods=["POST"])
+@api_bp.route("/addFace/<user_id>", methods=["POST"])
 def add_face(user_id):
     try:
         # Get the image file from the request
@@ -96,7 +77,7 @@ def add_face(user_id):
 
 
 # compare img
-@app.route("/compareFace", methods=["POST"])
+@api_bp.route("/compareFace", methods=["POST"])
 def compare_face():
     try:
         # Get the image file from the request
@@ -180,7 +161,7 @@ def get_db_people():
 
     try:
         # Access the database
-        db = client["FacialDB"]  # Replace with your database name
+        db = client["FacialDB"]  # Replace with your database name5000
         # Access the collection
         people = db["people"]  # Replace with your collection name
         # Fetch all documents in the collection
@@ -211,5 +192,8 @@ def compare_img_people(photo_embedding, people):
     except Exception as e:
         return {"status":str(False)}
 
+
+app.register_blueprint(api_bp)
+
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+    app.run(host="0.0.0.0", port=PORT)

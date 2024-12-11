@@ -45,6 +45,18 @@ services:
     networks:
      - tic-network
 
+  deepface-service:
+    build:
+      context: ./deepface-service
+      dockerfile: Dockerfile
+    depends_on:
+      eureka-discovery-service:
+        condition: service_healthy
+      spring-gateway-service:
+        condition: service_healthy
+    networks:
+     - tic-network
+
 networks:
   tic-network:
     driver: bridge

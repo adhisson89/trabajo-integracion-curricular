@@ -5,3 +5,4 @@ deepface
 scipy
 opencv-python
 pymongo
+py-eureka-client
