@@ -35,6 +35,69 @@
     <button (click)="cancelDelete()">Cancelar</button>
   </div>
 
+  <!-- Formulario de edición -->
+
+
+  <div *ngIf="editingItem" class="edit-form">
+    <h2>Editar Ítem</h2>
+    <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+      <!-- Foto -->
+      <label for="foto">Foto:</label>
+      <input type="file" id="foto" (change)="onFileSelected($event)" />
+
+      <!-- Modo -->
+      <label>Modo:</label>
+      <div class="radio-group">
+        <label>
+          <input type="radio" formControlName="role" value="ESTUDIANTE" /> ESTUDIANTE
+        </label>
+        <label>
+          <input type="radio" formControlName="role" value="PROFESOR" /> PROFESOR
+        </label>
+        <label>
+          <input type="radio" formControlName="role" value="ADMINISTRATIVO" /> ADMINISTRATIVO
+        </label>
+        <label>
+          <input type="radio" formControlName="role" value="COLABORADOR" /> COLABORADOR
+        </label>
+      </div>
+
+      <!-- Identificación -->
+      <label for="identificacion">Cédula o Pasaporte:</label>
+      <input type="text" id="identificacion" formControlName="identificacion" readonly />
+
+      <!-- Nombres -->
+      <label for="nombres">Nombres:</label>
+      <input type="text" id="nombres" formControlName="nombres" />
+
+      <!-- Apellidos -->
+      <label for="apellidos">Apellidos:</label>
+      <input type="text" id="apellidos" formControlName="apellidos" />
+
+      <!-- Campos específicos para ESTUDIANTE -->
+      <div *ngIf="editForm.get('role')?.value === 'ESTUDIANTE'">
+        <label for="codigoUnico">Código Único:</label>
+        <input type="text" id="codigoUnico" formControlName="codigoUnico" maxlength="9" />
+        
+        <label for="unidadAcademica">Unidad Académica:</label>
+        <input type="text" id="unidadAcademica" formControlName="unidadAcademica" />
+
+        <label for="carrera">Carrera/Programa:</label>
+        <input type="text" id="carrera" formControlName="carrera" />
+      </div>
+
+      <!-- Campos específicos para DOCENTE, ADMINISTRATIVO o COLABORADOR -->
+      <div *ngIf="editForm.get('role')?.value !== 'ESTUDIANTE'">
+        <label for="direccionAdministrativa">Dirección Administrativa:</label>
+        <input type="text" id="direccionAdministrativa" formControlName="direccionAdministrativa" />
+      </div>
+
+
+      <button type="submit" [disabled]="!editForm.valid">Guardar</button>
+      <button type="button" (click)="cancelEdit()">Cancelar</button>
+    </form>
+  </div>
+
 
 
 </div>

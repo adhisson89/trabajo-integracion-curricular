@@ -78,6 +78,8 @@ export class ModuloRegistroComponent implements OnInit {
       role: this.registroForm.get('modo')?.value.toUpperCase(),
       photo_id: imageId,
       other_data: [
+
+        
         {
           key: 'UNIDAD ACADEMICA',
           value: this.registroForm.get('unidadAcademica')?.value.toUpperCase(),
