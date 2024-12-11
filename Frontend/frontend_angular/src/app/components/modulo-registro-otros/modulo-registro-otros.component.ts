@@ -77,6 +77,7 @@ export class ModuloRegistroOtrosComponent implements OnInit {
       name: this.registroForm.get('nombres')?.value.toUpperCase(),
       surename: this.registroForm.get('apellidos')?.value.toUpperCase(),
       role: this.registroForm.get('modo')?.value.toUpperCase(),
+     
       photo_id: imageId,
       other_data: [
         {

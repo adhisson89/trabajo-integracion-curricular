@@ -148,6 +148,7 @@ export class ModuloListadoComponent implements OnInit {
     const codigoUnico = item.other_data?.find((data: { key: string; }) => data.key === 'CÓDIGO ÚNICO')?.value || '';
     const correoInstitucional = item.other_data?.find((data: { key: string; }) => data.key === 'CORREO INSTITUCIONAL')?.value || '';
     const carrera = item.other_data?.find((data: { key: string; }) => data.key === 'CARRERA/PROGRAMA')?.value || ''; // Extrae la carrera
+    const direccionAdministrativa = item.other_data?.find((data: { key: string; }) => data.key === 'DIRECCION ADMINISTRATIVA')?.value || ''; // Extrae la carrera
 
     // Configurar valores del formulario
     this.editForm.patchValue({
@@ -157,7 +158,8 @@ export class ModuloListadoComponent implements OnInit {
       codigoUnico: codigoUnico,
       unidadAcademica: unidadAcademica,
       carrera: carrera, // Asigna la carrera al formulario
-      direccionAdministrativa: '', // Si aplicara en otro contexto
+
+      direccionAdministrativa: direccionAdministrativa, // Si aplicara en otro contexto
       role: item.role, // Usar `role` como `modo`
       
     });
@@ -213,6 +215,7 @@ export class ModuloListadoComponent implements OnInit {
         role: this.editForm.value.role, // Use editForm values
         nombres: this.editForm.value.nombres, // Use editForm values
         apellidos: this.editForm.value.apellidos, // Use editForm values
+        direccionAdministrativa: this.editForm.value.direccionAdministrativa, 
         other_data: [
           {
             key: 'UNIDAD ACADEMICA',
@@ -223,8 +226,16 @@ export class ModuloListadoComponent implements OnInit {
             value: this.editForm.value.codigoUnico || '',
           },
           {
+            key: 'CARRERA/PROGRAMA',
+            value: this.editForm.value.carrera || '',
+          },
+          {
             key: 'CORREO INSTITUCIONAL',
             value: `${this.editForm.value.nombres.toLowerCase()}.${this.editForm.value.apellidos.toLowerCase()}@epn.edu.ec`,
+          },
+          {
+            key: 'DIRECCION ADMINISTRATIVA',
+            value: this.editForm.value.direccionAdministrativa || '',
           },
         ],
       };
