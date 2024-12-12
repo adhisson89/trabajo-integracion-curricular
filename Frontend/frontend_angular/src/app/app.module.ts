@@ -10,14 +10,13 @@ import { ModuloListadoComponent } from './components/modulo-listado/modulo-lista
 
 @NgModule({
   declarations: [
-    ModuloListadoComponent 
     
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     ReactiveFormsModule,
-    ModuloListadoComponent 
+    ModuloListadoComponent
   ],
   providers: [],
   bootstrap: []

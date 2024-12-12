@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ManagementService } from '../../services/management.service';
+import { HttpClientModule } from '@angular/common/http';
 
 interface Item {
   other_data: any;
@@ -10,18 +12,18 @@ interface Item {
   surename: string;
   role: string;
   modo: string;
+  photo_id: string;
 }
 
 @Component({
   selector: 'app-modulo-listado',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, HttpClientModule],
   templateUrl: './modulo-listado.component.html',
   styleUrls: ['./modulo-listado.component.css'],
+  providers: [ManagementService]
 })
 export class ModuloListadoComponent implements OnInit {
-
-
 
   filterIdentification: string = '';
   item: any;
@@ -35,7 +37,7 @@ export class ModuloListadoComponent implements OnInit {
   token: string | null = localStorage.getItem('authToken');
   selectedFile: File | null = null; // Variable para almacenar el archivo seleccionado
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private managementService: ManagementService) {
     this.editForm = this.fb.group({
       foto: [''],
       identificacion: ['', Validators.required],
@@ -44,7 +46,8 @@ export class ModuloListadoComponent implements OnInit {
       surename: ['', Validators.required],
       codigoUnico: [''],
       unidadAcademica: [''],
-      direccionAdministrativa: ['']
+      direccionAdministrativa: [''],
+      photo_id: ['']
     });
   }
   ngOnInit(): void {
@@ -58,7 +61,8 @@ export class ModuloListadoComponent implements OnInit {
       codigoUnico: [''],
       unidadAcademica: [''],
       carrera: [''],
-      direccionAdministrativa: ['']
+      direccionAdministrativa: [''],
+      photo_id: [''],
     });
   
     // Escuchar cambios en el campo "modo" para gestionar dinámicamente los campos
@@ -69,6 +73,24 @@ export class ModuloListadoComponent implements OnInit {
  
 
   fetchItems() {
+    const token = localStorage.getItem('authToken') || '';
+    this.isLoading = true;
+  
+    this.managementService.getPeople(token).subscribe({
+      next: (data) => {
+        console.log(data);
+        this.items = data;
+        this.filteredItems = [...this.items];
+        this.isLoading = false;
+      },
+      error: (error) => {
+        console.error(error);
+        this.isLoading = false;
+      }
+    });
+  }
+
+  /* fetchItems() {
     this.isLoading = true;
     const token = localStorage.getItem('authToken');
 
@@ -90,7 +112,7 @@ export class ModuloListadoComponent implements OnInit {
         console.error(error);
         this.isLoading = false;
       });
-  }
+  } */
 
   confirmDelete(item: Item) {
     this.showDeleteConfirmation = true;
@@ -103,6 +125,27 @@ export class ModuloListadoComponent implements OnInit {
   }
 
   deleteItem() {
+    if (this.itemToDelete) {
+      const token = localStorage.getItem('authToken') || '';
+      this.managementService.deletePerson(token, this.itemToDelete.identification).subscribe({
+        next: () => {
+          this.filteredItems = this.filteredItems.filter(item => item !== this.itemToDelete);
+          this.items = this.items.filter(item => item !== this.itemToDelete);
+          alert('El registro ha sido eliminado con éxito');
+        },
+        error: (error) => {
+          console.error(error);
+          alert('No se pudo eliminar el registro');
+        },
+        complete: () => {
+          this.showDeleteConfirmation = false;
+          this.itemToDelete = null;
+        }
+      });
+    }
+  }
+
+  /* deleteItem() {
     if (this.itemToDelete) {
       const token = localStorage.getItem('authToken');
       fetch('http://localhost:8080/api/administration/management/person', {
@@ -136,14 +179,12 @@ export class ModuloListadoComponent implements OnInit {
           this.itemToDelete = null;
         });
     }
-  }
+  } */
 
 
   startEdit(item: Item) {
     this.editingItem = item;
-
     // Extraer valores de `other_data`
-
     const unidadAcademica = item.other_data?.find((data: { key: string; }) => data.key === 'UNIDAD ACADEMICA')?.value || '';
     const codigoUnico = item.other_data?.find((data: { key: string; }) => data.key === 'CÓDIGO ÚNICO')?.value || '';
     const correoInstitucional = item.other_data?.find((data: { key: string; }) => data.key === 'CORREO INSTITUCIONAL')?.value || '';
@@ -161,6 +202,7 @@ export class ModuloListadoComponent implements OnInit {
 
       direccionAdministrativa: direccionAdministrativa, // Si aplicara en otro contexto
       role: item.role, // Usar `role` como `modo`
+      photo_id: item.photo_id
       
     });
   }
@@ -173,14 +215,24 @@ export class ModuloListadoComponent implements OnInit {
 
   // Método para manejar el archivo seleccionado
   onFileSelected(event: Event): void {
+
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       this.selectedFile = input.files[0]; // Guardar el archivo seleccionado
     } else {
       this.selectedFile = null; // Si no se selecciona un archivo, limpiar la variable
     }
+    console.log(this.selectedFile);
   }
 
+  // Metodo para quitar la imagen cargada
+  removeFile(): void {
+    this.selectedFile = null;
+    const input = document.getElementById('foto') as HTMLInputElement;
+    if (input) {
+      input.value = ''; // Resetea el valor del campo de archivo
+    }
+  }
   
   onRoleChange(modo: string): void {
     if (modo === 'ESTUDIANTE') {
@@ -204,11 +256,47 @@ export class ModuloListadoComponent implements OnInit {
     }
   }
 
-
-
-
-
   onSubmit() {
+    if (this.editingItem) {
+      const token = this.token || '';
+      const payload = {
+        token: token,
+        role: this.editForm.value.role,
+        name: this.editForm.value.name,
+        surename: this.editForm.value.surename,
+        direccionAdministrativa: this.editForm.value.direccionAdministrativa,
+        other_data: [
+          { key: 'UNIDAD ACADEMICA', value: this.editForm.value.unidadAcademica || '' },
+          { key: 'CÓDIGO ÚNICO', value: this.editForm.value.codigoUnico || '' },
+          { key: 'CARRERA/PROGRAMA', value: this.editForm.value.carrera || '' },
+          { key: 'CORREO INSTITUCIONAL', value: `${this.editForm.value.name.toLowerCase()}.${this.editForm.value.surename.toLowerCase()}@epn.edu.ec` },
+          { key: 'DIRECCION ADMINISTRATIVA', value: this.editForm.value.direccionAdministrativa || '' },
+        ],
+      };
+  
+      this.managementService.updatePerson(this.editForm.value.identificacion, payload, token).subscribe({
+        next: () => {
+          alert('Información actualizada con éxito');
+          this.fetchItems();
+          this.cancelEdit();
+        },
+        error: (error) => {
+          console.error(error);
+          alert('No se pudo actualizar la información');
+        }
+      });
+  
+      if (this.selectedFile) {
+        this.managementService.uploadImage(this.selectedFile, this.editForm.value.photo_id, token).subscribe({
+          next: () => console.log('Imagen subida con éxito'),
+          error: (error) => console.error('Error al subir la imagen', error)
+        });
+      }
+    }
+  }
+
+
+ /*  onSubmit() {
     if (this.editingItem) {
       const rawPayload = {
         token: this.token,
@@ -260,9 +348,34 @@ export class ModuloListadoComponent implements OnInit {
           console.error(error);
           alert('No se pudo actualizar la información');
         });
+
+        if (this.selectedFile != null) {
+          const token = this.token || '';
+          const formData = new FormData();
+          formData.append('photo', this.selectedFile); // Cambiar 'photo' a 'image' para coincidir con Postman
+          formData.append('id', this.editForm.value.photo_id); // Agregar el campo 'id'
+          formData.append('token', token); // Agregar el campo 'token'
+          console.log(formData)
+          fetch('http://localhost:8080/api/administration/management/image', { // Cambiar el endpoint
+            method: 'PATCH', // Cambiar el método a PATCH
+            body: formData,
+          })
+            .then(response => {
+              if (response.ok) {
+                alert('Foto actualizada con éxito');
+              } else {
+                alert('Error al actualizar la foto');
+              }
+              return response;
+            })
+            .catch(error => {
+              console.error(error);
+              alert('No se pudo actualizar la foto');
+            });
+        }        
     }
     console.log('Valores del formulario:', this.editForm.value);
-  }
+  } */
   
 
   //filtrado por ci/

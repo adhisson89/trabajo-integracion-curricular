@@ -42,8 +42,15 @@
     <h2>Editar Ítem</h2>
     <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
       <!-- Foto -->
-      <label for="foto">Foto:</label>
-      <input type="file" id="foto" (change)="onFileSelected($event)" />
+      <div>
+        <label for="foto">Foto:</label>
+        <input type="file" id="foto" (change)="onFileSelected($event)" />
+        <button type="button" *ngIf="selectedFile" (click)="removeFile()">Quitar foto</button>
+      </div>
+      
+
+      <label for="photo_id">photo_id:</label>
+      <input type="text" id="photo_id" formControlName="photo_id" readonly />
 
       <!-- Modo -->
       <label>Modo:</label>
