@@ -40,8 +40,8 @@ export class ModuloListadoComponent implements OnInit {
       foto: [''],
       identificacion: ['', Validators.required],
       role: ['', Validators.required],
-      nombres: ['', Validators.required],
-      apellidos: ['', Validators.required],
+      name: ['', Validators.required],
+      surename: ['', Validators.required],
       codigoUnico: [''],
       unidadAcademica: [''],
       direccionAdministrativa: ['']
@@ -52,8 +52,8 @@ export class ModuloListadoComponent implements OnInit {
     // Inicializar formulario reactivo
     this.editForm = this.fb.group({
       identificacion: ['', Validators.required],
-      nombres: ['', Validators.required],
-      apellidos: ['', Validators.required],
+      name: ['', Validators.required],
+      surename: ['', Validators.required],
       role: ['', Validators.required],
       codigoUnico: [''],
       unidadAcademica: [''],
@@ -153,8 +153,8 @@ export class ModuloListadoComponent implements OnInit {
     // Configurar valores del formulario
     this.editForm.patchValue({
       identificacion: item.identification,
-      nombres: item.name,
-      apellidos: item.surename,
+      name: item.name,
+      surename: item.surename,
       codigoUnico: codigoUnico,
       unidadAcademica: unidadAcademica,
       carrera: carrera, // Asigna la carrera al formulario
@@ -213,8 +213,8 @@ export class ModuloListadoComponent implements OnInit {
       const rawPayload = {
         token: this.token,
         role: this.editForm.value.role, // Use editForm values
-        nombres: this.editForm.value.nombres, // Use editForm values
-        apellidos: this.editForm.value.apellidos, // Use editForm values
+        name: this.editForm.value.name, // Use editForm values
+        surename: this.editForm.value.surename, // Use editForm values
         direccionAdministrativa: this.editForm.value.direccionAdministrativa, 
         other_data: [
           {
@@ -231,7 +231,7 @@ export class ModuloListadoComponent implements OnInit {
           },
           {
             key: 'CORREO INSTITUCIONAL',
-            value: `${this.editForm.value.nombres.toLowerCase()}.${this.editForm.value.apellidos.toLowerCase()}@epn.edu.ec`,
+            value: `${this.editForm.value.name.toLowerCase()}.${this.editForm.value.surename.toLowerCase()}@epn.edu.ec`,
           },
           {
             key: 'DIRECCION ADMINISTRATIVA',

@@ -68,11 +68,11 @@
 
       <!-- Nombres -->
       <label for="nombres">Nombres:</label>
-      <input type="text" id="nombres" formControlName="nombres" />
+      <input type="text" id="name" formControlName="name" />
 
       <!-- Apellidos -->
       <label for="apellidos">Apellidos:</label>
-      <input type="text" id="apellidos" formControlName="apellidos" />
+      <input type="text" id="surename" formControlName="surename" />
 
       <!-- Campos específicos para ESTUDIANTE -->
       <div *ngIf="editForm.get('role')?.value === 'ESTUDIANTE'">
