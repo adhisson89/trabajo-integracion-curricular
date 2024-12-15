@@ -1,16 +1,35 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 10px;
+}
 
 .container {
-    
-    width: 400px;
+    width: 90%;
+    max-width: 600px; /* Ancho máximo para pantallas grandes */
     background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .header {
     background-color: #003366;
     color: #ffffff;
-    padding: 10px;
-    text-align: left;
+    padding: 15px;
+    text-align: center;
+    border-radius: 10px 10px 0 0;
 }
 
 .header h2 {
@@ -19,7 +38,9 @@
 
 .modules {
     display: flex;
-    justify-content: space-around;
+    flex-wrap: wrap; /* Habilita el ajuste de línea */
+    justify-content: center;
+    gap: 20px; /* Espaciado entre módulos */
     padding: 20px;
 }
 
@@ -42,18 +63,71 @@
     background-color: #002244;
 }
 
-
-
 .label {
     font-size: 14px;
+    margin-top: 10px;
 }
+
 .module img {
-    width: 100px; /* Tamaño de la imagen */
-    height: 100px;
-    border-radius: 10px; /* Bordes redondeados */
-    transition: filter 0.3s ease; /* Suaviza la transición del efecto */
+    width: 80px;
+    height: 80px;
+    border-radius: 10px;
+    transition: filter 0.3s ease;
 }
 
 .module img:hover {
-    filter: invert(100%); /* Convierte la imagen a su negativo */
+    filter: invert(100%);
+}
+
+/* Responsiveness */
+
+/* Para pantallas pequeñas (celulares) */
+@media (max-width: 600px) {
+    .module {
+        width: 100px;
+        height: 100px;
+    }
+
+    .module img {
+        width: 60px;
+        height: 60px;
+    }
+
+    .label {
+        font-size: 12px;
+    }
+}
+
+/* Para tabletas */
+@media (min-width: 601px) and (max-width: 900px) {
+    .module {
+        width: 140px;
+        height: 140px;
+    }
+
+    .module img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .label {
+        font-size: 16px;
+    }
+}
+
+/* Para laptops y pantallas grandes */
+@media (min-width: 901px) {
+    .module {
+        width: 150px;
+        height: 150px;
+    }
+
+    .module img {
+        width: 120px;
+        height: 120px;
+    }
+
+    .label {
+        font-size: 18px;
+    }
 }

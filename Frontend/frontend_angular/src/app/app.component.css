@@ -2,18 +2,21 @@
 * {
     margin: 0px;
     padding: 0px;
-    box-sizing: border-box; 
+    box-sizing: border-box;
 }
 
-html, body {
-    height: 100%; 
+html,
+body {
+    height: 100%;
     width: 100%;
 }
 
 body {
     background-image: url('/assets/imagenes/normal/fondos/EPN/fondo6.png');
-    background-size: cover; /* Hace que la imagen cubra toda la pantalla */
-    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    background-size: cover;
+    /* Hace que la imagen cubra toda la pantalla */
+    background-repeat: no-repeat;
+    /* Evita que la imagen se repita */
     font-family: 'ground';
     display: flex;
     justify-content: center;
@@ -22,47 +25,58 @@ body {
 }
 
 .header {
-    position: absolute; /* Permite posicionar el elemento de forma absoluta */
-    top: 10px; /* Alinea al borde superior */
-    left: 20px; /* Alinea al borde izquierdo */
-    display: flex; /* Asegura que los elementos internos se alineen correctamente */
+    position: absolute;
+    /* Permite posicionar el elemento de forma absoluta */
+    top: 10px;
+    /* Alinea al borde superior */
+    left: 20px;
+    /* Alinea al borde izquierdo */
+    display: flex;
+    /* Asegura que los elementos internos se alineen correctamente */
     align-items: center;
-    padding: 10px; /* Espaciado interno
+    padding: 10px;
+    /* Espaciado interno
     gro oli qua rax teko tit
      */
-   
+
 }
 
 .header h1 {
-    letter-spacing: 5px; /*  Espaciado entre letras en píxeles*/
+    letter-spacing: 5px;
+    /*  Espaciado entre letras en píxeles*/
     font-family: "teko";
-    margin: 0px 6px 15px 8px; 
-    padding: 0px 0px 20px 0px ;
+    margin: 0px 6px 15px 8px;
+    padding: 0px 0px 20px 0px;
     font-size: 30px;
     color: #0a369d;
     display: flex;
     align-items: center;
-    
+
 }
 
 .header h2 {
 
     font-family: "teko";
     letter-spacing: 5px;
-    margin-left: 20px; 
+    margin-left: 20px;
     font-size: 90px;
     color: #0a369d;
-    position: absolute; /* Permite posicionamiento en relación a su contenedor padre */
-    top: 10px; /* Ubicación desde la parte superior */
-    left: 1080px; /* Ubicación desde el borde derecho */
-    margin: 10px; /* Espaciado opcional */
-   
+    position: absolute;
+    /* Permite posicionamiento en relación a su contenedor padre */
+    top: 10px;
+    /* Ubicación desde la parte superior */
+    left: 1080px;
+    /* Ubicación desde el borde derecho */
+    margin: 10px;
+    /* Espaciado opcional */
+
 }
 
 .header .logo {
-    margin-right: 10px; /* Espaciado entre el logo y el texto */
-    height:140px;
-    width: 150px; 
+    margin-right: 10px;
+    /* Espaciado entre el logo y el texto */
+    height: 140px;
+    width: 150px;
 }
 
 /* Original styles for desktop (above 1200px) */
@@ -89,7 +103,7 @@ body {
         font-size: 70px;
         left: 800px;
     }
-    
+
     .header .logo {
         height: 120px;
         width: 130px;
@@ -103,7 +117,7 @@ body {
         left: 600px;
         letter-spacing: 3px;
     }
-    
+
     .header .logo {
         height: 100px;
         width: 110px;
@@ -119,7 +133,7 @@ body {
         text-align: center;
         margin: 10px auto;
     }
-    
+
     .header .logo {
         height: 80px;
         width: 90px;
@@ -134,7 +148,7 @@ body {
         font-size: 30px;
         letter-spacing: 2px;
     }
-    
+
     .header .logo {
         height: 60px;
         width: 70px;

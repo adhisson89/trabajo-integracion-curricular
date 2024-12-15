@@ -11,6 +11,7 @@ body {
     align-items: center;
     min-height: 100vh;
     background-color: #f5f5f5;
+    padding: 10px;
 }
 
 .container {
@@ -75,4 +76,51 @@ button:hover {
     font-size: 14px;
     margin-top: -10px;
     margin-bottom: 10px;
-  }
+}
+
+/* Responsive Styles */
+@media (max-width: 1024px) {
+    .container {
+        max-width: 600px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        max-width: 90%;
+    }
+
+    h2 {
+        font-size: 24px;
+    }
+
+    button {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        max-width: 100%;
+        padding: 15px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    button {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    form input[type="text"],
+    form input[type="file"] {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    label {
+        font-size: 14px;
+    }
+}

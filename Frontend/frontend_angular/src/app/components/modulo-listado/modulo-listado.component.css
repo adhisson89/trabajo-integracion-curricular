@@ -13,6 +13,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    padding: 10px;
 }
 
 .container {
@@ -32,13 +33,33 @@ h1 {
 
 .filter {
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    gap: 10px;
     margin-bottom: 20px;
 }
 
 .filter label {
-    margin-right: 10px;
     font-weight: bold;
+}
+
+.filter input {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.filter button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007BFF;
+    color: #fff;
+    cursor: pointer;
+}
+
+.filter button:hover {
+    background-color: #0056b3;
 }
 
 ul {
@@ -47,8 +68,8 @@ ul {
 
 li {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: flex-start;
     padding: 10px;
     border-bottom: 1px solid #ddd;
 }
@@ -58,13 +79,13 @@ li:last-child {
 }
 
 .item-text {
-    flex-grow: 1;
+    margin-bottom: 10px;
 }
 
 .edit-btn,
 .delete-btn {
     padding: 5px 10px;
-    margin-left: 10px;
+    margin-right: 10px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -87,4 +108,39 @@ li:last-child {
 
 .delete-btn:hover {
     background-color: #e53935;
+}
+
+/* Media Queries */
+@media (min-width: 768px) {
+    .filter {
+        flex-direction: row;
+        align-items: center;
+        gap: 15px;
+    }
+
+    li {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .item-text {
+        flex-grow: 1;
+        margin-bottom: 0;
+    }
+}
+
+@media (min-width: 1024px) {
+    .container {
+        max-width: 800px;
+    }
+
+    .filter input {
+        width: 300px;
+    }
+
+    .edit-btn,
+    .delete-btn {
+        padding: 8px 15px;
+    }
 }

@@ -75,4 +75,72 @@ button:hover {
     font-size: 14px;
     margin-top: -10px;
     margin-bottom: 10px;
-  }
+}
+
+/* Media Queries */
+@media (max-width: 768px) { /* Tablets */
+    .container {
+        max-width: 95%;
+        padding: 15px;
+    }
+
+    h2 {
+        font-size: 18px;
+    }
+
+    form input[type="text"],
+    form input[type="file"] {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    button {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 576px) { /* Smartphones */
+    .container {
+        max-width: 90%;
+    }
+
+    h2 {
+        font-size: 16px;
+    }
+
+    form label {
+        font-size: 14px;
+    }
+
+    form input[type="text"],
+    form input[type="file"] {
+        font-size: 12px;
+        padding: 6px;
+    }
+
+    button {
+        font-size: 14px;
+        padding: 10px;
+    }
+}
+
+@media (min-width: 1024px) { /* Laptops y PC grandes */
+    .container {
+        max-width: 600px;
+        padding: 30px;
+    }
+
+    h2 {
+        font-size: 24px;
+    }
+
+    form input[type="text"],
+    form input[type="file"] {
+        font-size: 18px;
+        padding: 12px;
+    }
+
+    button {
+        font-size: 20px;
+    }
+}

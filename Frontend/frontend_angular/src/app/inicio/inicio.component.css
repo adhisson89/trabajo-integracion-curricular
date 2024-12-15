@@ -1,58 +1,58 @@
 /* Contenedor envolvente para centrar */
 .container-wrapper {
-    display: flex; /* Configura un contenedor flex */
-    justify-content: center; /* Centra horizontalmente */
-    align-items: center; /* Centra verticalmente */
-    height: 100vh; /* Asegura que el contenedor tome toda la pantalla */
-    width: 100vw; /* Asegura que ocupe todo el ancho de la pantalla */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    padding: 10px; /* Espaciado interno para evitar problemas en pantallas pequeñas */
+    box-sizing: border-box;
 }
 
 /* Contenedor principal */
 .container {
-    height: 270px;
-    margin-top: 45px;
+    height: auto; /* Permite que el contenido crezca dinámicamente */
+    margin-top: 20px;
     max-width: 900px;
+    width: 100%; /* Asegura que se ajuste al ancho del dispositivo */
     background: #ffffff;
     border-radius: 10px;
     box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.415);
     display: flex;
     padding: 20px;
     gap: 20px;
-    overflow: hidden;
+    flex-wrap: wrap; /* Ajusta los elementos al ancho disponible */
     align-items: center;
+    box-sizing: border-box;
 }
-
 
 /* Contenido principal */
 .content {
     flex: 1;
-    padding: 0px 10px 10px 10px;
-   
+    padding: 10px;
 }
 
 .content h1 {
     font-family: "teko";
     text-transform: uppercase;
-  /* font-family: "gro";*/
-    letter-spacing: 3px; 
-    font-size: 40px;
+    letter-spacing: 3px;
+    font-size: 28px;
     color: #0000aa;
-    margin: 5px;
-    margin-top: 0px;
+    margin: 5px 0;
 }
 
 .content h2 {
     margin-top: 5px;
     font-family: "mon";
-    font-size: 15px;
+    font-size: 14px;
     color: #949191;
+    text-align: center;
 }
 
 .content p {
-    margin-top: 20px;
-    margin-bottom: 0px;
+    margin-top: 15px;
     font-family: "asa";
-    font-size: 15px;
+    font-size: 14px;
     color: #666;
     line-height: 1.6;
     text-align: justify;
@@ -60,7 +60,7 @@
 
 .content button {
     font-family: "gro";
-    letter-spacing: 3px; 
+    letter-spacing: 3px;
     background-color: #0000aa;
     border: none;
     padding: 10px 20px;
@@ -68,10 +68,9 @@
     color: white;
     border-radius: 5px;
     cursor: pointer;
-    margin-top: 5px;
+    margin-top: 10px;
     transition: background-color 0.3s ease;
 }
-
 
 .content button:hover {
     font-size: 18px;
@@ -80,55 +79,86 @@
     box-shadow: 0px 0px 25px #fa0001;
 }
 
-
-button.btn_Admin {
-    opacity: 0; /* Hace que el botón sea invisible */
-    pointer-events: auto; /* Asegura que el botón siga siendo clickeable */
-    position: absolute; /* Permite posicionamiento absoluto */
-    top: 10px; /* Separación desde la parte superior del contenedor */
-    left: 1230px; /* Ajusta la ubicación horizontal */
-    margin: 10px; /* Espaciado opcional */
-}
-
-button.btn_Empezar {
- align-items: center;
- margin-left: 250px;
-}
-
-
-/* Ilustraciones forma 2 
-.illustration {
-    margin-left: 10px;
-    width: 18%;
-    height: 40%;
-    background: #ffffff99;
-    border-radius: 10px;
-    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.415);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}*/
-
-
-/* Ilustraciones forma 1 */
+/* Ilustraciones */
 .illustration {
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+    width: 100%; /* Ancho completo para adaptarse en pantallas pequeñas */
+    margin-top: 20px;
 }
 
 .illustration img {
-    width: 200px;
-    height: 200px;
+    width: 150px;
+    height: 150px;
     border-radius: 10px;
     object-fit: cover;
     box-shadow: 0px 0px 25px #fa0001;
 }
 
 .illustration img:hover {
-    width: 250px;
-    height: 250px;
-    background-color: #0000;
-    color: #e20000;
+    width: 180px;
+    height: 180px;
     box-shadow: 0px 0px 25px #0000aa;
+}
+
+/* Botones */
+button.btn_Admin {
+    opacity: 1;
+    position: relative; /* Cambiado para evitar problemas en pantallas pequeñas */
+    margin: 10px;
+}
+
+button.btn_Empezar {
+    align-self: center;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column; /* Apila contenido en dispositivos pequeños */
+        text-align: center; /* Centra el contenido */
+    }
+
+    .content h1 {
+        font-size: 24px;
+    }
+
+    .content h2 {
+        font-size: 12px;
+    }
+
+    .content p {
+        font-size: 12px;
+    }
+
+    .illustration img {
+        width: 120px;
+        height: 120px;
+    }
+
+    .content button {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .content h1 {
+        font-size: 20px;
+    }
+
+    .content h2 {
+        font-size: 10px;
+    }
+
+    .illustration img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .content button {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
 }

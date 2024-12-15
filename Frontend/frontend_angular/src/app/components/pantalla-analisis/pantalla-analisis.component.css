@@ -1,3 +1,4 @@
+/* Estilo general */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -10,15 +11,17 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    
+    background-color: #f0f0f0;
 }
 
 .container {
-    width: 400px;
+    width: 90%; /* Ajustable para dispositivos pequeños */
+    max-width: 600px; /* Máximo ancho para tablets y laptops */
     border-radius: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     overflow: hidden;
     text-align: center;
+    background-color: #fff;
 }
 
 .header {
@@ -28,19 +31,31 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: bold;
+    flex-wrap: wrap;
 }
 
 .logo {
-    width: 50px;
+    width: 40px;
     height: auto;
+    margin-right: 10px;
+}
+
+.header h2 {
+    font-size: 1rem;
+    flex: 1; /* Para ocupar espacio restante */
+    text-align: center;
+}
+
+.header h3 {
+    font-size: 0.9rem;
+    margin-left: auto;
 }
 
 .content {
     position: relative;
     padding: 20px;
-    background-color: #ffffff;
 }
 
 #video {
@@ -48,6 +63,7 @@ body {
     height: auto;
     border-radius: 10px;
     border: 2px solid #ddd;
+    max-height: 300px; /* Limitar altura en pantallas pequeñas */
 }
 
 .status-icon {
@@ -59,6 +75,63 @@ body {
     height: 80px;
 }
 
-.hidden {
-    display: none;
+button {
+    background-color: #005bbb;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #4a90e2;
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+    .container {
+        max-width: 90%; /* Ajuste más flexible */
+    }
+
+    .header {
+        font-size: 12px;
+        padding: 8px;
+    }
+
+    .logo {
+        width: 30px;
+    }
+
+    #video {
+        max-height: 250px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .header h2, .header h3 {
+        font-size: 0.8rem;
+        margin: 5px 0;
+    }
+
+    .logo {
+        margin: 0;
+    }
+
+    #video {
+        max-height: 200px;
+    }
+
+    button {
+        font-size: 0.9rem;
+        padding: 8px 16px;
+    }
 }
