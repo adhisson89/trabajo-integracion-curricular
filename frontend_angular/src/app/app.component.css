@@ -1,25 +1,25 @@
+
 /* Reseteo global */
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    
 }
 
-html,
-body {
-    height: 100%;
-    width: 100%;
+html {
+
+    background-color: rgb(171, 171, 175); 
 }
 
 body {
-    background-image: url('/assets/imagenes/normal/fondos/EPN/fondo6.png');
+    background-image: url('/assets/imagenes/normal/fondos/policia/f.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     font-family: 'ground';
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+   
 }
 
 /* Estilos principales del encabezado */
