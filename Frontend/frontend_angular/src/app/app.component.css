@@ -1,7 +1,7 @@
-/* Elimina márgenes y padding globales */
+/* Reseteo global */
 * {
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
 }
 
@@ -14,9 +14,7 @@ body {
 body {
     background-image: url('/assets/imagenes/normal/fondos/EPN/fondo6.png');
     background-size: cover;
-    /* Hace que la imagen cubra toda la pantalla */
     background-repeat: no-repeat;
-    /* Evita que la imagen se repita */
     font-family: 'ground';
     display: flex;
     justify-content: center;
@@ -24,133 +22,133 @@ body {
     height: 100vh;
 }
 
+/* Estilos principales del encabezado */
 .header {
     position: absolute;
-    /* Permite posicionar el elemento de forma absoluta */
     top: 10px;
-    /* Alinea al borde superior */
     left: 20px;
-    /* Alinea al borde izquierdo */
     display: flex;
-    /* Asegura que los elementos internos se alineen correctamente */
     align-items: center;
     padding: 10px;
-    /* Espaciado interno
-    gro oli qua rax teko tit
-     */
-
 }
 
 .header h1 {
-    letter-spacing: 5px;
-    /*  Espaciado entre letras en píxeles*/
+    letter-spacing: 3px;
     font-family: "teko";
-    margin: 0px 6px 15px 8px;
-    padding: 0px 0px 20px 0px;
+    margin: 0 6px 15px 8px;
+    padding: 0 0 20px 0;
     font-size: 30px;
     color: #0a369d;
     display: flex;
     align-items: center;
-
 }
 
 .header h2 {
-
     font-family: "teko";
     letter-spacing: 5px;
-    margin-left: 20px;
     font-size: 90px;
     color: #0a369d;
-    position: absolute;
-    /* Permite posicionamiento en relación a su contenedor padre */
-    top: 10px;
-    /* Ubicación desde la parte superior */
-    left: 1080px;
-    /* Ubicación desde el borde derecho */
-    margin: 10px;
-    /* Espaciado opcional */
-
+    margin-left: 50px;
+    position: absolute; /* Para posicionarlo en la esquina derecha */
+    top: 0;
+    left: 1050px; /* Ajusta la distancia al borde derecho */
 }
 
-.header .logo {
-    margin-right: 10px;
-    /* Espaciado entre el logo y el texto */
-    height: 140px;
-    width: 150px;
-}
-
-/* Original styles for desktop (above 1200px) */
+/* Logo */
 .header .logo {
     margin-right: 10px;
     height: 140px;
     width: 150px;
 }
 
-/* Header text styles (assuming this is for the class above .header .logo) */
-.header-text {
-    letter-spacing: 5px;
-    font-size: 90px;
-    color: #0a369d;
-    position: absolute;
-    top: 10px;
-    left: 1080px;
-    margin: 10px;
-}
+/* Responsividad */
 
-/* Large laptops (1024px - 1200px) */
-@media screen and (max-width: 1200px) {
-    .header-text {
-        font-size: 70px;
-        left: 800px;
+/* Para pantallas pequeñas (celulares) */
+@media (max-width: 600px) {
+    .header h2 {
+        font-size: 40px; /* Reducir tamaño del texto */
+        top: 10px;
+        right: 10px;
     }
 
-    .header .logo {
-        height: 120px;
-        width: 130px;
-    }
-}
-
-/* Tablets and small laptops (768px - 1023px) */
-@media screen and (max-width: 1024px) {
-    .header-text {
-        font-size: 50px;
-        left: 600px;
-        letter-spacing: 3px;
+    .header h1 {
+        font-size: 20px;
     }
 
     .header .logo {
         height: 100px;
-        width: 110px;
+        width: 100px;
     }
 }
 
-/* Large phones and small tablets (480px - 767px) */
-@media screen and (max-width: 768px) {
-    .header-text {
-        font-size: 40px;
-        position: relative;
-        left: 0;
-        text-align: center;
-        margin: 10px auto;
+/* Para tabletas */
+@media (min-width: 601px) and (max-width: 900px) {
+    .header h2 {
+        font-size: 60px;
+        top: 5px;
+        right: 20px;
+    }
+
+    .header h1 {
+        font-size: 25px;
     }
 
     .header .logo {
-        height: 80px;
-        width: 90px;
-        display: block;
-        margin: 0 auto;
+        height: 120px;
+        width: 120px;
     }
 }
 
-/* Mobile phones (under 480px) */
-@media screen and (max-width: 480px) {
-    .header-text {
+/* Para laptops (resoluciones intermedias como 1360x768) */
+@media (min-width: 901px) and (max-width: 1366px) {
+    .header h2 {
+        font-size: 90px;
+        top: 10px;
+        right: 30px;
+    }
+
+    .header h1 {
+        font-size: 28px;
+    }
+
+    .header .logo {
+        height: 130px;
+        width: 140px;
+    }
+}
+
+/* Para pantallas grandes (1366px a 1920px) */
+@media (min-width: 1367px) and (max-width: 1920px) {
+    .header h2 {
+        font-size: 85px;
+        top: 10px;
+        left: 1180px;
+    }
+
+    .header h1 {
         font-size: 30px;
-        letter-spacing: 2px;
     }
 
     .header .logo {
-        height: 60px;
-        width: 70px;
+        height: 140px;
+        width: 150px;
+    }
+}
+
+/* Resolución recomendada: 1920x1080 */
+@media (min-width: 1920px) {
+    .header h2 {
+        font-size: 100px;
+        top: 20px;
+        right: 50px;
+    }
+
+    .header h1 {
+        font-size: 32px;
+    }
+
+    .header .logo {
+        height: 150px;
+        width: 160px;
     }
 }

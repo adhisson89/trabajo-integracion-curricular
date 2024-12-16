@@ -5,6 +5,22 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http'; // Importar HttpClientModule
+import Swal from 'sweetalert2';
+
+
+// Swal.fire({
+//   title: '¿Estás seguro?',
+//   text: 'No podrás revertir esta acción.',
+//   icon: 'warning',
+//   showCancelButton: true,
+//   confirmButtonText: 'Sí, continuar',
+//   cancelButtonText: 'Cancelar',
+// }).then((result) => {
+//   if (result.isConfirmed) {
+//       // Acción al confirmar
+//       console.log('Confirmado');
+//   }
+//});
 
 @Component({
   selector: 'app-modulo-registro',
@@ -106,7 +122,12 @@ export class ModuloRegistroComponent implements OnInit {
       .subscribe({
         next: (response) => {
           console.log('Formulario enviado exitosamente', response);
-          alert('Datos enviados con éxito');
+          Swal.fire({
+            title: '¡Éxito!',
+            text: 'Datos enviados con éxito.',
+            icon: 'success',
+            confirmButtonText: 'Aceptar',
+          });
         },
         error: (error) => {
           console.error('Error al enviar los datos:', error);
@@ -117,7 +138,12 @@ export class ModuloRegistroComponent implements OnInit {
 
   onSubmit(): void {
     if (this.registroForm.invalid) {
-      alert('Por favor complete todos los campos.');
+      Swal.fire({
+        title: 'Atención',
+        text: 'Por favor complete todos los campos.',
+        icon: 'warning',
+        confirmButtonText: 'Aceptar',
+      });
       return;
     }
 
@@ -136,7 +162,12 @@ export class ModuloRegistroComponent implements OnInit {
         })
         .catch((error) => {
           console.error('Error al subir la imagen', error);
-          alert('Error al subir la imagen.');
+          Swal.fire({
+            title: 'Error',
+            text: 'Error al subir la imagen.',
+            icon: 'error',
+            confirmButtonText: 'Intentar de nuevo',
+          });
         });
     } else {
       alert('Por favor selecciona una imagen válida.');

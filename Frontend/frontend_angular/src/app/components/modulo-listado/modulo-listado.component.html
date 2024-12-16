@@ -5,7 +5,8 @@
   <div class="filter">
     <label for="filter">Buscar por identificación:</label>
     <input type="text" id="filter" [(ngModel)]="filterIdentification" placeholder="Ingrese identificación" />
-    <button (click)="filterByIdentification()">Buscar</button>
+    <button (click)="filterByIdentification()"> <img src="../assets/imagenes/png/iconos/lupa.png" width="20px"
+        height="20px" style="  filter: invert(100);">Buscar</button>
   </div>
 
 
@@ -23,31 +24,38 @@
         <p><strong>Rol:</strong> {{ item.role }}</p>
 
       </div>
-      <button class="edit-btn" (click)="startEdit(item)">Editar</button>
-      <button class="delete-btn" (click)="confirmDelete(item)">Eliminar</button>
+      <button class="edit-btn" (click)="startEdit(item)"><img src="../assets/imagenes/png/iconos/editar.png"
+          width="20px" height="20px" style="  filter: invert(100);">Editar</button>
+      <button class="delete-btn" (click)="confirmDelete(item)"><img src="../assets/imagenes/png/iconos/borrar.png"
+          width="20px" height="20px">Eliminar</button>
     </li>
   </ul>
 
   <!-- Mensaje de confirmación -->
   <div *ngIf="showDeleteConfirmation" class="confirmation-modal">
+    <button class="deleteX-btn" (click)="cancelDelete()">X</button>
     <p>¿Está seguro de que desea eliminar este registro?</p>
-    <button (click)="deleteItem()">Confirmar</button>
-    <button (click)="cancelDelete()">Cancelar</button>
+    <button class="edit-btn" (click)="deleteItem()">Confirmar</button>
+    <button class="delete-btn" (click)="cancelDelete()">Cancelar</button>
   </div>
 
   <!-- Formulario de edición -->
 
 
   <div *ngIf="editingItem" class="edit-form">
-    <h2>Editar Ítem</h2>
+    <h2>Editar Ítem</h2><button type="button" class="deleteX-btn" (click)="cancelEdit()">X</button>
     <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+
+
+
       <!-- Foto -->
-      <div>
+      <div class="file-container">
+        <img src="../assets/imagenes/png/iconos/subir.png" width="50px" height="50px">
         <label for="foto">Foto:</label>
         <input type="file" id="foto" (change)="onFileSelected($event)" />
         <button type="button" *ngIf="selectedFile" (click)="removeFile()">Quitar foto</button>
       </div>
-      
+
 
       <label for="photo_id">photo_id:</label>
       <input type="text" id="photo_id" formControlName="photo_id" readonly />
@@ -85,7 +93,7 @@
       <div *ngIf="editForm.get('role')?.value === 'ESTUDIANTE'">
         <label for="codigoUnico">Código Único:</label>
         <input type="text" id="codigoUnico" formControlName="codigoUnico" maxlength="9" />
-        
+
         <label for="unidadAcademica">Unidad Académica:</label>
         <input type="text" id="unidadAcademica" formControlName="unidadAcademica" />
 
@@ -100,8 +108,8 @@
       </div>
 
 
-      <button type="submit" [disabled]="!editForm.valid">Guardar</button>
-      <button type="button" (click)="cancelEdit()">Cancelar</button>
+      <button type="submit" class="edit-btn"  [disabled]="!editForm.valid">Guardar</button>
+      <button type="button" class="delete-btn" (click)="cancelEdit()">Cancelar</button>
     </form>
   </div>
 

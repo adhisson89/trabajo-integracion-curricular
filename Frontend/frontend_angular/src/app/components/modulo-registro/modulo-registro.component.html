@@ -2,8 +2,11 @@
     <h2>Formulario de Registro</h2>
     <form [formGroup]="registroForm" (ngSubmit)="onSubmit()">
         <!-- Foto -->
-        <label for="foto">Foto:</label>
-        <input type="file" id="foto" (change)="onImageSelected($event)" accept="image/*">
+        <label for="foto">Foto:</label> 
+        <div class="file-container">
+            <img src="../assets/imagenes/png/iconos/subir.png" width="50px" height="50px">
+            <input type="file" id="foto" (change)="onImageSelected($event)" accept="image/*" style="position: relative;">
+        </div>
         <div *ngIf="hasError('foto', 'required')" class="error">
             La foto es obligatoria.
         </div>
@@ -61,7 +64,8 @@
         </div>
 
         <label for="codigoUnico">Código Único:</label>
-        <input type="text" id="codigoUnico" formControlName="codigoUnico" maxlength="9" inputmode="numeric" pattern="\d*" (keypress)="validateNumberInput($event)">
+        <input type="text" id="codigoUnico" formControlName="codigoUnico" maxlength="9" inputmode="numeric"
+            pattern="\d*" (keypress)="validateNumberInput($event)">
         <div *ngIf="hasError('codigoUnico', 'required')" class="error">
             El número único es obligatorio.
         </div>
@@ -81,6 +85,6 @@
             La unidad académica es obligatoria.
         </div>
 
-        <button type="submit">Guardar</button>
+        <button type="submit">Registrar</button>
     </form>
 </div>

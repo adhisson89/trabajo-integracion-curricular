@@ -5,38 +5,36 @@
     align-items: center;
     height: 100vh;
     width: 100vw;
-    padding: 10px; /* Espaciado interno para evitar problemas en pantallas pequeñas */
-    box-sizing: border-box;
 }
 
 /* Contenedor principal */
 .container {
-    height: auto; /* Permite que el contenido crezca dinámicamente */
-    margin-top: 20px;
+    height: 270px;
+    margin-top: 45px;
     max-width: 900px;
-    width: 100%; /* Asegura que se ajuste al ancho del dispositivo */
     background: #ffffff;
     border-radius: 10px;
     box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.415);
     display: flex;
     padding: 20px;
     gap: 20px;
-    flex-wrap: wrap; /* Ajusta los elementos al ancho disponible */
+    overflow: hidden;
     align-items: center;
-    box-sizing: border-box;
+    flex-wrap: wrap;
 }
 
 /* Contenido principal */
 .content {
     flex: 1;
     padding: 10px;
+    text-align: center;
 }
 
 .content h1 {
     font-family: "teko";
     text-transform: uppercase;
     letter-spacing: 3px;
-    font-size: 28px;
+    font-size: 40px;
     color: #0000aa;
     margin: 5px 0;
 }
@@ -44,80 +42,90 @@
 .content h2 {
     margin-top: 5px;
     font-family: "mon";
-    font-size: 14px;
+    font-size: 15px;
     color: #949191;
-    text-align: center;
 }
 
 .content p {
-    margin-top: 15px;
+    margin: 20px;
     font-family: "asa";
-    font-size: 14px;
+    font-size: 18px;
     color: #666;
     line-height: 1.6;
     text-align: justify;
 }
 
-.content button {
+/* Botón Admin */
+button.btn_Admin {
+    font-family: "gro";
+    letter-spacing: 2px;
+    background-color: #ffffff;
+    color: #0000aa;
+    font-size: 0.9em;
+    border-radius: 50px;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    left: 90%;
+    margin: 10px;
+    opacity: 0.8;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+button.btn_Admin:hover {
+    background-color: #b9b9b9;
+    color: #ffffff;
+    transform: scale(1.1);
+    box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.8);
+}
+
+/* Botón Empezar */
+button.btn_Empezar {
     font-family: "gro";
     letter-spacing: 3px;
     background-color: #0000aa;
+    color: #ffffff;
     border: none;
-    padding: 10px 20px;
-    font-size: 1em;
-    color: white;
+    padding: 12px 25px;
+    font-size: 1.1em;
     border-radius: 5px;
     cursor: pointer;
-    margin-top: 10px;
-    transition: background-color 0.3s ease;
+    margin-left: auto;
+    transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
-.content button:hover {
-    font-size: 18px;
-    background-color: #e20000;
-    color: #ffffff;
-    box-shadow: 0px 0px 25px #fa0001;
+button.btn_Empezar:hover {
+    background-color: #ff4040;
+    transform: scale(1.05);
+    box-shadow: 0px 0px 20px rgba(230, 0, 0, 0.8);
 }
 
 /* Ilustraciones */
 .illustration {
     display: flex;
-    justify-content: center;
     align-items: center;
-    width: 100%; /* Ancho completo para adaptarse en pantallas pequeñas */
-    margin-top: 20px;
+    justify-content: center;
 }
 
 .illustration img {
-    width: 150px;
-    height: 150px;
+    width: 200px;
+    height: 200px;
+    margin-right: 20px;
     border-radius: 10px;
     object-fit: cover;
-    box-shadow: 0px 0px 25px #fa0001;
-}
-
-.illustration img:hover {
-    width: 180px;
-    height: 180px;
     box-shadow: 0px 0px 25px #0000aa;
 }
 
-/* Botones */
-button.btn_Admin {
-    opacity: 1;
-    position: relative; /* Cambiado para evitar problemas en pantallas pequeñas */
-    margin: 10px;
-}
-
-button.btn_Empezar {
-    align-self: center;
+.illustration img:hover {
+    box-shadow: 0px 0px 25px #fa0001;
 }
 
 /* Responsividad */
 @media (max-width: 768px) {
     .container {
-        flex-direction: column; /* Apila contenido en dispositivos pequeños */
-        text-align: center; /* Centra el contenido */
+        flex-direction: column;
+        text-align: center;
+        height: auto;
     }
 
     .content h1 {
@@ -133,13 +141,12 @@ button.btn_Empezar {
     }
 
     .illustration img {
-        width: 120px;
-        height: 120px;
+        width: 150px;
+        height: 150px;
     }
 
-    .content button {
-        font-size: 14px;
-        padding: 8px 16px;
+    .btn_Empezar {
+        margin-left: 0;
     }
 }
 
@@ -160,5 +167,57 @@ button.btn_Empezar {
     .content button {
         font-size: 12px;
         padding: 6px 12px;
+    }
+}
+
+/* Estilo específico para resolución 1920x1080 */
+@media screen and (min-width: 1920px) {
+    .container {
+        height: 300px;
+        max-width: 1200px;
+        gap: 30px;
+    }
+
+    .content h1 {
+        font-size: 50px;
+    }
+
+    .content h2 {
+        font-size: 18px;
+    }
+
+    .content p {
+        font-size: 16px;
+    }
+
+    .illustration img {
+        width: 250px;
+        height: 250px;
+    }
+}
+
+/* Estilo específico para resolución 1360x768 */
+@media screen and (min-width: 1360px) and (max-width: 1920px) {
+    .container {
+        height: 250px;
+        max-width: 800px;
+        gap: 15px;
+    }
+
+    .content h1 {
+        font-size: 35px;
+    }
+
+    .content h2 {
+        font-size: 14px;
+    }
+
+    .content p {
+        font-size: 14px;
+    }
+
+    .illustration img {
+        width: 180px;
+        height: 180px;
     }
 }
