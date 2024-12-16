@@ -11,12 +11,12 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #f0f0f0;
+   
 }
 
 .container {
     width: 90%; /* Ajustable para dispositivos pequeños */
-    max-width: 600px; /* Máximo ancho para tablets y laptops */
+    max-width: 1000px; /* Máximo ancho para tablets y laptops */
     border-radius: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     overflow: hidden;
@@ -25,7 +25,7 @@ body {
 }
 
 .header {
-    background: linear-gradient(to right, #005bbb, #4a90e2);
+    background: linear-gradient(to right, #0000aa, #4a90e2);
     padding: 10px;
     color: white;
     display: flex;
@@ -48,10 +48,6 @@ body {
     text-align: center;
 }
 
-.header h3 {
-    font-size: 0.9rem;
-    margin-left: auto;
-}
 
 .content {
     position: relative;
@@ -63,7 +59,7 @@ body {
     height: auto;
     border-radius: 10px;
     border: 2px solid #ddd;
-    max-height: 300px; /* Limitar altura en pantallas pequeñas */
+  
 }
 
 .status-icon {
@@ -76,19 +72,23 @@ body {
 }
 
 button {
-    background-color: #005bbb;
-    color: white;
+    font-family: "gro";
+    letter-spacing: 2px;
+    background-color: #0000aa;
+    color: #ffffff;
     border: none;
-    padding: 10px 20px;
+    font-size: 15px;
     border-radius: 5px;
-    font-size: 1rem;
     cursor: pointer;
-    margin-top: 20px;
-    transition: background-color 0.3s;
+    margin: 5px;
+    padding: 5px;
+    transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 button:hover {
-    background-color: #4a90e2;
+    background-color: #ff4040;
+    transform: scale(1.05);
+    box-shadow: 0px 0px 20px rgba(230, 0, 0, 0.8);
 }
 
 /* Estilos responsivos */

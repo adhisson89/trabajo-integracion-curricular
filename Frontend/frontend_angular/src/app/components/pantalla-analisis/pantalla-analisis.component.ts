@@ -35,7 +35,7 @@ export class PantallaAnalisisComponent implements OnInit {
 
   setupCamara() {
     navigator.mediaDevices.getUserMedia({
-      video: { width: 300, height: 250 }, // Establecer dimensiones específicas
+      video: { width: 600, height: 300 }, // Establecer dimensiones específicas
       audio: false
     }).then(stream => {
       if (this.videoRef) {
@@ -43,8 +43,8 @@ export class PantallaAnalisisComponent implements OnInit {
 
         // Asegúrate de que el video tenga dimensiones
         this.videoRef.addEventListener('loadedmetadata', () => {
-          this.videoRef.width = this.videoRef.videoWidth || 300;
-          this.videoRef.height = this.videoRef.videoHeight || 250;
+          this.videoRef.width = this.videoRef.videoWidth || 600;
+          this.videoRef.height = this.videoRef.videoHeight || 300;
           this.videoRef.play();
           this.detectFaces(); // Llama a detectFaces una vez que las dimensiones están listas
         });

@@ -26,18 +26,16 @@ body {
     border-radius: 8px;
 }
 
-h1, h2 {
+h1,
+h2 {
     letter-spacing: 2px;
     font-family: "gro";
     font-size: 25px;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
     color: #333;
 }
 
-h2 {
-    font-size: 20px;
-}
 
 .filter {
     display: flex;
@@ -100,9 +98,10 @@ p {
     text-transform: uppercase;
 }
 
-.edit-btn, .delete-btn {
-    padding: 5px 10px;
-    margin-right: 10px;
+.edit-btn,
+.delete-btn {
+   padding: 5px;
+   margin: 5px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -110,20 +109,48 @@ p {
 }
 
 .edit-btn {
+    
     background-color: #4CAF50;
     color: #fff;
 }
 
 .delete-btn {
+    
     background-color: #bd271c;
     color: #fff;
 }
-.deleteX-btn {
-    width: 10px;
-    height: 10px;
+
+.pop-up{
+    margin-right: 100px;
     text-align: center;
-    margin: 20px;
-    background-color: #bd271c;
+    font-size: 18px;
+    color: #333333;
+    font-family: "qua";
+    letter-spacing: 1px;
+    position: relative;
+    left: 10px;
+    top: -30px;
+    
+}
+.pop-up2{
+    margin-right: 100px;
+    text-align: left;
+    font-size: 15px;
+    color: #333333;
+    font-family: "qua";
+    /* font-family: "tit"; */
+    letter-spacing: 1px;
+    position: relative;
+    left: 10px;
+    top: -35px;
+}
+
+.deletex-btn {
+   width: 25px;
+   height: 25px;
+    position: relative;
+    left: 410px;
+    background-color: #91221a;
     color: #fff;
 }
 
@@ -137,7 +164,7 @@ p {
 
 .edit-form {
     width: 500px;
-    padding: 30px;
+    padding: 20px;
     background-color: #ffffff;
     border-radius: 8px;
     box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.258);
@@ -148,10 +175,12 @@ p {
 }
 
 .file-container {
+    position: relative;
+    top: -5px;
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 10px;
+   
 }
 
 .file-container img {
@@ -162,7 +191,7 @@ p {
 form {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 1px;
     overflow-y: auto;
 }
 
@@ -175,24 +204,26 @@ form {
 .radio-group label {
     flex: 1;
     text-align: left;
-    font-size: 13px;
+    font-size: 10px;
     cursor: pointer;
 }
 
 .radio-group input {
-    margin-right: 5px;
+    margin-right: 1px;
 }
 
 form label {
-    font-size: 13px;
-    margin-bottom: 5px;
+    font-size: 11px;
+    margin-bottom: 1px;
     color: #333333;
     font-weight: bold;
 }
 
-form input[type="text"], form input[type="file"] {
+form input[type="text"],
+form input[type="file"] {
     width: 100%;
-    padding: 8px;
+    margin: 5px;
+    padding: 5px;
     border: 1px solid #cccccc;
     border-radius: 4px;
     font-size: 13px;
@@ -206,7 +237,7 @@ form input[readonly] {
 }
 
 button {
-    padding: 10px;
+    padding: 5px;
     background-color: #007bff;
     color: #ffffff;
     border: none;
@@ -217,15 +248,15 @@ button {
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #a91a1a;
 }
 
 button[type="button"] {
-    background-color: #ce2121;
+    background-color: #a91a1a;
 }
 
 button[type="button"]:hover {
-    background-color: #d1551b;
+    background-color: #d11b1b;
 }
 
 .error {
@@ -253,6 +284,7 @@ button[type="button"]:hover {
         transform: scale(0.8);
         opacity: 0;
     }
+
     to {
         transform: scale(1);
         opacity: 1;
@@ -261,15 +293,24 @@ button[type="button"]:hover {
 
 .edit-form,
 .confirmation-modal {
-    position: fixed; /* Fija el elemento para que se mantenga en la misma posición en la pantalla */
-    top: 50%; /* Centra verticalmente */
-    left: 50%; /* Centra horizontalmente */
-    transform: translate(-50%, -50%); /* Ajusta el posicionamiento para centrar completamente */
-    z-index: 1000; /* Asegura que se sobreponga sobre otros elementos */
-    background-color: #ffffff; /* Color de fondo para garantizar visibilidad */
-    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.5); /* Mejora la visibilidad con sombra */
-    border-radius: 8px; /* Estética */
-    animation: pop-up 0.5s ease-out; /* Aplica la animación */
+    position: fixed;
+    /* Fija el elemento para que se mantenga en la misma posición en la pantalla */
+    top: 50%;
+    /* Centra verticalmente */
+    left: 50%;
+    /* Centra horizontalmente */
+    transform: translate(-50%, -50%);
+    /* Ajusta el posicionamiento para centrar completamente */
+    z-index: 1000;
+    /* Asegura que se sobreponga sobre otros elementos */
+    background-color: #ffffff;
+    /* Color de fondo para garantizar visibilidad */
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.5);
+    /* Mejora la visibilidad con sombra */
+    border-radius: 8px;
+    /* Estética */
+    animation: pop-up 0.5s ease-out;
+    /* Aplica la animación */
 }
 
 /* Media Queries */
@@ -301,7 +342,9 @@ button[type="button"]:hover {
         width: 300px;
     }
 
-    .edit-btn, .delete-btn {
+    .edit-btn,
+    .delete-btn {
+        
         padding: 8px 15px;
     }
 }

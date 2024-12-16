@@ -33,8 +33,8 @@
 
   <!-- Mensaje de confirmación -->
   <div *ngIf="showDeleteConfirmation" class="confirmation-modal">
-    <button class="deleteX-btn" (click)="cancelDelete()">X</button>
-    <p>¿Está seguro de que desea eliminar este registro?</p>
+    <button class="deletex-btn" (click)="cancelDelete()">X</button>
+    <h2  class="pop-up2">¿Está seguro de que desea eliminar este registro?</h2>
     <button class="edit-btn" (click)="deleteItem()">Confirmar</button>
     <button class="delete-btn" (click)="cancelDelete()">Cancelar</button>
   </div>
@@ -42,12 +42,9 @@
   <!-- Formulario de edición -->
 
 
-  <div *ngIf="editingItem" class="edit-form">
-    <h2>Editar Ítem</h2><button type="button" class="deleteX-btn" (click)="cancelEdit()">X</button>
+  <div *ngIf="editingItem" class="edit-form"><button type="button" class="deletex-btn" (click)="cancelEdit()">X</button>
+    <h2 class="pop-up" >Editar Ítem</h2>
     <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
-
-
-
       <!-- Foto -->
       <div class="file-container">
         <img src="../assets/imagenes/png/iconos/subir.png" width="50px" height="50px">
@@ -107,9 +104,12 @@
         <input type="text" id="direccionAdministrativa" formControlName="direccionAdministrativa" />
       </div>
 
-
-      <button type="submit" class="edit-btn"  [disabled]="!editForm.valid">Guardar</button>
-      <button type="button" class="delete-btn" (click)="cancelEdit()">Cancelar</button>
+           
+        <button type="submit" class="edit-btn" [disabled]="!editForm.valid"><img src="../assets/imagenes/png/iconos/guardar.png"
+          width="20px" height="20px" style="  filter: invert(100); margin-right: 10px;">Guardar</button>
+ 
+      <button type="button" class="delete-btn" (click)="cancelEdit()"><img src="../assets/imagenes/png/iconos/xrojo.png"
+        width="30px" height="20px" style=" filter: contrast(50); margin-right: 10px;">Cancelar</button>
     </form>
   </div>
 
