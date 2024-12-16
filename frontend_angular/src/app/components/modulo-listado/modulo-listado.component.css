@@ -1,0 +1,357 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "asa";
+}
+
+body {
+    background-color: #f4f4f9;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 10px;
+    margin: 0;
+}
+
+.container {
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.258);
+    border-radius: 8px;
+}
+
+h1,
+h2 {
+    letter-spacing: 2px;
+    font-family: "gro";
+    font-size: 25px;
+    text-align: center;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+
+.filter {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.filter label {
+    font-weight: bold;
+}
+
+.filter input {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.filter button {
+    font-size: 15px;
+    text-align: justify;
+    padding: 5px 10px;
+    margin: 5px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007BFF;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.filter button:hover {
+    background-color: #0056b3;
+}
+
+ul {
+    list-style: none;
+}
+
+li {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+li:last-child {
+    border-bottom: none;
+}
+
+.item-text {
+    font-family: "tit";
+    margin-bottom: 10px;
+}
+
+p {
+    margin-right: 50px;
+    text-transform: uppercase;
+}
+
+.edit-btn,
+.delete-btn {
+   padding: 5px;
+   margin: 5px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.edit-btn {
+    
+    background-color: #4CAF50;
+    color: #fff;
+}
+
+.delete-btn {
+    
+    background-color: #bd271c;
+    color: #fff;
+}
+
+.pop-up{
+    margin-right: 100px;
+    text-align: center;
+    font-size: 18px;
+    color: #333333;
+    font-family: "qua";
+    letter-spacing: 1px;
+    position: relative;
+    left: 10px;
+    top: -30px;
+    
+}
+.pop-up2{
+    margin-right: 100px;
+    text-align: left;
+    font-size: 15px;
+    color: #333333;
+    font-family: "qua";
+    /* font-family: "tit"; */
+    letter-spacing: 1px;
+    position: relative;
+    left: 10px;
+    top: -35px;
+}
+
+.deletex-btn {
+   width: 25px;
+   height: 25px;
+    position: relative;
+    left: 410px;
+    background-color: #91221a;
+    color: #fff;
+}
+
+.edit-btn:hover {
+    background-color: #45a049;
+}
+
+.delete-btn:hover {
+    background-color: #d12518;
+}
+
+.edit-form {
+    width: 500px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.258);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    animation: pop-up 0.5s ease-out;
+}
+
+.file-container {
+    position: relative;
+    top: -5px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+   
+}
+
+.file-container img {
+    display: block;
+    border-radius: 4px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    overflow-y: auto;
+}
+
+.radio-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.radio-group label {
+    flex: 1;
+    text-align: left;
+    font-size: 10px;
+    cursor: pointer;
+}
+
+.radio-group input {
+    margin-right: 1px;
+}
+
+form label {
+    font-size: 11px;
+    margin-bottom: 1px;
+    color: #333333;
+    font-weight: bold;
+}
+
+form input[type="text"],
+form input[type="file"] {
+    width: 100%;
+    margin: 5px;
+    padding: 5px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    font-size: 13px;
+    text-transform: uppercase;
+}
+
+form input[readonly] {
+    background-color: #e9ecef;
+    color: #6c757d;
+    cursor: not-allowed;
+}
+
+button {
+    padding: 5px;
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #a91a1a;
+}
+
+button[type="button"] {
+    background-color: #a91a1a;
+}
+
+button[type="button"]:hover {
+    background-color: #d11b1b;
+}
+
+.error {
+    color: red;
+    font-size: 12px;
+    margin-top: -10px;
+    margin-bottom: 10px;
+}
+
+.confirmation-modal {
+    width: 500px;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.258);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    animation: pop-up 0.5s ease-out;
+}
+
+/* Animación pop-up */
+@keyframes pop-up {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.edit-form,
+.confirmation-modal {
+    position: fixed;
+    /* Fija el elemento para que se mantenga en la misma posición en la pantalla */
+    top: 50%;
+    /* Centra verticalmente */
+    left: 50%;
+    /* Centra horizontalmente */
+    transform: translate(-50%, -50%);
+    /* Ajusta el posicionamiento para centrar completamente */
+    z-index: 1000;
+    /* Asegura que se sobreponga sobre otros elementos */
+    background-color: #ffffff;
+    /* Color de fondo para garantizar visibilidad */
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.5);
+    /* Mejora la visibilidad con sombra */
+    border-radius: 8px;
+    /* Estética */
+    animation: pop-up 0.5s ease-out;
+    /* Aplica la animación */
+}
+
+/* Media Queries */
+@media (min-width: 768px) {
+    .filter {
+        flex-direction: row;
+        align-items: center;
+        gap: 15px;
+    }
+
+    li {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .item-text {
+        flex-grow: 1;
+        margin-bottom: 0;
+    }
+}
+
+@media (min-width: 1024px) {
+    .container {
+        max-width: 800px;
+    }
+
+    .filter input {
+        width: 300px;
+    }
+
+    .edit-btn,
+    .delete-btn {
+        
+        padding: 8px 15px;
+    }
+}
+
+@media (max-width: 600px) {
+    .edit-form {
+        width: 100%;
+        padding: 20px;
+    }
+}

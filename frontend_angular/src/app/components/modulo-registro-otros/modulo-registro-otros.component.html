@@ -1,0 +1,74 @@
+<div class="container">
+    <h2>Formulario de Registro</h2>
+    <form [formGroup]="registroForm" (ngSubmit)="onSubmit()">
+       <!-- Foto -->
+       <label for="foto">Foto:</label> 
+       <div class="file-container">
+           <img src="../assets/imagenes/png/iconos/subir.png" width="50px" height="50px">
+           <input type="file" id="foto" (change)="onImageSelected($event)" accept="image/*" style="position: relative;">
+       </div>
+       <div *ngIf="hasError('foto', 'required')" class="error">
+           La foto es obligatoria.
+       </div>
+
+        <!-- Modo -->
+        <label>Modo:</label>
+        <div class="radio-group">
+            <label>
+                <input type="radio" formControlName="modo" value="estudiante"
+                    (click)="redirectTo('moduloRegistro', 'estudiante')" checked> Estudiante
+            </label>
+            <label>
+                <input type="radio" formControlName="modo" value="profesor"
+                    (click)="redirectTo('moduloRegistroOtros', 'profesor')"> Profesor
+            </label>
+            <label>
+                <input type="radio" formControlName="modo" value="administrativo"
+                    (click)="redirectTo('moduloRegistroOtros', 'administrativo')"> Administrativo
+            </label>
+            <label>
+                <input type="radio" formControlName="modo" value="colaborador"
+                    (click)="redirectTo('moduloRegistroOtros', 'colaborador')"> Colaborador
+            </label>
+        </div>
+        <div *ngIf="hasError('modo', 'required')" class="error">
+            Debe seleccionar un modo.
+        </div>
+
+        <!-- Resto del formulario igual -->
+        <label for="identificacion">Cédula o Pasaporte:</label>
+        <input type="text" id="identificacion" formControlName="identificacion">
+        <div *ngIf="hasError('identificacion', 'required')" class="error">
+            La cédula o pasaporte es obligatorio.
+        </div>
+        <div *ngIf="hasError('identificacion', 'pattern')" class="error">
+            La cédula debe tener exactamente 10 dígitos numéricos.
+        </div>
+
+        <label for="nombres">Nombres:</label>
+        <input type="text" id="nombres" formControlName="nombres" (keypress)="preventNumberInput($event)">
+        <div *ngIf="hasError('nombres', 'required')" class="error">
+            Los nombres son obligatorios.
+        </div>
+        <div *ngIf="hasError('nombres', 'pattern')" class="error">
+            Ingrese dos nombres correctamente separados por un espacio.
+        </div>
+
+        <label for="apellidos">Apellidos:</label>
+        <input type="text" id="apellidos" formControlName="apellidos" (keypress)="preventNumberInput($event)">
+        <div *ngIf="hasError('apellidos', 'required')" class="error">
+            Los apellidos son obligatorios.
+        </div>
+        <div *ngIf="hasError('apellidos', 'pattern')" class="error">
+            Ingrese dos apellidos correctamente separados por un espacio.
+        </div>
+
+        <label for="direccionAdministrativa">Dirección Administrativa:</label>
+        <input type="text" id="direccionAdministrativa" formControlName="direccionAdministrativa">
+        <div *ngIf="hasError('direccionAdministrativa', 'required')" class="error">
+            La unidad académica es obligatoria.
+        </div>
+
+        <button type="submit">Registrar</button>
+    </form>
+</div>

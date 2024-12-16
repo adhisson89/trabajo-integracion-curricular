@@ -1,0 +1,90 @@
+/* Contenedor envolvente para centrar */
+.container-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 390px;
+    width: 370px;
+    margin-top: 80px;
+    padding-bottom: 50px;
+    /* background: #fffefe;
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.208); */
+    border-radius: 10px;
+}
+
+/* Contenedor principal */
+.container {
+    height: 350px;
+    margin-top: 45px;
+    max-width: 280px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.258);
+    display: flex;
+    padding: 20px;
+    gap: 20px;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.formulario div {
+    margin-bottom: 10px;
+    /* Ajusta la separación entre los campos */
+}
+
+input {
+    width: 100%;
+    /* Asegura que los campos ocupen el ancho del formulario */
+    padding: 8px;
+    /* Mejora la estética con relleno interno */
+    margin-top: 5px;
+    /* Añade espacio entre el label y el campo */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+
+.login-container {
+    font-family: "gro";
+    font-size: 110px;
+    width: 800px;
+    max-width: 300px;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+.formulario {
+    font-family: "teko";
+    font-size: 20px;
+    text-align: justify;
+    letter-spacing: 1px;
+
+}
+
+button {
+    font-size: 20px;
+    font-family: "teko";
+    margin-top: 10px;
+    width: 100%;
+    padding: 10px;
+    background-color: #0000aa;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+
+button:disabled {
+    background-color: #ddd;
+    cursor: not-allowed;
+}
+small{
+    color: red;
+}
