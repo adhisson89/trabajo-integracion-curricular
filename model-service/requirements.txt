@@ -16,3 +16,4 @@ gunicorn>=20.1.0
 pymongo>=4.1.0
 scipy>=1.7.0
 deepface>=0.0.79
+py-eureka-client

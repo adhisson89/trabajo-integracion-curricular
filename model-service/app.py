@@ -1,19 +1,34 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, Blueprint
 from model import get_embedding, compare_embedding
 import tempfile
 import os
+import py_eureka_client.eureka_client as eureka_client
+import random
+
+# Generate a random ID
+PORT = random.randint(6000, 7000)
+
+try:
+    # Register the service in Eureka
+    eureka_client.init(eureka_server="http://172.25.0.3:8761/eureka/",
+                    app_name="model-service",
+                    instance_port=PORT)
+except Exception as e:
+    print(f"Error registering in Eureka: {e}")
 
 app = Flask(__name__)
 
-@app.route("/", methods=["GET"])
+api_bp = Blueprint('api', __name__, url_prefix='/api/face-recognition')
+
+@api_bp.route("/", methods=["GET"])
 def root():
     return jsonify({"message": "Server is running!"})
 
-@app.route("/health", methods=["GET"])
+@api_bp.route("/health", methods=["GET"])
 def health():
     return jsonify({"status": "UP"})
 
-@app.route("/compareFace", methods=["POST"])
+@api_bp.route("/compareFace", methods=["POST"])
 def compare_face():
     try:
         # Verificar si la imagen existe
@@ -39,6 +54,8 @@ def compare_face():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+app.register_blueprint(api_bp)
+
 if __name__ == "__main__":
-    app.run(debug=False, host="0.0.0.0", port=5000)
+    app.run(debug=False, host="0.0.0.0", port=PORT)
 
