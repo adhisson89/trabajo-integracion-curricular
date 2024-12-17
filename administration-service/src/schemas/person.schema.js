@@ -30,9 +30,10 @@ const createPersonSchema = z.object({
         .min(3, "El apellido debe tener al menos 3 caracteres")
         .max(64, "El apellido es demasiado largo"),
     
-    role: z.enum(["ESTUDIANTE", "PROFESOR", "ADMINISTRATIVO", "COLABORADOR"], {
-        required_error: "El rol es requerido"
-    }),
+    role: z
+        .enum(["ESTUDIANTE", "PROFESOR", "ADMINISTRATIVO", "COLABORADOR"])
+        .optional()
+        .nullable(),
 
     photo_id: objectIdValidator.optional().nullable(),
      
