@@ -1,0 +1,16 @@
+<div class="container">
+    <h2>Formulario Foto</h2>
+    <form [formGroup]="registroForm" (ngSubmit)="onSubmit()">
+        <!-- Foto -->
+        <label for="foto">Foto:</label> 
+        <div class="file-container">
+            <img src="../assets/imagenes/png/iconos/subir.png" width="50px" height="50px">
+            <input type="file" id="foto" (change)="onImageSelected($event)" accept="image/*" style="position: relative;">
+        </div>
+        <div *ngIf="hasError('foto', 'required')" class="error">
+            La foto es obligatoria.
+        </div>
+
+        <button type="submit">Subir Foto</button>
+    </form>
+</div>

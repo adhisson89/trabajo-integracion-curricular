@@ -1,25 +1,27 @@
-
 /* Reseteo global */
 * {
     margin: 0;
     padding: 0;
-    
+    box-sizing: border-box;
 }
 
-html {
-
-    background-color: rgb(171, 171, 175); 
+html,
+body {
+    height: 100%;
+    width: 100%;
 }
 
 body {
-    background-image: url('/assets/imagenes/normal/fondos/policia/f.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
+    background-image: url('/assets/imagenes/normal/fondos/policia/f2.jpeg');
+    background-size: cover; /* Ajusta la imagen para que cubra toda la pantalla */
+    background-position: center; /* Centra la imagen */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    margin: 0; /* Elimina el margen por defecto del body */
+    height: 100vh; /* Asegura que el body ocupe toda la altura de la pantalla */
     font-family: 'ground';
     display: flex;
     justify-content: center;
     align-items: center;
-   
 }
 
 /* Estilos principales del encabezado */
@@ -35,30 +37,20 @@ body {
 .header h1 {
     letter-spacing: 3px;
     font-family: "teko";
-    margin: 0 6px 15px 8px;
-    padding: 0 0 20px 0;
+    margin:15px ;
+    padding: 15px;
     font-size: 30px;
     color: #0a369d;
     display: flex;
     align-items: center;
 }
 
-.header h2 {
-    font-family: "teko";
-    letter-spacing: 5px;
-    font-size: 90px;
-    color: #0a369d;
-    margin-left: 50px;
-    position: absolute; /* Para posicionarlo en la esquina derecha */
-    top: 0;
-    left: 1050px; /* Ajusta la distancia al borde derecho */
-}
 
 /* Logo */
-.header .logo {
+.header .logo2 {
     margin-right: 10px;
-    height: 140px;
-    width: 150px;
+    height: 50px;
+    width: 90px;
 }
 
 /* Responsividad */

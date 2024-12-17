@@ -1,4 +1,3 @@
-
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
@@ -9,34 +8,27 @@ import { HttpClientModule } from '@angular/common/http'; // Importar HttpClientM
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-modulo-registro-otros',
+  selector: 'app-subir-foto',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, HttpClientModule],
-  templateUrl: './modulo-registro-otros.component.html',
-  styleUrl: './modulo-registro-otros.component.css'
+  templateUrl: './subir-foto.component.html',
+  styleUrl: './subir-foto.component.css'
 })
-export class ModuloRegistroOtrosComponent implements OnInit {
 
+export class SubirFotoComponent implements OnInit {
   registroForm!: FormGroup;
-  selectedMode: string = '';
+
 
   constructor(private fb: FormBuilder, private http: HttpClient, private router: Router) { }
 
   ngOnInit(): void {
     this.registroForm = this.fb.group({
       foto: [null, Validators.required], // Foto es obligatoria
-      modus: ['', Validators.required],
-      identificacion: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
-      nombres: ['', [Validators.required, Validators.pattern(/^[a-zA-ZñÑ\s]+$/)]],
-      apellidos: ['', [Validators.required, Validators.pattern(/^[a-zA-ZñÑ\s]+$/)]],
-      direccionAdministrativa: ['', [Validators.required, Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/)]],
 
     });
   }
 
   redirectTo(route: string, mode: string) {
-    this.selectedMode = mode;
-    this.registroForm.get('modus')?.setValue(mode);
     this.router.navigate([route], { state: { selectedMode: mode } });
   }
 
@@ -53,43 +45,17 @@ export class ModuloRegistroOtrosComponent implements OnInit {
 
   uploadImage(file: File): Promise<any> {
     const formData = new FormData();
-    const token = localStorage.getItem('authToken');
-
-    if (!token) {
-      alert('Por favor, inicia sesión primero.');
-      this.router.navigate(['/inicio-sesion']);
-      return Promise.reject('Token no encontrado');
-    }
-
     formData.append('photo', file);
-    formData.append('token', token);
-
     return this.http
       .post('http://localhost:8080/api/administration/management/image', formData)
       .toPromise();
   }
 
   sendFormData(imageId: string): void {
-    const token = localStorage.getItem('authToken');
+    
     const formData = {
-      token: token,
-      identification: this.registroForm.get('identificacion')?.value,
-      name: this.registroForm.get('nombres')?.value.toUpperCase(),
-      surename: this.registroForm.get('apellidos')?.value.toUpperCase(),
-      role: this.registroForm.get('modus')?.value.toUpperCase(),
-
       photo_id: imageId,
-      other_data: [
-        {
-          key: 'DIRECCION ADMINISTRATIVA',
-          value: this.registroForm.get('direccionAdministrativa')?.value.toUpperCase(),
-        },
-        {
-          key: 'CORREO INSTITUCIONAL',
-          value: `${this.registroForm.get('nombres')?.value.split(' ')[0].toLowerCase()}.${this.registroForm.get('apellidos')?.value.split(' ')[0].toLowerCase()}@epn.edu.ec`,
-
-        },
-      ],
+     
     };
 
     this.http
@@ -118,7 +84,8 @@ export class ModuloRegistroOtrosComponent implements OnInit {
         text: 'Por favor complete todos los campos.',
         icon: 'warning',
         confirmButtonText: 'Aceptar',
-      }); return;
+      });
+      return;
     }
 
     const file = this.registroForm.get('foto')?.value;
@@ -153,17 +120,4 @@ export class ModuloRegistroOtrosComponent implements OnInit {
     return control?.hasError(errorType) && control?.touched ? true : false;
   }
 
-  validateNumberInput(event: KeyboardEvent): void {
-    const charCode = event.which ? event.which : event.keyCode;
-    if (charCode < 48 || charCode > 57) {
-      event.preventDefault();
-    }
-  }
-
-  preventNumberInput(event: KeyboardEvent): void {
-    const charCode = event.which ? event.which : event.keyCode;
-    if (charCode >= 48 && charCode <= 57) {
-      event.preventDefault();
-    }
-  }
 }

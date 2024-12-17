@@ -2,37 +2,35 @@
     <h2>Formulario de Registro</h2>
     <form [formGroup]="registroForm" (ngSubmit)="onSubmit()">
         <!-- Foto -->
-        <label for="foto">Foto:</label> 
+        <label for="foto">Foto:</label>
         <div class="file-container">
             <img src="../assets/imagenes/png/iconos/subir.png" width="50px" height="50px">
-            <input type="file" id="foto" (change)="onImageSelected($event)" accept="image/*" style="position: relative;">
+            <input type="file" id="foto" (change)="onImageSelected($event)" accept="image/*"
+                style="position: relative;">
         </div>
         <div *ngIf="hasError('foto', 'required')" class="error">
             La foto es obligatoria.
         </div>
 
-        <!-- Modo -->
-        <label>Modo:</label>
+        <!-- Modus Operandi -->
+        <label>Modus Operandi:</label>
         <div class="radio-group">
             <label>
-                <input type="radio" formControlName="modo" value="estudiante"
-                    (click)="redirectTo('moduloRegistro', 'estudiante')" checked> Estudiante
+                <input type="radio" formControlName="modus" value="individual"
+                    (click)="redirectTo('moduloRegistro', 'individual')" checked> Individual
             </label>
             <label>
-                <input type="radio" formControlName="modo" value="profesor"
-                    (click)="redirectTo('moduloRegistroOtros', 'profesor')"> Profesor
+                <input type="radio" formControlName="modus" value="enGrupo"
+                    (click)="redirectTo('moduloRegistroOtros', 'enGrupo')"> En Grupo
             </label>
             <label>
-                <input type="radio" formControlName="modo" value="administrativo"
-                    (click)="redirectTo('moduloRegistroOtros', 'administrativo')"> Administrativo
+                <input type="radio" formControlName="modus" value="transnacional"
+                    (click)="redirectTo('moduloRegistroOtros', 'transnacional')"> Transnacional
             </label>
-            <label>
-                <input type="radio" formControlName="modo" value="colaborador"
-                    (click)="redirectTo('moduloRegistroOtros', 'colaborador')"> Colaborador
-            </label>
+
         </div>
-        <div *ngIf="hasError('modo', 'required')" class="error">
-            Debe seleccionar un modo.
+        <div *ngIf="hasError('modus', 'required')" class="error">
+            Debe seleccionar un modus.
         </div>
 
         <!-- Resto del formulario igual -->
@@ -63,26 +61,21 @@
             Ingrese dos apellidos correctamente separados por un espacio.
         </div>
 
-        <label for="codigoUnico">Código Único:</label>
-        <input type="text" id="codigoUnico" formControlName="codigoUnico" maxlength="9" inputmode="numeric"
-            pattern="\d*" (keypress)="validateNumberInput($event)">
-        <div *ngIf="hasError('codigoUnico', 'required')" class="error">
-            El número único es obligatorio.
-        </div>
-        <div *ngIf="hasError('codigoUnico', 'pattern')" class="error">
-            El número único debe tener 9 dígitos.
+        <label for="alias">Alias:</label>
+        <input type="text" id="alias" formControlName="alias">
+        <div *ngIf="hasError('alias', 'required')" class="error">
+            La alias es obligatoria.
         </div>
 
-        <label for="unidadAcademica">Unidad Académica:</label>
-        <input type="text" id="unidadAcademica" formControlName="unidadAcademica">
-        <div *ngIf="hasError('unidadAcademica', 'required')" class="error">
-            La unidad académica es obligatoria.
+        <label for="tipoDelito">Tipo de Delito:</label>
+        <input type="text" id="tipoDelito" formControlName="tipoDelito">
+        <div *ngIf="hasError('tipoDelito', 'required')" class="error">
+            El tipo de delito es obligatorio.
         </div>
-
-        <label for="carrera">Carrera/Programa:</label>
-        <input type="text" id="carrera" formControlName="carrera">
-        <div *ngIf="hasError('carrera', 'required')" class="error">
-            La unidad académica es obligatoria.
+        <label for="sentencia">Sentencia:</label>
+        <input type="text" id="sentencia" formControlName="sentencia">
+        <div *ngIf="hasError('sentencia', 'required')" class="error">
+            La sentencia es obligatoria.
         </div>
 
         <button type="submit">Registrar</button>

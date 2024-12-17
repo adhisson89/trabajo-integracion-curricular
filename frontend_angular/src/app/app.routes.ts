@@ -6,7 +6,7 @@ import { ModuloListadoComponent} from './components/modulo-listado/modulo-listad
 import { ModuloRegistroComponent } from './components/modulo-registro/modulo-registro.component';
 import { ModuloRegistroOtrosComponent } from './components/modulo-registro-otros/modulo-registro-otros.component';
 import { PantallaAnalisisComponent } from './components/pantalla-analisis/pantalla-analisis.component';
-
+import { SubirFotoComponent } from './components/subir-foto/subir-foto.component';
 
 //base import {  } from './components/';
 //import { PrincipalComponent } from './components/principal/principal.component';
@@ -22,5 +22,5 @@ export const routes: Routes = [
   { path: 'moduloRegistro', component: ModuloRegistroComponent },
   { path: 'moduloRegistroOtros', component: ModuloRegistroOtrosComponent },
   { path: 'pantallaAnalisis', component: PantallaAnalisisComponent },
-
+  { path: 'subirFoto', component: SubirFotoComponent },
 ];

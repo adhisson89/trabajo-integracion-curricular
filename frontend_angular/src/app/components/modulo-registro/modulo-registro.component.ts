@@ -38,20 +38,19 @@ export class ModuloRegistroComponent implements OnInit {
   ngOnInit(): void {
     this.registroForm = this.fb.group({
       foto: [null, Validators.required], // Foto es obligatoria
-      modo: ['', Validators.required],
+      modus: ['', Validators.required],
       identificacion: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
       nombres: ['', [Validators.required, Validators.pattern(/^[a-zA-ZñÑ\s]+$/)]],
       apellidos: ['', [Validators.required, Validators.pattern(/^[a-zA-ZñÑ\s]+$/)]],
-      codigoUnico: ['', [Validators.required, Validators.pattern(/^\d{9}$/)]],
-      unidadAcademica: ['', Validators.required],
-      carrera: ['', [Validators.required, Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/)]], 
-
+      alias:  ['', [Validators.required, Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/)]], 
+      tipoDelito: ['', [Validators.required, Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/)]], 
+      sentencia: ['', [Validators.required, Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/)]], 
     });
   }
 
   redirectTo(route: string, mode: string) {
     this.selectedMode = mode;
-    this.registroForm.get('modo')?.setValue(mode);
+    this.registroForm.get('modus')?.setValue(mode);
     this.router.navigate([route], { state: { selectedMode: mode } });
   }
 
@@ -91,29 +90,24 @@ export class ModuloRegistroComponent implements OnInit {
       identification: this.registroForm.get('identificacion')?.value,
       name: this.registroForm.get('nombres')?.value.toUpperCase(),
       surename: this.registroForm.get('apellidos')?.value.toUpperCase(),
-      role: this.registroForm.get('modo')?.value.toUpperCase(),
+      role: this.registroForm.get('modus')?.value.toUpperCase(),
       photo_id: imageId,
       other_data: [
 
         
         {
-          key: 'UNIDAD ACADEMICA',
-          value: this.registroForm.get('unidadAcademica')?.value.toUpperCase(),
+          key: 'ALIAS',
+          value: this.registroForm.get('alias')?.value.toUpperCase(),
         },
         {
-          key: 'CARRERA/PROGRAMA',
-          value: this.registroForm.get('carrera')?.value.toUpperCase(),
+          key: 'TIPO DE DELITO',
+          value: this.registroForm.get('tipoDelito')?.value(),//VER 
         },
         {
-          key: 'CÓDIGO ÚNICO',
-          value: this.registroForm.get('codigoUnico')?.value,
+          key: 'SENTENCIA',
+          value: this.registroForm.get('sentencia')?.value.toUpperCase(),
         },
-        {
-          
-          key: 'CORREO INSTITUCIONAL',
-          value: `${this.registroForm.get('nombres')?.value.split(' ')[0].toLowerCase()}.${this.registroForm.get('apellidos')?.value.split(' ')[0].toLowerCase()}@epn.edu.ec`,
-
-        },
+       
       ],
     };
 

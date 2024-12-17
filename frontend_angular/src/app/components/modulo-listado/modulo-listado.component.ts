@@ -11,7 +11,7 @@ interface Item {
   name: string;
   surename: string;
   role: string;
-  modo: string;
+  modus: string;
   photo_id: string;
 }
 
@@ -44,9 +44,10 @@ export class ModuloListadoComponent implements OnInit {
       role: ['', Validators.required],
       name: ['', Validators.required],
       surename: ['', Validators.required],
-      codigoUnico: [''],
-      unidadAcademica: [''],
-      direccionAdministrativa: [''],
+      alias: [''],
+      tipoDelito: [''],
+      sentencia: [''],
+      direccionAdministrativa: [''],//ver
       photo_id: ['']
     });
   }
@@ -59,15 +60,16 @@ export class ModuloListadoComponent implements OnInit {
       surename: ['', Validators.required],
       role: ['', Validators.required],
       codigoUnico: [''],
-      unidadAcademica: [''],
-      carrera: [''],
-      direccionAdministrativa: [''],
+      alias: [''],
+      tipoDelito: [''],
+      sentencia: [''],
+      direccionAdministrativa: [''],//ver
       photo_id: [''],
     });
   
-    // Escuchar cambios en el campo "modo" para gestionar dinámicamente los campos
-    this.editForm.get('rol')?.valueChanges.subscribe((modo: string) => {
-      this.onRoleChange(modo);
+    // Escuchar cambios en el campo "modus" para gestionar dinámicamente los campos
+    this.editForm.get('rol')?.valueChanges.subscribe((modus: string) => {
+      this.onRoleChange(modus);
     });
   }
  
@@ -185,23 +187,21 @@ export class ModuloListadoComponent implements OnInit {
   startEdit(item: Item) {
     this.editingItem = item;
     // Extraer valores de `other_data`
-    const unidadAcademica = item.other_data?.find((data: { key: string; }) => data.key === 'UNIDAD ACADEMICA')?.value || '';
-    const codigoUnico = item.other_data?.find((data: { key: string; }) => data.key === 'CÓDIGO ÚNICO')?.value || '';
-    const correoInstitucional = item.other_data?.find((data: { key: string; }) => data.key === 'CORREO INSTITUCIONAL')?.value || '';
-    const carrera = item.other_data?.find((data: { key: string; }) => data.key === 'CARRERA/PROGRAMA')?.value || ''; // Extrae la carrera
-    const direccionAdministrativa = item.other_data?.find((data: { key: string; }) => data.key === 'DIRECCION ADMINISTRATIVA')?.value || ''; // Extrae la carrera
+    const alias = item.other_data?.find((data: { key: string; }) => data.key === 'ALIAS')?.value || '';
+    const sentencia = item.other_data?.find((data: { key: string; }) => data.key === 'SENTENCIA')?.value || '';
+    const tipoDelito = item.other_data?.find((data: { key: string; }) => data.key === 'TIPO DE DELITO')?.value || ''; // Extrae la tipoDelito
+    const direccionAdministrativa = item.other_data?.find((data: { key: string; }) => data.key === 'DIRECCION ADMINISTRATIVA')?.value || ''; // Extrae la tipoDelito ver
 
     // Configurar valores del formulario
     this.editForm.patchValue({
       identificacion: item.identification,
       name: item.name,
       surename: item.surename,
-      codigoUnico: codigoUnico,
-      unidadAcademica: unidadAcademica,
-      carrera: carrera, // Asigna la carrera al formulario
-
-      direccionAdministrativa: direccionAdministrativa, // Si aplicara en otro contexto
-      role: item.role, // Usar `role` como `modo`
+      sentencia:sentencia,
+      alias: alias,
+      tipoDelito: tipoDelito, // Asigna la tipoDelito al formulario
+      direccionAdministrativa: direccionAdministrativa, // Si aplicara en otro contexto ver
+      role: item.role, // Usar `role` como `modus`
       photo_id: item.photo_id
       
     });
@@ -234,25 +234,25 @@ export class ModuloListadoComponent implements OnInit {
     }
   }
   
-  onRoleChange(modo: string): void {
-    if (modo === 'ESTUDIANTE') {
-      // Limpiar campos no relacionados con estudiante
-      this.editForm.patchValue({ direccionAdministrativa: '' });
-      this.editForm.get('direccionAdministrativa')?.disable();
+  onRoleChange(modus: string): void {
+    if (modus === 'INDIVIDUAL') {
+      // Limpiar campos no relacionados con individual
+      this.editForm.patchValue({ direccionAdministrativa: '' });//ver
+      this.editForm.get('direccionAdministrativa')?.disable();//ver
   
-      // Habilitar campos relacionados con estudiante
-      this.editForm.get('codigoUnico')?.enable();
-      this.editForm.get('unidadAcademica')?.enable();
-      this.editForm.get('carrera')?.enable();
+      // Habilitar campos relacionados con individual
+      this.editForm.get('sentencia')?.enable();
+      this.editForm.get('alias')?.enable();
+      this.editForm.get('tipoDelito')?.enable();
     } else {
-      // Limpiar campos no relacionados con roles diferentes a estudiante
-      this.editForm.patchValue({ codigoUnico: '', unidadAcademica: '', carrera: '' });
-      this.editForm.get('codigoUnico')?.disable();
-      this.editForm.get('unidadAcademica')?.disable();
-      this.editForm.get('carrera')?.disable();
+      // Limpiar campos no relacionados con roles diferentes a individual
+      this.editForm.patchValue({ sentencia: '', alias: '', tipoDelito: '' });
+      this.editForm.get('sentencia')?.disable();
+      this.editForm.get('alias')?.disable();
+      this.editForm.get('tipoDelito')?.disable();
   
-      // Habilitar campos relacionados con roles diferentes a estudiante
-      this.editForm.get('direccionAdministrativa')?.enable();
+      // Habilitar campos relacionados con roles diferentes a individual
+      this.editForm.get('direccionAdministrativa')?.enable();//ver
     }
   }
 
@@ -264,12 +264,11 @@ export class ModuloListadoComponent implements OnInit {
         role: this.editForm.value.role,
         name: this.editForm.value.name,
         surename: this.editForm.value.surename,
-        direccionAdministrativa: this.editForm.value.direccionAdministrativa,
+        direccionAdministrativa: this.editForm.value.direccionAdministrativa,//ver
         other_data: [
-          { key: 'UNIDAD ACADEMICA', value: this.editForm.value.unidadAcademica || '' },
-          { key: 'CÓDIGO ÚNICO', value: this.editForm.value.codigoUnico || '' },
-          { key: 'CARRERA/PROGRAMA', value: this.editForm.value.carrera || '' },
-          { key: 'CORREO INSTITUCIONAL', value: `${this.editForm.value.name.toLowerCase()}.${this.editForm.value.surename.toLowerCase()}@epn.edu.ec` },
+          { key: 'ALIAS', value: this.editForm.value.alias || '' },
+          { key: 'TIPO DE DELITO', value: this.editForm.value.tipoDelito || '' },
+          { key: 'SENTENCIA', value: this.editForm.value.sentencia || '' },    
           { key: 'DIRECCION ADMINISTRATIVA', value: this.editForm.value.direccionAdministrativa || '' },
         ],
       };
@@ -306,16 +305,16 @@ export class ModuloListadoComponent implements OnInit {
         direccionAdministrativa: this.editForm.value.direccionAdministrativa, 
         other_data: [
           {
-            key: 'UNIDAD ACADEMICA',
-            value: this.editForm.value.unidadAcademica || '',
+            key: 'ALIAS',
+            value: this.editForm.value.alias || '',
           },
           {
             key: 'CÓDIGO ÚNICO',
             value: this.editForm.value.codigoUnico || '',
           },
           {
-            key: 'CARRERA/PROGRAMA',
-            value: this.editForm.value.carrera || '',
+            key: 'TIPO DE DELITO',
+            value: this.editForm.value.tipoDelito || '',
           },
           {
             key: 'CORREO INSTITUCIONAL',

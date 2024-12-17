@@ -11,28 +11,28 @@
            La foto es obligatoria.
        </div>
 
-        <!-- Modo -->
-        <label>Modo:</label>
+        <!-- Modus Operandi -->
+        <label>Modus Operandi:</label>
         <div class="radio-group">
             <label>
-                <input type="radio" formControlName="modo" value="estudiante"
-                    (click)="redirectTo('moduloRegistro', 'estudiante')" checked> Estudiante
+                <input type="radio" formControlName="modus" value="individual"
+                    (click)="redirectTo('moduloRegistro', 'individual')" checked> Individual
             </label>
             <label>
-                <input type="radio" formControlName="modo" value="profesor"
-                    (click)="redirectTo('moduloRegistroOtros', 'profesor')"> Profesor
+                <input type="radio" formControlName="modus" value="enGrupo"
+                    (click)="redirectTo('moduloRegistroOtros', 'enGrupo')"> En Grupo
             </label>
             <label>
-                <input type="radio" formControlName="modo" value="administrativo"
-                    (click)="redirectTo('moduloRegistroOtros', 'administrativo')"> Administrativo
+                <input type="radio" formControlName="modus" value="transnacional"
+                    (click)="redirectTo('moduloRegistroOtros', 'transnacional')"> Transnacional
             </label>
             <label>
-                <input type="radio" formControlName="modo" value="colaborador"
+                <input type="radio" formControlName="modus" value="colaborador"
                     (click)="redirectTo('moduloRegistroOtros', 'colaborador')"> Colaborador
             </label>
         </div>
-        <div *ngIf="hasError('modo', 'required')" class="error">
-            Debe seleccionar un modo.
+        <div *ngIf="hasError('modus', 'required')" class="error">
+            Debe seleccionar un modus.
         </div>
 
         <!-- Resto del formulario igual -->
@@ -66,7 +66,7 @@
         <label for="direccionAdministrativa">Dirección Administrativa:</label>
         <input type="text" id="direccionAdministrativa" formControlName="direccionAdministrativa">
         <div *ngIf="hasError('direccionAdministrativa', 'required')" class="error">
-            La unidad académica es obligatoria.
+            La alias es obligatoria.
         </div>
 
         <button type="submit">Registrar</button>

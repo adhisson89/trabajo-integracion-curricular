@@ -57,21 +57,19 @@
       <label for="photo_id">photo_id:</label>
       <input type="text" id="photo_id" formControlName="photo_id" readonly />
 
-      <!-- Modo -->
-      <label>Modo:</label>
+      <!-- Modus Operandi -->
+      <label>Modus Operandi:</label>
       <div class="radio-group">
         <label>
-          <input type="radio" formControlName="role" value="ESTUDIANTE" /> ESTUDIANTE
+          <input type="radio" formControlName="role" value="INDIVIDUAL" /> INDIVIDUAL
         </label>
         <label>
-          <input type="radio" formControlName="role" value="PROFESOR" /> PROFESOR
+          <input type="radio" formControlName="role" value="ENGRUPO" /> ENGRUPO
         </label>
         <label>
-          <input type="radio" formControlName="role" value="ADMINISTRATIVO" /> ADMINISTRATIVO
+          <input type="radio" formControlName="role" value="TRANSNACIONAL" /> TRANSNACIONAL
         </label>
-        <label>
-          <input type="radio" formControlName="role" value="COLABORADOR" /> COLABORADOR
-        </label>
+
       </div>
 
       <!-- Identificación -->
@@ -86,20 +84,21 @@
       <label for="apellidos">Apellidos:</label>
       <input type="text" id="surename" formControlName="surename" />
 
-      <!-- Campos específicos para ESTUDIANTE -->
-      <div *ngIf="editForm.get('role')?.value === 'ESTUDIANTE'">
-        <label for="codigoUnico">Código Único:</label>
-        <input type="text" id="codigoUnico" formControlName="codigoUnico" maxlength="9" />
+      <!-- Campos específicos para INDIVIDUAL -->
+      <div *ngIf="editForm.get('role')?.value === 'INDIVIDUAL'">
+       
+        <label for="alias">Alias:</label>
+        <input type="text" id="alias" formControlName="alias" />
 
-        <label for="unidadAcademica">Unidad Académica:</label>
-        <input type="text" id="unidadAcademica" formControlName="unidadAcademica" />
+        <label for="tipoDelito">Tipo de Delito:</label>
+        <input type="text" id="tipoDelito" formControlName="tipoDelito" />
 
-        <label for="carrera">Carrera/Programa:</label>
-        <input type="text" id="carrera" formControlName="carrera" />
+        <label for="sentencia">Sentencia:</label>
+        <input type="text" id="sentencia" formControlName="sentencia" />
       </div>
 
-      <!-- Campos específicos para DOCENTE, ADMINISTRATIVO o COLABORADOR -->
-      <div *ngIf="editForm.get('role')?.value !== 'ESTUDIANTE'">
+      <!-- Campos específicos para DOCENTE, TRANSNACIONAL o COLABORADOR -->
+      <div *ngIf="editForm.get('role')?.value !== 'INDIVIDUAL'">
         <label for="direccionAdministrativa">Dirección Administrativa:</label>
         <input type="text" id="direccionAdministrativa" formControlName="direccionAdministrativa" />
       </div>
