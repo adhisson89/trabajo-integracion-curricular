@@ -12,135 +12,32 @@ body {
 }
 
 body {
-    background-image: url('/assets/imagenes/normal/fondos/policia/f2.jpeg');
-    background-size: cover; /* Ajusta la imagen para que cubra toda la pantalla */
-    background-position: center; /* Centra la imagen */
-    background-repeat: no-repeat; /* Evita que la imagen se repita */
-    margin: 0; /* Elimina el margen por defecto del body */
-    height: 100vh; /* Asegura que el body ocupe toda la altura de la pantalla */
+    position: relative;
+    margin: 0;
+    height: 100vh;
     font-family: 'ground';
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden; /* Evita scroll si el blur afecta los bordes */
+}
+
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/assets/imagenes/normal/fondos/policia/g.png');
+    background-size: cover; /* Ajusta para que la imagen ocupe todo el espacio */
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: blur(2px); /* Aplica el efecto de desenfoque */
+    z-index: -1; /* Envía la imagen detrás del contenido */
 }
 
 /* Estilos principales del encabezado */
-.header {
-    position: absolute;
-    top: 10px;
-    left: 20px;
-    display: flex;
-    align-items: center;
-    padding: 10px;
-}
 
-.header h1 {
-    letter-spacing: 3px;
-    font-family: "teko";
-    margin:15px ;
-    padding: 15px;
-    font-size: 30px;
-    color: #0a369d;
-    display: flex;
-    align-items: center;
-}
-
-
-/* Logo */
-.header .logo2 {
-    margin-right: 10px;
-    height: 50px;
-    width: 90px;
-}
 
 /* Responsividad */
-
-/* Para pantallas pequeñas (celulares) */
-@media (max-width: 600px) {
-    .header h2 {
-        font-size: 40px; /* Reducir tamaño del texto */
-        top: 10px;
-        right: 10px;
-    }
-
-    .header h1 {
-        font-size: 20px;
-    }
-
-    .header .logo {
-        height: 100px;
-        width: 100px;
-    }
-}
-
-/* Para tabletas */
-@media (min-width: 601px) and (max-width: 900px) {
-    .header h2 {
-        font-size: 60px;
-        top: 5px;
-        right: 20px;
-    }
-
-    .header h1 {
-        font-size: 25px;
-    }
-
-    .header .logo {
-        height: 120px;
-        width: 120px;
-    }
-}
-
-/* Para laptops (resoluciones intermedias como 1360x768) */
-@media (min-width: 901px) and (max-width: 1366px) {
-    .header h2 {
-        font-size: 90px;
-        top: 10px;
-        right: 30px;
-    }
-
-    .header h1 {
-        font-size: 28px;
-    }
-
-    .header .logo {
-        height: 130px;
-        width: 140px;
-    }
-}
-
-/* Para pantallas grandes (1366px a 1920px) */
-@media (min-width: 1367px) and (max-width: 1920px) {
-    .header h2 {
-        font-size: 85px;
-        top: 10px;
-        left: 1180px;
-    }
-
-    .header h1 {
-        font-size: 30px;
-    }
-
-    .header .logo {
-        height: 140px;
-        width: 150px;
-    }
-}
-
-/* Resolución recomendada: 1920x1080 */
-@media (min-width: 1920px) {
-    .header h2 {
-        font-size: 100px;
-        top: 20px;
-        right: 50px;
-    }
-
-    .header h1 {
-        font-size: 32px;
-    }
-
-    .header .logo {
-        height: 150px;
-        width: 160px;
-    }
-}

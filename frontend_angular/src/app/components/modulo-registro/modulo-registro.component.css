@@ -1,3 +1,55 @@
+/* Contenedor principal */
+.header {
+    position: absolute;
+    top: 10px;
+    left: 27%;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+/* Título con efecto de luz sobre las letras */
+.header h1 {
+    font-family: "teko";
+    font-size: 70px;
+    margin: 15px;
+    color: transparent; /* El texto es transparente */
+    background: linear-gradient(
+        to right,
+        #0a369d,
+        #0a369d 40%,
+        rgba(255, 255, 255, 0.8) 50%,
+        #0a369d 60%,
+        #0a369d
+    ); /* Degradado dinámico */
+    background-clip: text; /* El fondo se recorta en las letras */
+    -webkit-background-clip: text; /* Compatibilidad con navegadores WebKit */
+    background-size: 200%; /* Amplía el tamaño del degradado para el efecto */
+    animation: lightMove 3s infinite linear; /* Movimiento continuo */
+    white-space: nowrap; /* Evita saltos de línea */
+    overflow: hidden; /* Asegura que nada se desborde */
+}
+
+/* Definición de la animación */
+@keyframes lightMove {
+    0% {
+        background-position: 100%; /* Comienza fuera del texto a la derecha */
+    }
+    100% {
+        background-position: -100%; /* Termina fuera del texto a la izquierda */
+    }
+}
+
+/* Logo */
+.header .logo2 {
+    position: absolute;
+    top: 20px;
+    left: -80px;
+    height: 50px;
+    width: 90px;
+}
+
+
 * {
     box-sizing: border-box;
     padding: 0;
