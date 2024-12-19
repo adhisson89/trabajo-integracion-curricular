@@ -13,36 +13,47 @@
     font-family: "teko";
     font-size: 70px;
     margin: 15px;
-    border-color: #838488  2px  ;
-    
-    color: transparent; /* El texto es transparente */
-    background: linear-gradient(
-        to right,
-        #A8ACAF,
-        #A8ACAF 40%,
-        rgba(255, 255, 255, 0.8) 50%,
-        #0a369d 60%,
-        #0a369d
-    ); /* Degradado dinámico */
-    background-clip: text; /* El fondo se recorta en las letras */
-    -webkit-background-clip: text; /* Compatibilidad con navegadores WebKit */
-    background-size: 200%; /* Amplía el tamaño del degradado para el efecto */
-    animation: lightMove 3s infinite linear; /* Movimiento continuo */
-    white-space: nowrap; /* Evita saltos de línea */
-    overflow: hidden; /* Asegura que nada se desborde */
-     /* Borde en las letras */
-     -webkit-text-stroke: 0.1px #3939395c; /* Grosor y color del borde */
+    border-color: #838488 2px;
+
+    color: transparent;
+    /* El texto es transparente */
+    background: linear-gradient(to right,
+            #A8ACAF,
+            #A8ACAF 40%,
+            rgba(255, 255, 255, 0.8) 50%,
+            #0a369d 60%,
+            #0a369d);
+    /* Degradado dinámico */
+    background-clip: text;
+    /* El fondo se recorta en las letras */
+    -webkit-background-clip: text;
+    /* Compatibilidad con navegadores WebKit */
+    background-size: 200%;
+    /* Amplía el tamaño del degradado para el efecto */
+    animation: lightMove 3s infinite linear;
+    /* Movimiento continuo */
+    white-space: nowrap;
+    /* Evita saltos de línea */
+    overflow: hidden;
+    /* Asegura que nada se desborde */
+    /* Borde en las letras */
+    -webkit-text-stroke: 0.1px #3939395c;
+    /* Grosor y color del borde */
 }
 
 /* Definición de la animación */
 @keyframes lightMove {
     0% {
-        background-position: 100%; /* Comienza fuera del texto a la derecha */
+        background-position: 100%;
+        /* Comienza fuera del texto a la derecha */
     }
+
     100% {
-        background-position: -100%; /* Termina fuera del texto a la izquierda */
+        background-position: -100%;
+        /* Termina fuera del texto a la izquierda */
     }
 }
+
 /* Logo */
 .header .logo2 {
     position: absolute;
@@ -70,12 +81,12 @@ body {
 }
 
 .container {
-    height: 510px;
-    width: 500px;
+    height: auto;
+    width: 400px;
     padding: 30px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.258);
+    background: #edececc9;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
     overflow: hidden;
     /* Evita el desbordamiento de contenido fuera del contenedor */
     display: flex;
@@ -85,14 +96,11 @@ body {
 }
 
 .file-container {
-
-    display: flex;
+    text-align: center;
     align-items: center;
-    /* Alinea verticalmente los elementos en el centro */
-    gap: 10px;
-    /* Espacio entre la imagen y el campo de archivo */
-}
 
+
+}
 
 h2 {
     margin: 1px;
@@ -109,7 +117,7 @@ form {
     display: flex;
     flex-direction: column;
     gap: 1px;
-    overflow-y: auto;
+    /* overflow-y: auto; */
     /* Agrega desplazamiento si el formulario es demasiado largo */
 }
 
@@ -130,10 +138,12 @@ form input[type="file"] {
     width: 99%;
     padding: 1px;
     margin: 2px;
-    border: 1px solid #cccccc;
+    border: 1px solid #cccccc00;
     border-radius: 4px;
     font-size: 10px;
     text-transform: uppercase;
+  margin-left: 50px;
+  margin-bottom: 20px;
 }
 
 

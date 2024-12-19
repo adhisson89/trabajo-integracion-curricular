@@ -8,9 +8,9 @@
     <h2>Formulario Foto</h2>
     <form [formGroup]="registroForm" (ngSubmit)="onSubmit()">
         <!-- Foto -->
-        <label for="foto">Foto:</label> 
+        <label for="foto"></label> 
         <div class="file-container">
-            <img src="../assets/imagenes/png/iconos/subir.png" width="50px" height="50px">
+            <img src="../assets/imagenes/png/iconos/subir.png" width="150px" height="150px">
             <input type="file" id="foto" (change)="onImageSelected($event)" accept="image/*" style="position: relative;">
         </div>
         <div *ngIf="hasError('foto', 'required')" class="error">
