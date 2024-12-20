@@ -42,6 +42,8 @@ services:
         condition: service_healthy
       spring-gateway-service:
         condition: service_healthy
+    environment:
+      - MONGO_URI=mongodb+srv://adhisson:XVNqbidUA8Lu7iAm@tic.cerq8.mongodb.net/FacialDB?retryWrites=true&w=majority&appName=TIC
     networks:
      - tic-network
 

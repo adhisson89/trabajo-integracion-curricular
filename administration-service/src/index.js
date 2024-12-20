@@ -2,7 +2,7 @@ const app = require("./app.js");
 const connectDB = require("./database.js");
 
 require("dotenv").config();
-
+console.log("Variable de ambiente", process.env.MONGO_URI);
 connectDB();
 
 const port = Math.floor(Math.random() * (3999 - 3000 + 1)) + 3000;
