@@ -21,7 +21,7 @@ PORT = random.randint(5000, 6000)
 try:
     # Register the service in Eureka
     eureka_client.init(eureka_server="http://172.25.0.3:8761/eureka/",
-                    app_name="deepface-service",
+                    app_name="face-recognition-service",
                     instance_port=PORT)
 except Exception as e:
     print(f"Error registering in Eureka: {e}")
