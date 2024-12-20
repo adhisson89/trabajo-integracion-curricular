@@ -47,7 +47,8 @@ export class ModuloListadoComponent implements OnInit {
       alias: [''],
       tipoDelito: [''],
       sentencia: [''],
-      direccionAdministrativa: [''],//ver
+      grupo: [''],
+      jerarquia: [''],
       photo_id: ['']
     });
   }
@@ -59,11 +60,11 @@ export class ModuloListadoComponent implements OnInit {
       name: ['', Validators.required],
       surename: ['', Validators.required],
       role: ['', Validators.required],
-      codigoUnico: [''],
       alias: [''],
       tipoDelito: [''],
       sentencia: [''],
-      direccionAdministrativa: [''],//ver
+      grupo: [''],
+      jerarquia: [''],
       photo_id: [''],
     });
   
@@ -190,7 +191,8 @@ export class ModuloListadoComponent implements OnInit {
     const alias = item.other_data?.find((data: { key: string; }) => data.key === 'ALIAS')?.value || '';
     const sentencia = item.other_data?.find((data: { key: string; }) => data.key === 'SENTENCIA')?.value || '';
     const tipoDelito = item.other_data?.find((data: { key: string; }) => data.key === 'TIPO DE DELITO')?.value || ''; // Extrae la tipoDelito
-    const direccionAdministrativa = item.other_data?.find((data: { key: string; }) => data.key === 'DIRECCION ADMINISTRATIVA')?.value || ''; // Extrae la tipoDelito ver
+    const grupo = item.other_data?.find((data: { key: string; }) => data.key === 'NOMBRE DEL GRUPO')?.value || ''; 
+    const jerarquia = item.other_data?.find((data: { key: string; }) => data.key === 'JERARQUIA')?.value || ''; 
 
     // Configurar valores del formulario
     this.editForm.patchValue({
@@ -200,7 +202,8 @@ export class ModuloListadoComponent implements OnInit {
       sentencia:sentencia,
       alias: alias,
       tipoDelito: tipoDelito, // Asigna la tipoDelito al formulario
-      direccionAdministrativa: direccionAdministrativa, // Si aplicara en otro contexto ver
+      grupo: grupo, // Si aplicara en otro contexto ver
+      jerarquia:jerarquia,
       role: item.role, // Usar `role` como `modus`
       photo_id: item.photo_id
       
@@ -237,8 +240,13 @@ export class ModuloListadoComponent implements OnInit {
   onRoleChange(modus: string): void {
     if (modus === 'INDIVIDUAL') {
       // Limpiar campos no relacionados con individual
-      this.editForm.patchValue({ direccionAdministrativa: '' });//ver
-      this.editForm.get('direccionAdministrativa')?.disable();//ver
+      this.editForm.patchValue({ grupo: '' });//ver
+      this.editForm.get('grupo')?.disable();//ver
+
+      // Limpiar campos no relacionados con individual
+      this.editForm.patchValue({ jerarquia: '' });//ver
+      this.editForm.get('jerarquia')?.disable();//ver
+
   
       // Habilitar campos relacionados con individual
       this.editForm.get('sentencia')?.enable();
@@ -246,13 +254,17 @@ export class ModuloListadoComponent implements OnInit {
       this.editForm.get('tipoDelito')?.enable();
     } else {
       // Limpiar campos no relacionados con roles diferentes a individual
-      this.editForm.patchValue({ sentencia: '', alias: '', tipoDelito: '' });
+      this.editForm.patchValue({ sentencia: '', alias: '', tipoDelito: ''  });
       this.editForm.get('sentencia')?.disable();
       this.editForm.get('alias')?.disable();
       this.editForm.get('tipoDelito')?.disable();
   
       // Habilitar campos relacionados con roles diferentes a individual
-      this.editForm.get('direccionAdministrativa')?.enable();//ver
+      this.editForm.get('grupo')?.enable();//ver
+
+      // Habilitar campos relacionados con roles diferentes a individual
+      this.editForm.get('jerarquia')?.enable();//ver
+
     }
   }
 
@@ -264,12 +276,13 @@ export class ModuloListadoComponent implements OnInit {
         role: this.editForm.value.role,
         name: this.editForm.value.name,
         surename: this.editForm.value.surename,
-        direccionAdministrativa: this.editForm.value.direccionAdministrativa,//ver
+        grupo: this.editForm.value.grupo,//ver
         other_data: [
           { key: 'ALIAS', value: this.editForm.value.alias || '' },
           { key: 'TIPO DE DELITO', value: this.editForm.value.tipoDelito || '' },
           { key: 'SENTENCIA', value: this.editForm.value.sentencia || '' },    
-          { key: 'DIRECCION ADMINISTRATIVA', value: this.editForm.value.direccionAdministrativa || '' },
+          { key: 'NOMBRE DEL GRUPO', value: this.editForm.value.grupo || '' },
+          { key: 'JERARQUIA', value: this.editForm.value.jerarquia || '' },
         ],
       };
   

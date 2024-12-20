@@ -30,6 +30,8 @@ export class ModuloRegistroOtrosComponent implements OnInit {
       nombres: ['', [Validators.required, Validators.pattern(/^[a-zA-ZñÑ\s]+$/)]],
       apellidos: ['', [Validators.required, Validators.pattern(/^[a-zA-ZñÑ\s]+$/)]],
       direccionAdministrativa: ['', [Validators.required, Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/)]],
+      grupo: ['', [Validators.required, Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\s]+$/)]],
+      jerarquia: ['',Validators.required],
 
     });
   }
@@ -81,14 +83,28 @@ export class ModuloRegistroOtrosComponent implements OnInit {
       photo_id: imageId,
       other_data: [
         {
-          key: 'DIRECCION ADMINISTRATIVA',
-          value: this.registroForm.get('direccionAdministrativa')?.value.toUpperCase(),
+          key: 'ALIAS',
+          value: this.registroForm.get('alias')?.value.toUpperCase(),
         },
         {
-          key: 'CORREO INSTITUCIONAL',
-          value: `${this.registroForm.get('nombres')?.value.split(' ')[0].toLowerCase()}.${this.registroForm.get('apellidos')?.value.split(' ')[0].toLowerCase()}@epn.edu.ec`,
-
+          key: 'TIPO DE DELITO',
+          value: this.registroForm.get('tipoDelito')?.value(),//VER 
         },
+        {
+          key: 'NOMBRE DEL GRUPO',
+          value: this.registroForm.get('grupo')?.value(),
+        },
+        {
+          key: 'JERARQUIA',
+          value: this.registroForm.get('jerarquia')?.value.toUpperCase(),
+        },
+        
+        {
+          key: 'SENTENCIA',
+          value: this.registroForm.get('sentencia')?.value.toUpperCase(),
+        },
+
+
       ],
     };
 

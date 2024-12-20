@@ -40,7 +40,7 @@
   <!-- Mensaje de confirmación -->
   <div *ngIf="showDeleteConfirmation" class="confirmation-modal">
     <button class="deletex-btn" (click)="cancelDelete()">X</button>
-    <h2  class="pop-up2">¿Está seguro de que desea eliminar este registro?</h2>
+    <h2 class="pop-up2">¿Está seguro de que desea eliminar este registro?</h2>
     <button class="edit-btn" (click)="deleteItem()">Confirmar</button>
     <button class="delete-btn" (click)="cancelDelete()">Cancelar</button>
   </div>
@@ -49,7 +49,7 @@
 
 
   <div *ngIf="editingItem" class="edit-form"><button type="button" class="deletex-btn" (click)="cancelEdit()">X</button>
-    <h2 class="pop-up" >Editar Ítem</h2>
+    <h2 class="pop-up">Editar Ítem</h2>
     <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
       <!-- Foto -->
       <div class="file-container">
@@ -72,9 +72,6 @@
         <label>
           <input type="radio" formControlName="role" value="ENGRUPO" /> ENGRUPO
         </label>
-        <label>
-          <input type="radio" formControlName="role" value="TRANSNACIONAL" /> TRANSNACIONAL
-        </label>
 
       </div>
 
@@ -92,7 +89,7 @@
 
       <!-- Campos específicos para INDIVIDUAL -->
       <div *ngIf="editForm.get('role')?.value === 'INDIVIDUAL'">
-       
+
         <label for="alias">Alias:</label>
         <input type="text" id="alias" formControlName="alias" />
 
@@ -105,16 +102,26 @@
 
       <!-- Campos específicos para DOCENTE, TRANSNACIONAL o COLABORADOR -->
       <div *ngIf="editForm.get('role')?.value !== 'INDIVIDUAL'">
-        <label for="direccionAdministrativa">Dirección Administrativa:</label>
-        <input type="text" id="direccionAdministrativa" formControlName="direccionAdministrativa" />
+
+        <label for="grupo">Nombre del grupo u organización:</label>
+        <input type="text" id="grupo" formControlName="grupo">
+
+        <label for="jerarquia">Jerarquía en el grupo:</label>
+        <select id="jerarquia" formControlName="jerarquia">
+          <option value="">Seleccione</option>
+          <option value="Lider">Líder</option>
+          <option value="Subordinado">Subordinado</option>
+          <option value="Colaborador">Colaborador</option>
+        </select>
       </div>
 
-           
-        <button type="submit" class="edit-btn" [disabled]="!editForm.valid"><img src="../assets/imagenes/png/iconos/guardar.png"
-          width="20px" height="20px" style="  filter: invert(100); margin-right: 10px;">Guardar</button>
- 
+
+      <button type="submit" class="edit-btn" [disabled]="!editForm.valid"><img
+          src="../assets/imagenes/png/iconos/guardar.png" width="20px" height="20px"
+          style="  filter: invert(100); margin-right: 10px;">Guardar</button>
+
       <button type="button" class="delete-btn" (click)="cancelEdit()"><img src="../assets/imagenes/png/iconos/xrojo.png"
-        width="30px" height="20px" style=" filter: contrast(50); margin-right: 10px;">Cancelar</button>
+          width="30px" height="20px" style=" filter: contrast(50); margin-right: 10px;">Cancelar</button>
     </form>
   </div>
 

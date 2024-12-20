@@ -1,15 +1,21 @@
+<header class="header">
+    <title>SR-PNE</title>
+    <img src="assets/imagenes/png/bandera.png" class="logo2">
+    <h1>POLICIA NACIONAL DEL ECUADOR</h1>
+</header>
 <div class="container">
     <h2>Formulario de Registro</h2>
     <form [formGroup]="registroForm" (ngSubmit)="onSubmit()">
-       <!-- Foto -->
-       <label for="foto">Foto:</label> 
-       <div class="file-container">
-           <img src="../assets/imagenes/png/iconos/subir.png" width="50px" height="50px">
-           <input type="file" id="foto" (change)="onImageSelected($event)" accept="image/*" style="position: relative;">
-       </div>
-       <div *ngIf="hasError('foto', 'required')" class="error">
-           La foto es obligatoria.
-       </div>
+        <!-- Foto -->
+        <label for="foto">Foto:</label>
+        <div class="file-container">
+            <img src="../assets/imagenes/png/iconos/subir.png" width="50px" height="50px">
+            <input type="file" id="foto" (change)="onImageSelected($event)" accept="image/*"
+                style="position: relative;">
+        </div>
+        <div *ngIf="hasError('foto', 'required')" class="error">
+            La foto es obligatoria.
+        </div>
 
         <!-- Modus Operandi -->
         <label>Modus Operandi:</label>
@@ -22,14 +28,10 @@
                 <input type="radio" formControlName="modus" value="enGrupo"
                     (click)="redirectTo('moduloRegistroOtros', 'enGrupo')"> En Grupo
             </label>
-            <label>
+            <!-- <label>
                 <input type="radio" formControlName="modus" value="transnacional"
                     (click)="redirectTo('moduloRegistroOtros', 'transnacional')"> Transnacional
-            </label>
-            <label>
-                <input type="radio" formControlName="modus" value="colaborador"
-                    (click)="redirectTo('moduloRegistroOtros', 'colaborador')"> Colaborador
-            </label>
+            </label> -->
         </div>
         <div *ngIf="hasError('modus', 'required')" class="error">
             Debe seleccionar un modus.
@@ -62,12 +64,39 @@
         <div *ngIf="hasError('apellidos', 'pattern')" class="error">
             Ingrese dos apellidos correctamente separados por un espacio.
         </div>
-
-        <label for="direccionAdministrativa">Dirección Administrativa:</label>
-        <input type="text" id="direccionAdministrativa" formControlName="direccionAdministrativa">
-        <div *ngIf="hasError('direccionAdministrativa', 'required')" class="error">
+        <label for="alias">Alias:</label>
+        <input type="text" id="alias" formControlName="alias">
+        <div *ngIf="hasError('alias', 'required')" class="error">
             La alias es obligatoria.
         </div>
+
+        <label for="tipoDelito">Tipo de Delito:</label>
+        <input type="text" id="tipoDelito" formControlName="tipoDelito">
+        <div *ngIf="hasError('tipoDelito', 'required')" class="error">
+            El tipo de delito es obligatorio.
+        </div>
+        <label for="sentencia">Sentencia:</label>
+        <input type="text" id="sentencia" formControlName="sentencia">
+        <div *ngIf="hasError('sentencia', 'required')" class="error">
+            La sentencia es obligatoria.
+        </div>
+        
+        <label for="grupo">Nombre del grupo u organización:</label>
+        <input type="text" id="grupo" formControlName="grupo">
+        <div *ngIf="hasError('grupo', 'required')" class="error">
+            El nombre del grupo u organización es obligatorio.
+        </div>
+        <label for="jerarquia">Jerarquía en el grupo:</label>
+        <select id="jerarquia" formControlName="jerarquia">
+            <option value="">Seleccione</option>
+            <option value="Lider">Líder</option>
+            <option value="Subordinado">Subordinado</option>
+            <option value="Colaborador">Colaborador</option>
+        </select>
+        <div *ngIf="hasError('jerarquia', 'required')" class="error">
+            La jerarquía dentro del grupo es obligatoria.
+        </div>
+
 
         <button type="submit">Registrar</button>
     </form>

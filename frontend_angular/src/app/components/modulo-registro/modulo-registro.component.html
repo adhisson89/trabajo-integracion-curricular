@@ -28,10 +28,10 @@
                 <input type="radio" formControlName="modus" value="enGrupo"
                     (click)="redirectTo('moduloRegistroOtros', 'enGrupo')"> En Grupo
             </label>
-            <label>
+            <!-- <label>
                 <input type="radio" formControlName="modus" value="transnacional"
                     (click)="redirectTo('moduloRegistroOtros', 'transnacional')"> Transnacional
-            </label>
+            </label> -->
 
         </div>
         <div *ngIf="hasError('modus', 'required')" class="error">
