@@ -25,7 +25,7 @@ const personSchema = new Schema({
     },
     role: {
         type: String,
-        enum: ['ESTUDIANTE', 'PROFESOR', 'ADMINISTRATIVO', 'COLABORADOR'],
+        enum: ['ESTUDIANTE', 'PROFESOR', 'ADMINISTRATIVO', 'COLABORADOR', 'INDIVIDUAL', 'GRUPAL'],
         trim: true
     },
     photo_id: {

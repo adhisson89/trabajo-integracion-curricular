@@ -31,7 +31,7 @@ const createPersonSchema = z.object({
         .max(64, "El apellido es demasiado largo"),
     
     role: z
-        .enum(["ESTUDIANTE", "PROFESOR", "ADMINISTRATIVO", "COLABORADOR"])
+        .enum(["ESTUDIANTE", "PROFESOR", "ADMINISTRATIVO", "COLABORADOR", "INDIVIDUAL", "GRUPAL"])
         .optional()
         .nullable(),
 
@@ -75,7 +75,7 @@ const updatePersonSchema = z.object({
         .nullable(),
     
     role: z
-        .enum(["ESTUDIANTE", "PROFESOR", "ADMINISTRATIVO", "COLABORADOR"])
+        .enum(["ESTUDIANTE", "PROFESOR", "ADMINISTRATIVO", "COLABORADOR", "INDIVIDUAL", "GRUPAL"])
         .optional()
         .nullable(),
     
