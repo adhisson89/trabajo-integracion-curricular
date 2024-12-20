@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -101,7 +101,7 @@ export class ModuloRegistroComponent implements OnInit {
         },
         {
           key: 'TIPO DE DELITO',
-          value: this.registroForm.get('tipoDelito')?.value(),//VER 
+          value: this.registroForm.get('tipoDelito')?.value,//VER 
         },
         {
           key: 'SENTENCIA',
@@ -111,8 +111,15 @@ export class ModuloRegistroComponent implements OnInit {
       ],
     };
 
+    console.log(formData);
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    });
+    
     this.http
-      .post('http://localhost:8080/api/administration/management/person', formData)
+      .post('http://localhost:8080/api/administration/management/person', formData, { headers })
       .subscribe({
         next: (response) => {
           console.log('Formulario enviado exitosamente', response);
@@ -142,12 +149,13 @@ export class ModuloRegistroComponent implements OnInit {
     }
 
     const file = this.registroForm.get('foto')?.value;
-
+console.log(file);
     if (file instanceof File) {
       this.uploadImage(file)
         .then((response: any) => {
           console.log('Imagen subida correctamente', response);
           const imageId = response.imageId; // Asegúrate de que el backend devuelva este valor
+          console.log(imageId)
           if (imageId) {
             this.sendFormData(imageId);
           } else {
