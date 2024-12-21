@@ -1,5 +1,5 @@
 import * as faceapi from 'face-api.js';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -7,9 +7,10 @@ import { Router } from '@angular/router';
   templateUrl: './pantalla-analisis.component.html',
   styleUrls: ['./pantalla-analisis.component.css']
 })
-export class PantallaAnalisisComponent implements OnInit {
+export class PantallaAnalisisComponent implements OnInit, OnDestroy {
   videoRef: any;
   statusIcon: HTMLImageElement | null = null;
+  stream: MediaStream | null = null; // Para almacenar el stream de la cámara
 
   constructor(private router: Router) {}
 
@@ -35,18 +36,18 @@ export class PantallaAnalisisComponent implements OnInit {
 
   setupCamara() {
     navigator.mediaDevices.getUserMedia({
-      video: { width: 600, height: 300 }, // Establecer dimensiones específicas
+      video: { width: 600, height: 300 },
       audio: false
     }).then(stream => {
+      this.stream = stream; // Guardar el stream para detenerlo más tarde
       if (this.videoRef) {
         this.videoRef.srcObject = stream;
 
-        // Asegúrate de que el video tenga dimensiones
         this.videoRef.addEventListener('loadedmetadata', () => {
           this.videoRef.width = this.videoRef.videoWidth || 600;
           this.videoRef.height = this.videoRef.videoHeight || 300;
           this.videoRef.play();
-          this.detectFaces(); // Llama a detectFaces una vez que las dimensiones están listas
+          this.detectFaces();
         });
       }
     }).catch(error => {
@@ -59,7 +60,6 @@ export class PantallaAnalisisComponent implements OnInit {
 
     const videoElement = this.videoRef as HTMLVideoElement;
 
-    // Asegurarse de que el video esté cargado antes de usarlo
     videoElement.addEventListener('loadeddata', async () => {
       if (videoElement.videoWidth === 0 || videoElement.videoHeight === 0) {
         console.error("Dimensiones del video no válidas.");
@@ -69,7 +69,7 @@ export class PantallaAnalisisComponent implements OnInit {
       const canvas = faceapi.createCanvasFromMedia(videoElement);
       document.body.append(canvas);
 
-      const displaySize = { width: videoElement.videoWidth, height: videoElement.videoHeight }; // Dimensiones válidas
+      const displaySize = { width: videoElement.videoWidth, height: videoElement.videoHeight };
       faceapi.matchDimensions(canvas, displaySize);
 
       setInterval(async () => {
@@ -89,29 +89,38 @@ export class PantallaAnalisisComponent implements OnInit {
     });
   }
 
-  // Función para capturar una imagen
-  captureImage() {
+  // Detiene la cámara cuando el componente se destruye
+  ngOnDestroy(): void {
+    if (this.stream) {
+      this.stream.getTracks().forEach(track => track.stop()); // Detener todos los tracks del stream
+      console.log("Cámara desactivada");
+    }
+  }
+
+  // Captura un frame del video como JPG
+  captureImageAsJPG() {
     if (this.videoRef) {
-      const canvas = document.createElement('canvas');
+      const canvas = faceapi.createCanvasFromMedia(this.videoRef);
       canvas.width = this.videoRef.videoWidth;
       canvas.height = this.videoRef.videoHeight;
 
       const context = canvas.getContext('2d');
       if (context) {
         context.drawImage(this.videoRef, 0, 0, canvas.width, canvas.height);
-        const imageBlob = canvas.toDataURL('image/jpeg');
-        this.sendToBackend(imageBlob);
+
+        // Convertir a Blob (formato JPEG)
+        canvas.toBlob((blob) => {
+          if (blob) {
+            this.sendToBackend(blob);
+          }
+        }, 'image/jpeg', 0.95); // 0.95 es la calidad del JPEG
       }
     }
   }
 
-  // Enviar la imagen al backend
-  sendToBackend(image: string) {
-    const base64Data = image.replace(/^data:image\/jpeg;base64,/, '');
-    const blob = new Blob([Uint8Array.from(atob(base64Data), c => c.charCodeAt(0))], { type: 'image/jpeg' });
-
-    // Realiza el POST al backend
-    fetch('http://localhost:3662/api/administration/management/image', {
+  // Envía el archivo JPG al backend
+  sendToBackend(blob: Blob) {
+    fetch('http://localhost:8080/api/face-recognition/compare', {
       method: 'POST',
       body: blob,
       headers: {
@@ -124,6 +133,7 @@ export class PantallaAnalisisComponent implements OnInit {
       } else {
         console.error('Error al enviar la imagen');
       }
-    });
+    })
+    .catch(err => console.error('Error en la solicitud:', err));
   }
 }
