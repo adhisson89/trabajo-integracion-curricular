@@ -56,7 +56,7 @@ form {
     display: flex;
     flex-direction: column;
     gap: 1px;
-    overflow-y: auto;
+
     /* Agrega desplazamiento si el formulario es demasiado largo */
 }
 
