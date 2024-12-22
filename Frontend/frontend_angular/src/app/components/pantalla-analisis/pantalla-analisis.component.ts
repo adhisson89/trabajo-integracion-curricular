@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class PantallaAnalisisComponent implements OnInit, OnDestroy {
 
   private inactivityTimeout: any;
-  private readonly inactivityTimeLimit: number = 30000; //300000-- 5 minutos ----30000---30s
+  private readonly inactivityTimeLimit: number = 300000; //300000-- 5 minutos ----30000---30s
   private detectionInterval: any;
 
   videoRef: HTMLVideoElement | null = null;
