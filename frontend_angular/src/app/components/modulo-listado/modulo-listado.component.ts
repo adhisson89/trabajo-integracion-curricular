@@ -47,8 +47,8 @@ export class ModuloListadoComponent implements OnInit {
       alias: [''],
       tipoDelito: [''],
       sentencia: [''],
-      grupo: [''],
-      jerarquia: [''],
+      nombreGrupo: ['', [Validators.required, Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\s]+$/)]],
+      jerarquia: ['',Validators.required],
       photo_id: ['']
     });
   }
@@ -63,8 +63,8 @@ export class ModuloListadoComponent implements OnInit {
       alias: [''],
       tipoDelito: [''],
       sentencia: [''],
-      grupo: [''],
-      jerarquia: [''],
+      nombreGrupo: ['', [Validators.required, Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\s]+$/)]],
+      jerarquia: ['',Validators.required],
       photo_id: [''],
     });
   
@@ -191,7 +191,7 @@ export class ModuloListadoComponent implements OnInit {
     const alias = item.other_data?.find((data: { key: string; }) => data.key === 'ALIAS')?.value || '';
     const sentencia = item.other_data?.find((data: { key: string; }) => data.key === 'SENTENCIA')?.value || '';
     const tipoDelito = item.other_data?.find((data: { key: string; }) => data.key === 'TIPO DE DELITO')?.value || ''; // Extrae la tipoDelito
-    const grupo = item.other_data?.find((data: { key: string; }) => data.key === 'NOMBRE DEL GRUPO')?.value || ''; 
+    const nombreGrupo = item.other_data?.find((data: { key: string; }) => data.key === 'NOMBRE DEL GRUPO/ORGANIZACION')?.value || ''; 
     const jerarquia = item.other_data?.find((data: { key: string; }) => data.key === 'JERARQUIA')?.value || ''; 
 
     // Configurar valores del formulario
@@ -202,7 +202,7 @@ export class ModuloListadoComponent implements OnInit {
       sentencia:sentencia,
       alias: alias,
       tipoDelito: tipoDelito, // Asigna la tipoDelito al formulario
-      grupo: grupo, // Si aplicara en otro contexto ver
+      nombreGrupo: nombreGrupo, // Si aplicara en otro contexto ver
       jerarquia:jerarquia,
       role: item.role, // Usar `role` como `modus`
       photo_id: item.photo_id
@@ -240,8 +240,8 @@ export class ModuloListadoComponent implements OnInit {
   onRoleChange(modus: string): void {
     if (modus === 'INDIVIDUAL') {
       // Limpiar campos no relacionados con individual
-      this.editForm.patchValue({ grupo: '' });//ver
-      this.editForm.get('grupo')?.disable();//ver
+      this.editForm.patchValue({ nombreGrupo: '' });//ver
+      this.editForm.get('nombreGrupo')?.disable();//ver
 
       // Limpiar campos no relacionados con individual
       this.editForm.patchValue({ jerarquia: '' });//ver
@@ -260,7 +260,7 @@ export class ModuloListadoComponent implements OnInit {
       this.editForm.get('tipoDelito')?.disable();
   
       // Habilitar campos relacionados con roles diferentes a individual
-      this.editForm.get('grupo')?.enable();//ver
+      this.editForm.get('nombreGrupo')?.enable();//ver
 
       // Habilitar campos relacionados con roles diferentes a individual
       this.editForm.get('jerarquia')?.enable();//ver
@@ -276,12 +276,12 @@ export class ModuloListadoComponent implements OnInit {
         role: this.editForm.value.role,
         name: this.editForm.value.name,
         surename: this.editForm.value.surename,
-        grupo: this.editForm.value.grupo,//ver
+        nombreGrupo: this.editForm.value.nombreGrupo,//ver
         other_data: [
           { key: 'ALIAS', value: this.editForm.value.alias || '' },
           { key: 'TIPO DE DELITO', value: this.editForm.value.tipoDelito || '' },
           { key: 'SENTENCIA', value: this.editForm.value.sentencia || '' },    
-          { key: 'NOMBRE DEL GRUPO', value: this.editForm.value.grupo || '' },
+          { key: 'NOMBRE DEL GRUPO/ORGANIZACION', value: this.editForm.value.nombreGrupo || '' },
           { key: 'JERARQUIA', value: this.editForm.value.jerarquia || '' },
         ],
       };

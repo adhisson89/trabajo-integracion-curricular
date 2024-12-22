@@ -22,16 +22,17 @@
         <div class="radio-group">
             <label>
                 <input type="radio" formControlName="modus" value="individual"
-                    (click)="redirectTo('moduloRegistro', 'individual')" checked> Individual
+                    (click)="redirectTo('moduloRegistro', 'individual')" checked> INDIVIDUAL
             </label>
             <label>
-                <input type="radio" formControlName="modus" value="enGrupo"
-                    (click)="redirectTo('moduloRegistroOtros', 'enGrupo')"> En Grupo
+                <input type="radio" formControlName="modus" value="grupal"
+                    (click)="redirectTo('moduloRegistroOtros', 'grupal')"> GRUPAL
             </label>
             <!-- <label>
                 <input type="radio" formControlName="modus" value="transnacional"
                     (click)="redirectTo('moduloRegistroOtros', 'transnacional')"> Transnacional
             </label> -->
+
         </div>
         <div *ngIf="hasError('modus', 'required')" class="error">
             Debe seleccionar un modus.
@@ -64,11 +65,30 @@
         <div *ngIf="hasError('apellidos', 'pattern')" class="error">
             Ingrese dos apellidos correctamente separados por un espacio.
         </div>
+
         <label for="alias">Alias:</label>
         <input type="text" id="alias" formControlName="alias">
         <div *ngIf="hasError('alias', 'required')" class="error">
             La alias es obligatoria.
         </div>
+
+        <label for="nombreGrupo">Nombre del grupo u Organización:</label>
+        <input type="text" id="nombreGrupo" formControlName="nombreGrupo">
+        <div *ngIf="hasError('nombreGrupo', 'required')" class="error">
+            El Nombre del grupo u Organización es obligatoria.
+        </div>
+
+        <label for="jerarquia">Jerarquía en el grupo:</label>
+        <select id="jerarquia" formControlName="jerarquia">
+            <option value="">Seleccione</option>
+            <option value="LIDER">LÍDER</option>
+            <option value="SUBORDINADO">SUBORDINADO</option>
+            <option value="COLABORADOR">COLABORADOR</option>
+        </select>
+        <div *ngIf="hasError('jerarquia', 'required')" class="error">
+            La jerarquía dentro del grupo es obligatoria.
+        </div>
+
 
         <label for="tipoDelito">Tipo de Delito:</label>
         <input type="text" id="tipoDelito" formControlName="tipoDelito">
@@ -80,23 +100,6 @@
         <div *ngIf="hasError('sentencia', 'required')" class="error">
             La sentencia es obligatoria.
         </div>
-        
-        <label for="grupo">Nombre del grupo u organización:</label>
-        <input type="text" id="grupo" formControlName="grupo">
-        <div *ngIf="hasError('grupo', 'required')" class="error">
-            El nombre del grupo u organización es obligatorio.
-        </div>
-        <label for="jerarquia">Jerarquía en el grupo:</label>
-        <select id="jerarquia" formControlName="jerarquia">
-            <option value="">Seleccione</option>
-            <option value="Lider">Líder</option>
-            <option value="Subordinado">Subordinado</option>
-            <option value="Colaborador">Colaborador</option>
-        </select>
-        <div *ngIf="hasError('jerarquia', 'required')" class="error">
-            La jerarquía dentro del grupo es obligatoria.
-        </div>
-
 
         <button type="submit">Registrar</button>
     </form>

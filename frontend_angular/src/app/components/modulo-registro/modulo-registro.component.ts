@@ -138,15 +138,7 @@ export class ModuloRegistroComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.registroForm.invalid) {
-      Swal.fire({
-        title: 'Atención',
-        text: 'Por favor complete todos los campos.',
-        icon: 'warning',
-        confirmButtonText: 'Aceptar',
-      });
-      return;
-    }
+    
 
     const file = this.registroForm.get('foto')?.value;
 console.log(file);

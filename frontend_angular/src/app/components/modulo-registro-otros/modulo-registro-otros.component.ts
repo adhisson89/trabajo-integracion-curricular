@@ -1,22 +1,35 @@
-
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http'; // Importar HttpClientModule
 import Swal from 'sweetalert2';
 
+
+// Swal.fire({
+//   title: '¿Estás seguro?',
+//   text: 'No podrás revertir esta acción.',
+//   icon: 'warning',
+//   showCancelButton: true,
+//   confirmButtonText: 'Sí, continuar',
+//   cancelButtonText: 'Cancelar',
+// }).then((result) => {
+//   if (result.isConfirmed) {
+//       // Acción al confirmar
+//       console.log('Confirmado');
+//   }
+//});
+
 @Component({
   selector: 'app-modulo-registro-otros',
+  templateUrl: './modulo-registro-otros.component.html',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, HttpClientModule],
-  templateUrl: './modulo-registro-otros.component.html',
-  styleUrl: './modulo-registro-otros.component.css'
+  styleUrls: ['./modulo-registro-otros.component.css'],
 })
 export class ModuloRegistroOtrosComponent implements OnInit {
-
   registroForm!: FormGroup;
   selectedMode: string = '';
 
@@ -29,8 +42,10 @@ export class ModuloRegistroOtrosComponent implements OnInit {
       identificacion: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
       nombres: ['', [Validators.required, Validators.pattern(/^[a-zA-ZñÑ\s]+$/)]],
       apellidos: ['', [Validators.required, Validators.pattern(/^[a-zA-ZñÑ\s]+$/)]],
-      direccionAdministrativa: ['', [Validators.required, Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/)]],
-      grupo: ['', [Validators.required, Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\s]+$/)]],
+      alias:  ['', [Validators.required, Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/)]], 
+      tipoDelito: ['', [Validators.required, Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/)]], 
+      sentencia: ['', [Validators.required, Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/)]], 
+      nombreGrupo: ['', [Validators.required, Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\s]+$/)]],
       jerarquia: ['',Validators.required],
 
     });
@@ -79,37 +94,42 @@ export class ModuloRegistroOtrosComponent implements OnInit {
       name: this.registroForm.get('nombres')?.value.toUpperCase(),
       surename: this.registroForm.get('apellidos')?.value.toUpperCase(),
       role: this.registroForm.get('modus')?.value.toUpperCase(),
-
       photo_id: imageId,
       other_data: [
+
+        
         {
           key: 'ALIAS',
           value: this.registroForm.get('alias')?.value.toUpperCase(),
         },
         {
           key: 'TIPO DE DELITO',
-          value: this.registroForm.get('tipoDelito')?.value(),//VER 
+          value: this.registroForm.get('tipoDelito')?.value,//VER 
         },
         {
-          key: 'NOMBRE DEL GRUPO',
-          value: this.registroForm.get('grupo')?.value(),
+          key: 'SENTENCIA',
+          value: this.registroForm.get('sentencia')?.value.toUpperCase(),
         },
         {
           key: 'JERARQUIA',
           value: this.registroForm.get('jerarquia')?.value.toUpperCase(),
         },
-        
         {
-          key: 'SENTENCIA',
-          value: this.registroForm.get('sentencia')?.value.toUpperCase(),
+          key: 'NOMBRE DEL GRUPO/ORGANIZACION',
+          value: this.registroForm.get('nombreGrupo')?.value.toUpperCase(),
         },
-
-
       ],
     };
 
+    console.log(formData);
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    });
+    
     this.http
-      .post('http://localhost:8080/api/administration/management/person', formData)
+      .post('http://localhost:8080/api/administration/management/person', formData, { headers })
       .subscribe({
         next: (response) => {
           console.log('Formulario enviado exitosamente', response);
@@ -128,22 +148,16 @@ export class ModuloRegistroOtrosComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.registroForm.invalid) {
-      Swal.fire({
-        title: 'Atención',
-        text: 'Por favor complete todos los campos.',
-        icon: 'warning',
-        confirmButtonText: 'Aceptar',
-      }); return;
-    }
+    
 
     const file = this.registroForm.get('foto')?.value;
-
+console.log(file);
     if (file instanceof File) {
       this.uploadImage(file)
         .then((response: any) => {
           console.log('Imagen subida correctamente', response);
           const imageId = response.imageId; // Asegúrate de que el backend devuelva este valor
+          console.log(imageId)
           if (imageId) {
             this.sendFormData(imageId);
           } else {

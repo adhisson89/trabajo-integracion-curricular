@@ -70,7 +70,7 @@
           <input type="radio" formControlName="role" value="INDIVIDUAL" /> INDIVIDUAL
         </label>
         <label>
-          <input type="radio" formControlName="role" value="ENGRUPO" /> ENGRUPO
+          <input type="radio" formControlName="role" value="GRUPAL" /> GRUPAL
         </label>
 
       </div>
@@ -86,7 +86,6 @@
       <!-- Apellidos -->
       <label for="apellidos">Apellidos:</label>
       <input type="text" id="surename" formControlName="surename" />
-
       <!-- Campos específicos para INDIVIDUAL -->
       <div *ngIf="editForm.get('role')?.value === 'INDIVIDUAL'">
 
@@ -102,16 +101,24 @@
 
       <!-- Campos específicos para DOCENTE, TRANSNACIONAL o COLABORADOR -->
       <div *ngIf="editForm.get('role')?.value !== 'INDIVIDUAL'">
+        <label for="alias">Alias:</label>
+        <input type="text" id="alias" formControlName="alias" />
 
-        <label for="grupo">Nombre del grupo u organización:</label>
-        <input type="text" id="grupo" formControlName="grupo">
+        <label for="tipoDelito">Tipo de Delito:</label>
+        <input type="text" id="tipoDelito" formControlName="tipoDelito" />
+
+        <label for="sentencia">Sentencia:</label>
+        <input type="text" id="sentencia" formControlName="sentencia" />
+
+        <label for="nombreGrupo">Nombre del grupo u organización:</label>
+        <input type="text" id="nombreGrupo" formControlName="nombreGrupo">
 
         <label for="jerarquia">Jerarquía en el grupo:</label>
-        <select id="jerarquia" formControlName="jerarquia">
+        <select type="text" id="jerarquia" formControlName="jerarquia">
           <option value="">Seleccione</option>
-          <option value="Lider">Líder</option>
-          <option value="Subordinado">Subordinado</option>
-          <option value="Colaborador">Colaborador</option>
+          <option value="LIDER">LÍDER</option>
+          <option value="SUBORDINADO">SUBORDINADO</option>
+          <option value="COLABORADOR">COLABORADOR</option>
         </select>
       </div>
 
