@@ -97,7 +97,7 @@ handleInactivity(): void {
         },
         error: (error) => {
           console.error('Error al enviar los datos:', error);
-          alert('Error al enviar los datos.');
+       
           Swal.fire({
             title: 'Error',
             html: '<p>Error al enviar los datos.</p><p>Verifíca que los campos esten completos</p>',
