@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ManagementService } from '../../services/management.service';
 import { HttpClientModule } from '@angular/common/http';
+import Swal from 'sweetalert2';
 
 interface Item {
   other_data: any;
@@ -134,11 +135,23 @@ export class ModuloListadoComponent implements OnInit {
         next: () => {
           this.filteredItems = this.filteredItems.filter(item => item !== this.itemToDelete);
           this.items = this.items.filter(item => item !== this.itemToDelete);
-          alert('El registro ha sido eliminado con éxito');
+          Swal.fire({
+            title: '¡Éxito!',
+            text: 'El registro ha sido eliminado con éxito.',
+            icon: 'success',
+            confirmButtonText: 'Aceptar',
+          });
+
+    
         },
         error: (error) => {
           console.error(error);
-          alert('No se pudo eliminar el registro');
+          Swal.fire({
+            title: 'Error',
+            text: 'No se pudo eliminar el registro',
+            icon: 'error',
+            confirmButtonText: 'Intentar de nuevo',
+          });
         },
         complete: () => {
           this.showDeleteConfirmation = false;
@@ -288,13 +301,25 @@ export class ModuloListadoComponent implements OnInit {
   
       this.managementService.updatePerson(this.editForm.value.identificacion, payload, token).subscribe({
         next: () => {
-          alert('Información actualizada con éxito');
+          Swal.fire({
+            title: '¡Éxito!',
+            text: 'Información actualizada con éxito',
+            icon: 'success',
+            confirmButtonText: 'Aceptar',
+          });
+
           this.fetchItems();
           this.cancelEdit();
         },
         error: (error) => {
           console.error(error);
-          alert('No se pudo actualizar la información');
+          Swal.fire({
+            title: 'Error',
+            text: 'No se pudo actualizar la información',
+            icon: 'error',
+            confirmButtonText: 'Intentar de nuevo',
+          });
+        
         }
       });
   
@@ -419,7 +444,13 @@ export class ModuloListadoComponent implements OnInit {
       })
       .catch(error => {
         console.error(error);
-        alert('No se encontró el registro con esa Cédula/Pasaporte');
+        Swal.fire({
+          title: 'Error',
+          text: 'No se encontró el registro con esa Cédula/Pasaporte',
+          icon: 'warning',
+          confirmButtonText: 'Intentar de nuevo',
+        });
+       
         this.filteredItems = []; // Limpia la lista si no se encuentra nada
       });
   }

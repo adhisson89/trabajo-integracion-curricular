@@ -42,9 +42,9 @@ export class ModuloRegistroComponent implements OnInit {
       identificacion: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
       nombres: ['', [Validators.required, Validators.pattern(/^[a-zA-ZñÑ\s]+$/)]],
       apellidos: ['', [Validators.required, Validators.pattern(/^[a-zA-ZñÑ\s]+$/)]],
-      alias:  ['', [Validators.required, Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/)]], 
-      tipoDelito: ['', [Validators.required, Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/)]], 
-      sentencia: ['', [Validators.required, Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/)]], 
+      alias: ['', [Validators.required, Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/)]],
+      tipoDelito: ['', [Validators.required, Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/)]],
+      sentencia: ['', [Validators.required, Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/)]],
     });
   }
 
@@ -70,7 +70,13 @@ export class ModuloRegistroComponent implements OnInit {
     const token = localStorage.getItem('authToken');
 
     if (!token) {
-      alert('Por favor, inicia sesión primero.');
+      
+      Swal.fire({
+        title: 'Error',
+        text: 'Por favor, inicia sesión primero..',
+        icon: 'error',
+        confirmButtonText: 'Aceptar',
+      });
       this.router.navigate(['/inicio-sesion']);
       return Promise.reject('Token no encontrado');
     }
@@ -94,7 +100,7 @@ export class ModuloRegistroComponent implements OnInit {
       photo_id: imageId,
       other_data: [
 
-        
+
         {
           key: 'ALIAS',
           value: this.registroForm.get('alias')?.value.toUpperCase(),
@@ -107,7 +113,7 @@ export class ModuloRegistroComponent implements OnInit {
           key: 'SENTENCIA',
           value: this.registroForm.get('sentencia')?.value.toUpperCase(),
         },
-       
+
       ],
     };
 
@@ -117,7 +123,7 @@ export class ModuloRegistroComponent implements OnInit {
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     });
-    
+
     this.http
       .post('http://localhost:8080/api/administration/management/person', formData, { headers })
       .subscribe({
@@ -132,16 +138,22 @@ export class ModuloRegistroComponent implements OnInit {
         },
         error: (error) => {
           console.error('Error al enviar los datos:', error);
-          alert('Error al enviar los datos.');
+
+          Swal.fire({
+            title: 'Error',
+           html:'<p>Error al enviar los datos.</p><p>Verifíca los campos que esten completos</p>',
+            icon: 'error',
+            confirmButtonText: 'Intentar de nuevo',
+          });
         },
       });
   }
 
   onSubmit(): void {
-    
+
 
     const file = this.registroForm.get('foto')?.value;
-console.log(file);
+    console.log(file);
     if (file instanceof File) {
       this.uploadImage(file)
         .then((response: any) => {
@@ -164,7 +176,13 @@ console.log(file);
           });
         });
     } else {
-      alert('Por favor selecciona una imagen válida.');
+      Swal.fire({
+        title: 'Error',
+        text: 'Por favor selecciona una imagen válida.',
+        icon: 'warning',
+        confirmButtonText: 'Intentar de nuevo',
+      });
+      
     }
   }
 

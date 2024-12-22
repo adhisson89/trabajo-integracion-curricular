@@ -13,34 +13,44 @@
     font-family: "teko";
     font-size: 70px;
     margin: 15px;
-    border-color: #838488  2px  ;
-    
-    color: transparent; /* El texto es transparente */
-    background: linear-gradient(
-        to right,
-        #A8ACAF,
-        #A8ACAF 40%,
-        rgba(255, 255, 255, 0.8) 50%,
-        #0a369d 60%,
-        #0a369d
-    ); /* Degradado dinámico */
-    background-clip: text; /* El fondo se recorta en las letras */
-    -webkit-background-clip: text; /* Compatibilidad con navegadores WebKit */
-    background-size: 200%; /* Amplía el tamaño del degradado para el efecto */
-    animation: lightMove 3s infinite linear; /* Movimiento continuo */
-    white-space: nowrap; /* Evita saltos de línea */
-    overflow: hidden; /* Asegura que nada se desborde */
-     /* Borde en las letras */
-     -webkit-text-stroke: 0.1px #3939395c; /* Grosor y color del borde */
+    border-color: #838488 2px;
+
+    color: transparent;
+    /* El texto es transparente */
+    background: linear-gradient(to right,
+            #A8ACAF,
+            #A8ACAF 40%,
+            rgba(255, 255, 255, 0.8) 50%,
+            #0a369d 60%,
+            #0a369d);
+    /* Degradado dinámico */
+    background-clip: text;
+    /* El fondo se recorta en las letras */
+    -webkit-background-clip: text;
+    /* Compatibilidad con navegadores WebKit */
+    background-size: 200%;
+    /* Amplía el tamaño del degradado para el efecto */
+    animation: lightMove 3s infinite linear;
+    /* Movimiento continuo */
+    white-space: nowrap;
+    /* Evita saltos de línea */
+    overflow: hidden;
+    /* Asegura que nada se desborde */
+    /* Borde en las letras */
+    -webkit-text-stroke: 0.1px #3939395c;
+    /* Grosor y color del borde */
 }
 
 /* Definición de la animación */
 @keyframes lightMove {
     0% {
-        background-position: 100%; /* Comienza fuera del texto a la derecha */
+        background-position: 100%;
+        /* Comienza fuera del texto a la derecha */
     }
+
     100% {
-        background-position: -100%; /* Termina fuera del texto a la izquierda */
+        background-position: -100%;
+        /* Termina fuera del texto a la izquierda */
     }
 }
 
@@ -81,7 +91,7 @@ body {
     background: #edececc9;
     border-radius: 10px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
-    
+
 }
 
 h1,
@@ -144,13 +154,13 @@ li {
 
 li:last-child {
     border-bottom: none;
-    
+
 }
 
 .item-text {
     font-family: "tit";
     margin-bottom: 10px;
-    
+
 }
 
 p {
@@ -161,8 +171,8 @@ p {
 
 .edit-btn,
 .delete-btn {
-   padding: 5px;
-   margin: 5px;
+    padding: 5px;
+    margin: 5px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -170,30 +180,31 @@ p {
 }
 
 .edit-btn {
-    
+
     background-color: #4CAF50;
     color: #fff;
 }
 
 .delete-btn {
-    
+
     background-color: #bd271c;
     color: #fff;
 }
 
-.pop-up{
-    margin-right: 100px;
+.pop-up {
+ 
     text-align: center;
     font-size: 18px;
     color: #333333;
     font-family: "qua";
     letter-spacing: 1px;
     position: relative;
-    left: 10px;
+   
     top: -30px;
-    
+
 }
-.pop-up2{
+
+.pop-up2 {
     margin-right: 100px;
     text-align: left;
     font-size: 15px;
@@ -207,8 +218,8 @@ p {
 }
 
 .deletex-btn {
-   width: 25px;
-   height: 25px;
+    width: 25px;
+    height: 25px;
     position: relative;
     left: 410px;
     background-color: #91221a;
@@ -224,16 +235,21 @@ p {
 }
 
 .edit-form {
-    width: 500px;
-    padding: 20px;
-    background: #edececc9;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff;
     border-radius: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    width: 90%; /* Se adapta al ancho del contenedor */
+    max-width: 500px; /* Tamaño máximo */
+    max-height: 650px; /* Tamaño máximo */
     animation: pop-up 0.5s ease-out;
+    overflow: auto;
 }
+    
 
 .file-container {
     position: relative;
@@ -241,7 +257,7 @@ p {
     display: flex;
     align-items: center;
     gap: 10px;
-   
+
 }
 
 .file-container img {
@@ -253,7 +269,7 @@ form {
     display: flex;
     flex-direction: column;
     gap: 1px;
-    
+
 }
 
 .radio-group {
@@ -295,6 +311,17 @@ form input[readonly] {
     background-color: #e9ecef;
     color: #6c757d;
     cursor: not-allowed;
+}
+
+select {
+    width: 100%;
+    margin: 5px;
+    padding: 5px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    font-size: 13px;
+    text-transform: uppercase;
+
 }
 
 button {
@@ -342,12 +369,12 @@ button[type="button"]:hover {
 /* Animación pop-up */
 @keyframes pop-up {
     from {
-        transform: scale(0.8);
+        transform:translate(-50%, -50%) scale(0.8);
         opacity: 0;
     }
 
     to {
-        transform: scale(1);
+        transform: translate(-50%, -50%) scale(1);
         opacity: 1;
     }
 }
@@ -406,7 +433,7 @@ button[type="button"]:hover {
 
     .edit-btn,
     .delete-btn {
-        
+
         padding: 8px 15px;
     }
 }

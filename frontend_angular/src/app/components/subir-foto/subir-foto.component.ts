@@ -73,6 +73,12 @@ export class SubirFotoComponent implements OnInit {
         error: (error) => {
           console.error('Error al enviar los datos:', error);
           alert('Error al enviar los datos.');
+          Swal.fire({
+            title: 'Error',
+            html: '<p>Error al enviar los datos.</p><p>Verifíca que los campos esten completos</p>',
+            icon: 'error',
+            confirmButtonText: 'Aceptar',
+          });
         },
       });
   }
@@ -111,7 +117,13 @@ export class SubirFotoComponent implements OnInit {
           });
         });
     } else {
-      alert('Por favor selecciona una imagen válida.');
+    
+      Swal.fire({
+        title: 'Error',
+        text: 'Por favor selecciona una imagen válida.',
+        icon: 'error',
+        confirmButtonText: 'Aceptar',
+      });
     }
   }
 

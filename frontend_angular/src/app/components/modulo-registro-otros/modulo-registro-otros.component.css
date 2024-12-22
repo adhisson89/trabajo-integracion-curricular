@@ -69,14 +69,12 @@ body {
 
 .container {
     margin-top: 70px;
-    height: 590px;
+    height: 570px;
     width: 500px;
-    padding: 30px;
+    padding: 20px;
     background: #edececc9;
     border-radius: 10px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
-    overflow-y: auto;
-    /* Evita el desbordamiento de contenido fuera del contenedor */
     display: flex;
     flex-direction: column;
     gap: 1px;
