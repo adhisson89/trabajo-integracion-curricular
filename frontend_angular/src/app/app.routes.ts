@@ -16,7 +16,7 @@ import { SubirFotoComponent } from './components/subir-foto/subir-foto.component
 export const routes: Routes = [
   { path: '', component: InicioComponent },
   { path: 'inicioSesion', component: InicioSesionComponent },
-  { path: 'inicio', component: InicioSesionComponent },
+  { path: 'inicio', component: InicioComponent },
   { path: 'moduloAdministrador', component: ModuloAdministradorComponent },
   { path: 'moduloListado', component: ModuloListadoComponent },
   { path: 'moduloRegistro', component: ModuloRegistroComponent },

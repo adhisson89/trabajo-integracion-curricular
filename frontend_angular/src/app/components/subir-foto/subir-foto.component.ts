@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,HostListener } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -16,10 +16,35 @@ import Swal from 'sweetalert2';
 })
 
 export class SubirFotoComponent implements OnInit {
+//PERIODO DE INACTIVIDAD 
+private inactivityTimeout: any;
+  private readonly inactivityTimeLimit: number = 300000; //300000-- 5 minutos ----30000---30s
+  private detectionInterval: any;
+
   registroForm!: FormGroup;
 
 
   constructor(private fb: FormBuilder, private http: HttpClient, private router: Router) { }
+
+// Gestión de inactividad
+@HostListener('document:mousemove')
+@HostListener('document:click')
+@HostListener('document:keydown')
+handleUserActivity(): void {
+  this.resetInactivityTimer();
+}
+
+resetInactivityTimer(): void {
+  clearTimeout(this.inactivityTimeout);
+  this.inactivityTimeout = setTimeout(() => {
+    this.handleInactivity();
+  }, this.inactivityTimeLimit);
+}
+
+handleInactivity(): void {
+  this.router.navigate(['/inicio']);
+}
+
 
   ngOnInit(): void {
     this.registroForm = this.fb.group({
