@@ -1,3 +1,4 @@
+
 /* Reset básico */
 * {
     margin: 0;
@@ -18,12 +19,14 @@ body {
 }
 
 .container {
+    margin-top: 30px;
     width: 100%;
-    max-width: 600px;
+    max-width: 100px;
     padding: 20px;
-    background-color: #fff;
-    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.258);
-    border-radius: 8px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+
 }
 
 h1,
@@ -80,28 +83,31 @@ li {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding: 10px;
+    padding: 5px;
     border-bottom: 1px solid #ddd;
 }
 
 li:last-child {
     border-bottom: none;
+
 }
 
 .item-text {
     font-family: "tit";
     margin-bottom: 10px;
+
 }
 
 p {
-    margin-right: 50px;
+    margin-right: 20px;
+    font-size: 13px;
     text-transform: uppercase;
 }
 
 .edit-btn,
 .delete-btn {
-   padding: 5px;
-   margin: 5px;
+    padding: 5px;
+    margin: 5px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -109,30 +115,31 @@ p {
 }
 
 .edit-btn {
-    
+
     background-color: #4CAF50;
     color: #fff;
 }
 
 .delete-btn {
-    
+
     background-color: #bd271c;
     color: #fff;
 }
 
-.pop-up{
-    margin-right: 100px;
+.pop-up {
+ 
     text-align: center;
     font-size: 18px;
     color: #333333;
     font-family: "qua";
     letter-spacing: 1px;
     position: relative;
-    left: 10px;
+   
     top: -30px;
-    
+
 }
-.pop-up2{
+
+.pop-up2 {
     margin-right: 100px;
     text-align: left;
     font-size: 15px;
@@ -146,8 +153,8 @@ p {
 }
 
 .deletex-btn {
-   width: 25px;
-   height: 25px;
+    width: 25px;
+    height: 25px;
     position: relative;
     left: 410px;
     background-color: #91221a;
@@ -163,16 +170,21 @@ p {
 }
 
 .edit-form {
-    width: 500px;
-    padding: 20px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.258);
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    width: 90%; /* Se adapta al ancho del contenedor */
+    max-width: 500px; /* Tamaño máximo */
+    max-height: 650px; /* Tamaño máximo */
     animation: pop-up 0.5s ease-out;
+    overflow: auto;
 }
+    
 
 .file-container {
     position: relative;
@@ -180,7 +192,7 @@ p {
     display: flex;
     align-items: center;
     gap: 10px;
-   
+
 }
 
 .file-container img {
@@ -192,7 +204,7 @@ form {
     display: flex;
     flex-direction: column;
     gap: 1px;
-    overflow-y: auto;
+
 }
 
 .radio-group {
@@ -236,6 +248,8 @@ form input[readonly] {
     cursor: not-allowed;
 }
 
+
+
 button {
     padding: 5px;
     background-color: #007bff;
@@ -269,9 +283,9 @@ button[type="button"]:hover {
 .confirmation-modal {
     width: 500px;
     padding: 30px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.258);
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -281,12 +295,12 @@ button[type="button"]:hover {
 /* Animación pop-up */
 @keyframes pop-up {
     from {
-        transform: scale(0.8);
+        transform:translate(-50%, -50%) scale(0.8);
         opacity: 0;
     }
 
     to {
-        transform: scale(1);
+        transform: translate(-50%, -50%) scale(1);
         opacity: 1;
     }
 }
@@ -303,11 +317,9 @@ button[type="button"]:hover {
     /* Ajusta el posicionamiento para centrar completamente */
     z-index: 1000;
     /* Asegura que se sobreponga sobre otros elementos */
-    background-color: #ffffff;
-    /* Color de fondo para garantizar visibilidad */
-    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.5);
-    /* Mejora la visibilidad con sombra */
-    border-radius: 8px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
     /* Estética */
     animation: pop-up 0.5s ease-out;
     /* Aplica la animación */
@@ -335,7 +347,10 @@ button[type="button"]:hover {
 
 @media (min-width: 1024px) {
     .container {
-        max-width: 800px;
+        margin-top: 120px;
+        max-width: 700px;
+        margin-bottom: 80px;
+
     }
 
     .filter input {
@@ -344,7 +359,7 @@ button[type="button"]:hover {
 
     .edit-btn,
     .delete-btn {
-        
+
         padding: 8px 15px;
     }
 }

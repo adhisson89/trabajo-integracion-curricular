@@ -56,7 +56,13 @@ export class ModuloRegistroOtrosComponent implements OnInit {
     const token = localStorage.getItem('authToken');
 
     if (!token) {
-      alert('Por favor, inicia sesión primero.');
+      Swal.fire({
+        title: 'Error',
+        text: 'Por favor, inicia sesión primero.',
+        icon: 'error',
+        confirmButtonText: 'Aceptar',
+      });
+      
       this.router.navigate(['/inicio-sesion']);
       return Promise.reject('Token no encontrado');
     }
@@ -106,7 +112,13 @@ export class ModuloRegistroOtrosComponent implements OnInit {
         },
         error: (error) => {
           console.error('Error al enviar los datos:', error);
-          alert('Error al enviar los datos.');
+          Swal.fire({
+            title: 'Error',
+            text: 'Error al enviar los datos.',
+            icon: 'error',
+            confirmButtonText: 'Aceptar',
+          });
+          
         },
       });
   }
@@ -144,7 +156,13 @@ export class ModuloRegistroOtrosComponent implements OnInit {
           });
         });
     } else {
-      alert('Por favor selecciona una imagen válida.');
+      Swal.fire({
+        title: 'Error',
+        text: 'Por favor selecciona una imagen válida.',
+        icon: 'error',
+        confirmButtonText: 'Intentar de nuevo',
+      });
+      
     }
   }
 

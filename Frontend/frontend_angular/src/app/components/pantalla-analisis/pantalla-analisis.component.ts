@@ -1,5 +1,5 @@
 import * as faceapi from 'face-api.js';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,45 +8,73 @@ import { Router } from '@angular/router';
   styleUrls: ['./pantalla-analisis.component.css']
 })
 export class PantallaAnalisisComponent implements OnInit, OnDestroy {
-  videoRef: any;
+
+  private inactivityTimeout: any;
+  private readonly inactivityTimeLimit: number = 30000; //300000-- 5 minutos ----30000---30s
+  private detectionInterval: any;
+
+  videoRef: HTMLVideoElement | null = null;
   statusIcon: HTMLImageElement | null = null;
-  stream: MediaStream | null = null; // Para almacenar el stream de la cámara
+  stream: MediaStream | null = null;
 
   constructor(private router: Router) {}
 
+  // Gestión de inactividad
+  @HostListener('document:mousemove')
+  @HostListener('document:click')
+  @HostListener('document:keydown')
+  handleUserActivity(): void {
+    this.resetInactivityTimer();
+  }
+
+  resetInactivityTimer(): void {
+    clearTimeout(this.inactivityTimeout);
+    this.inactivityTimeout = setTimeout(() => {
+      this.handleInactivity();
+    }, this.inactivityTimeLimit);
+  }
+
+  handleInactivity(): void {
+    this.router.navigate(['/inicio']);
+  }
+
   async ngOnInit(): Promise<void> {
-    // Referencia al elemento de video
-    this.videoRef = document.getElementById('video');
+    this.resetInactivityTimer(); // Inicializa el temporizador
+    this.videoRef = document.getElementById('video') as HTMLVideoElement;
     this.statusIcon = document.getElementById('status-icon') as HTMLImageElement;
 
-    // Cargar los modelos
-    await this.loadModels();
+    if (!this.videoRef) {
+      console.error("Elemento de video no encontrado.");
+      return;
+    }
 
-    // Configurar la cámara
+    await this.loadModels();
     this.setupCamara();
   }
 
-  async loadModels() {
+  async loadModels(): Promise<void> {
     const modelPath = './assets/models';
-    await faceapi.nets.tinyFaceDetector.loadFromUri(modelPath);
-    await faceapi.nets.faceLandmark68Net.loadFromUri(modelPath);
-    await faceapi.nets.faceRecognitionNet.loadFromUri(modelPath);
-    console.log('Modelos de face-api.js cargados correctamente');
+    try {
+      await faceapi.nets.tinyFaceDetector.loadFromUri(modelPath);
+      await faceapi.nets.faceLandmark68Net.loadFromUri(modelPath);
+      await faceapi.nets.faceRecognitionNet.loadFromUri(modelPath);
+      console.log('Modelos de face-api.js cargados correctamente');
+    } catch (error) {
+      console.error("Error al cargar los modelos:", error);
+    }
   }
 
-  setupCamara() {
+  setupCamara(): void {
     navigator.mediaDevices.getUserMedia({
       video: { width: 600, height: 300 },
       audio: false
     }).then(stream => {
-      this.stream = stream; // Guardar el stream para detenerlo más tarde
+      this.stream = stream;
       if (this.videoRef) {
         this.videoRef.srcObject = stream;
 
         this.videoRef.addEventListener('loadedmetadata', () => {
-          this.videoRef.width = this.videoRef.videoWidth || 600;
-          this.videoRef.height = this.videoRef.videoHeight || 300;
-          this.videoRef.play();
+          this.videoRef?.play();
           this.detectFaces();
         });
       }
@@ -55,85 +83,71 @@ export class PantallaAnalisisComponent implements OnInit, OnDestroy {
     });
   }
 
-  async detectFaces() {
+  async detectFaces(): Promise<void> {
     if (!this.videoRef) return;
 
-    const videoElement = this.videoRef as HTMLVideoElement;
+    const videoElement = this.videoRef;
+    const canvas = faceapi.createCanvasFromMedia(videoElement);
+    document.body.append(canvas);
 
-    videoElement.addEventListener('loadeddata', async () => {
-      if (videoElement.videoWidth === 0 || videoElement.videoHeight === 0) {
-        console.error("Dimensiones del video no válidas.");
-        return;
+    const displaySize = { width: videoElement.videoWidth, height: videoElement.videoHeight };
+    faceapi.matchDimensions(canvas, displaySize);
+
+    this.detectionInterval = setInterval(async () => {
+      const detections = await faceapi.detectAllFaces(videoElement, new faceapi.TinyFaceDetectorOptions())
+        .withFaceLandmarks()
+        .withFaceDescriptors();
+
+      const resizedDetections = faceapi.resizeResults(detections, displaySize);
+      canvas.getContext('2d')?.clearRect(0, 0, canvas.width, canvas.height);
+      faceapi.draw.drawDetections(canvas, resizedDetections);
+      faceapi.draw.drawFaceLandmarks(canvas, resizedDetections);
+
+      if (detections.length > 0) {
+        console.log('Rostro detectado:', detections);
       }
-
-      const canvas = faceapi.createCanvasFromMedia(videoElement);
-      document.body.append(canvas);
-
-      const displaySize = { width: videoElement.videoWidth, height: videoElement.videoHeight };
-      faceapi.matchDimensions(canvas, displaySize);
-
-      setInterval(async () => {
-        const detections = await faceapi.detectAllFaces(videoElement, new faceapi.TinyFaceDetectorOptions())
-          .withFaceLandmarks()
-          .withFaceDescriptors();
-
-        const resizedDetections = faceapi.resizeResults(detections, displaySize);
-        canvas.getContext('2d')?.clearRect(0, 0, canvas.width, canvas.height);
-        faceapi.draw.drawDetections(canvas, resizedDetections);
-        faceapi.draw.drawFaceLandmarks(canvas, resizedDetections);
-
-        if (detections.length > 0) {
-          console.log('Rostro detectado:', detections);
-        }
-      }, 100);
-    });
+    }, 100);
   }
 
-  // Detiene la cámara cuando el componente se destruye
-  ngOnDestroy(): void {
-    if (this.stream) {
-      this.stream.getTracks().forEach(track => track.stop()); // Detener todos los tracks del stream
-      console.log("Cámara desactivada");
-    }
-  }
-
-  // Captura un frame del video como JPG
-  captureImageAsJPG() {
+  captureImageAsJPG(): void {
     if (this.videoRef) {
-      const canvas = faceapi.createCanvasFromMedia(this.videoRef);
+      const canvas = document.createElement('canvas');
       canvas.width = this.videoRef.videoWidth;
       canvas.height = this.videoRef.videoHeight;
 
       const context = canvas.getContext('2d');
       if (context) {
         context.drawImage(this.videoRef, 0, 0, canvas.width, canvas.height);
-
-        // Convertir a Blob (formato JPEG)
-        canvas.toBlob((blob) => {
+        canvas.toBlob(blob => {
           if (blob) {
             this.sendToBackend(blob);
           }
-        }, 'image/jpeg', 0.95); // 0.95 es la calidad del JPEG
+        }, 'image/jpeg', 0.95);
       }
     }
   }
 
-  // Envía el archivo JPG al backend
-  sendToBackend(blob: Blob) {
+  sendToBackend(blob: Blob): void {
     fetch('http://localhost:8080/api/face-recognition/compare', {
       method: 'POST',
       body: blob,
-      headers: {
-        'Content-Type': 'image/jpeg'
-      }
-    })
-    .then(response => {
+      headers: { 'Content-Type': 'image/jpeg' }
+    }).then(response => {
       if (response.ok) {
         console.log('Imagen enviada exitosamente');
       } else {
         console.error('Error al enviar la imagen');
       }
-    })
-    .catch(err => console.error('Error en la solicitud:', err));
+    }).catch(err => console.error('Error en la solicitud:', err));
+  }
+
+  ngOnDestroy(): void {
+    clearTimeout(this.inactivityTimeout);
+    clearInterval(this.detectionInterval);
+
+    if (this.stream) {
+      this.stream.getTracks().forEach(track => track.stop());
+      console.log("Cámara desactivada");
+    }
   }
 }

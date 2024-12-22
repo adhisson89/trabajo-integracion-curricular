@@ -45,9 +45,9 @@ body {
 .header h2 {
     font-size: 1rem;
     flex: 1; /* Para ocupar espacio restante */
+    font-family: 'mon';
     text-align: center;
 }
-
 
 .content {
     position: relative;

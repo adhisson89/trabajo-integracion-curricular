@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ManagementService } from '../../services/management.service';
 import { HttpClientModule } from '@angular/common/http';
+import Swal from 'sweetalert2';
 
 interface Item {
   other_data: any;
@@ -90,29 +91,7 @@ export class ModuloListadoComponent implements OnInit {
     });
   }
 
-  /* fetchItems() {
-    this.isLoading = true;
-    const token = localStorage.getItem('authToken');
-
-    fetch('http://localhost:8080/api/administration/management/people/' + token, {
-      method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-    })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data);
-        this.items = data;
-        this.filteredItems = [...this.items];
-        this.isLoading = false;
-      })
-      .catch(error => {
-        console.error(error);
-        this.isLoading = false;
-      });
-  } */
+  
 
   confirmDelete(item: Item) {
     this.showDeleteConfirmation = true;
@@ -131,11 +110,25 @@ export class ModuloListadoComponent implements OnInit {
         next: () => {
           this.filteredItems = this.filteredItems.filter(item => item !== this.itemToDelete);
           this.items = this.items.filter(item => item !== this.itemToDelete);
-          alert('El registro ha sido eliminado con éxito');
+
+          Swal.fire({
+            title: '¡Éxito!',
+            text: 'El registro ha sido eliminado con éxito',
+            icon: 'success',
+            confirmButtonText: 'Aceptar',
+          });
+
+        
         },
         error: (error) => {
           console.error(error);
-          alert('No se pudo eliminar el registro');
+          Swal.fire({
+            title: 'Error',
+            text: 'No se pudo eliminar el registro',
+            icon: 'error',
+            confirmButtonText: 'Aceptar',
+          });
+          
         },
         complete: () => {
           this.showDeleteConfirmation = false;
@@ -145,43 +138,8 @@ export class ModuloListadoComponent implements OnInit {
     }
   }
 
-  /* deleteItem() {
-    if (this.itemToDelete) {
-      const token = localStorage.getItem('authToken');
-      fetch('http://localhost:8080/api/administration/management/person', {
-        method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          token: token,
-          identification: this.itemToDelete.identification,
-        }),
-      })
-        .then(response => {
-          if (response.ok) {
-            this.filteredItems = this.filteredItems.filter(
-              item => item !== this.itemToDelete
-            );
-            this.items = this.items.filter(item => item !== this.itemToDelete);
-            alert('El registro ha sido eliminado con éxito');
-          } else {
-            throw new Error('Error al eliminar el registro');
-          }
-        })
-        .catch(error => {
-          console.error(error);
-          alert('No se pudo eliminar el registro');
-        })
-        .finally(() => {
-          this.showDeleteConfirmation = false;
-          this.itemToDelete = null;
-        });
-    }
-  } */
-
-
+ 
+  
   startEdit(item: Item) {
     this.editingItem = item;
     // Extraer valores de `other_data`
@@ -276,13 +234,26 @@ export class ModuloListadoComponent implements OnInit {
   
       this.managementService.updatePerson(this.editForm.value.identificacion, payload, token).subscribe({
         next: () => {
-          alert('Información actualizada con éxito');
+          Swal.fire({
+            title: '¡Éxito!',
+            text: 'Información actualizada con éxito.',
+            icon: 'success',
+            confirmButtonText: 'Aceptar',
+          });
+         
           this.fetchItems();
           this.cancelEdit();
         },
         error: (error) => {
           console.error(error);
-          alert('No se pudo actualizar la información');
+          Swal.fire({
+            title: 'Error',
+            text: 'No se pudo actualizar la información',
+            icon: 'error',
+            confirmButtonText: 'Aceptar',
+          });
+          
+
         }
       });
   
@@ -296,89 +267,7 @@ export class ModuloListadoComponent implements OnInit {
   }
 
 
- /*  onSubmit() {
-    if (this.editingItem) {
-      const rawPayload = {
-        token: this.token,
-        role: this.editForm.value.role, // Use editForm values
-        name: this.editForm.value.name, // Use editForm values
-        surename: this.editForm.value.surename, // Use editForm values
-        direccionAdministrativa: this.editForm.value.direccionAdministrativa, 
-        other_data: [
-          {
-            key: 'UNIDAD ACADEMICA',
-            value: this.editForm.value.unidadAcademica || '',
-          },
-          {
-            key: 'CÓDIGO ÚNICO',
-            value: this.editForm.value.codigoUnico || '',
-          },
-          {
-            key: 'CARRERA/PROGRAMA',
-            value: this.editForm.value.carrera || '',
-          },
-          {
-            key: 'CORREO INSTITUCIONAL',
-            value: `${this.editForm.value.name.toLowerCase()}.${this.editForm.value.surename.toLowerCase()}@epn.edu.ec`,
-          },
-          {
-            key: 'DIRECCION ADMINISTRATIVA',
-            value: this.editForm.value.direccionAdministrativa || '',
-          },
-        ],
-      };
-  
-      fetch(`http://localhost:8080/api/administration/management/person/${this.editForm.value.identificacion}`, {
-        method: 'PATCH',
-        headers: {
-          'Authorization': `Bearer ${this.token}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(rawPayload),
-      })
-        .then(response => {
-          if (response.ok) {
-            alert('Información actualizada con éxito');
-            this.fetchItems();
-            this.cancelEdit();
-          }
-          return response; 
-        })
-        .catch(error => {
-          console.error(error);
-          alert('No se pudo actualizar la información');
-        });
-
-        if (this.selectedFile != null) {
-          const token = this.token || '';
-          const formData = new FormData();
-          formData.append('photo', this.selectedFile); // Cambiar 'photo' a 'image' para coincidir con Postman
-          formData.append('id', this.editForm.value.photo_id); // Agregar el campo 'id'
-          formData.append('token', token); // Agregar el campo 'token'
-          console.log(formData)
-          fetch('http://localhost:8080/api/administration/management/image', { // Cambiar el endpoint
-            method: 'PATCH', // Cambiar el método a PATCH
-            body: formData,
-          })
-            .then(response => {
-              if (response.ok) {
-                alert('Foto actualizada con éxito');
-              } else {
-                alert('Error al actualizar la foto');
-              }
-              return response;
-            })
-            .catch(error => {
-              console.error(error);
-              alert('No se pudo actualizar la foto');
-            });
-        }        
-    }
-    console.log('Valores del formulario:', this.editForm.value);
-  } */
-  
-
-  //filtrado por ci/
+   //filtrado por ci/
   filterByIdentification() {
     if (!this.filterIdentification.trim()) {
       // Si el campo de búsqueda está vacío, mostrar todos los elementos
@@ -407,7 +296,13 @@ export class ModuloListadoComponent implements OnInit {
       })
       .catch(error => {
         console.error(error);
-        alert('No se encontró el registro con esa Cédula/Pasaporte');
+        Swal.fire({
+          title: 'Error',
+          text: 'No se encontró el registro con esa Cédula/Pasaporte',
+          icon: 'error',
+          confirmButtonText: 'Intentar de nuevo',
+        });
+       
         this.filteredItems = []; // Limpia la lista si no se encuentra nada
       });
   }

@@ -2,7 +2,7 @@ import { Component,ViewEncapsulation  } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common'; // Importa CommonModule
-
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-inicio-sesion',
@@ -66,10 +66,21 @@ export class InicioSesionComponent {
         })
         .catch(error => {
           console.error('Error durante el inicio de sesión:', error);
-          alert('Hubo un problema al iniciar sesión. Inténtalo de nuevo más tarde.');
+          Swal.fire({
+            title: 'Error',
+            html: '<p>Hubo un problema al iniciar sesión.</p><p>Inténtalo de nuevo más tarde.</p>',
+            icon: 'error',
+            confirmButtonText: 'Intentar de nuevo',
+          });
         });
     } else {
-      alert('Por favor completa todos los campos.');
+      Swal.fire({
+        title: 'Error',
+        text: 'Por favor completa todos los campos.',
+        icon: 'error',
+        confirmButtonText: 'Aceptar',
+      });
+  
     }
   }
 
