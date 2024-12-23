@@ -11,8 +11,9 @@ import os
 import tempfile
 import random
 
-db_string = 'mongodb+srv://adhisson:XVNqbidUA8Lu7iAm@tic.cerq8.mongodb.net/FacialDB?retryWrites=true&w=majority&appName=TIC'
-
+#db_string = 'mongodb+srv://adhisson:XVNqbidUA8Lu7iAm@tic.cerq8.mongodb.net/FacialDB?retryWrites=true&w=majority&appName=TIC'
+           
+db_string   = 'mongodb+srv://adhisson:XVNqbidUA8Lu7iAm@tic.cerq8.mongodb.net/FacialDB?retryWrites=true&w=majority&appName=TIC'
 # Generate a random ID
 
 
@@ -63,10 +64,11 @@ def add_face(user_id):
             file.save(temp_file_path)  # Save the uploaded file to the temp file
 
         photo_embedding = get_embedding_representation(temp_file_path)
+     #  photo_embedding = get_embedding_representation(img_path=temp_file_path, model_name='VGG-Face')
         print("generated embedding", photo_embedding)
         os.remove(temp_file_path)
-        update_result = add_db_people_embedding(user_id,photo_embedding)
-        print('adding people', update_result)
+        update_result = add_db_deepfacedb_embedding(user_id,photo_embedding)
+        print('adding to deepfacedb', update_result)
 
         return jsonify({"message": "ok"})
         # return jsonify({"message": update_result})
@@ -79,7 +81,7 @@ def add_face(user_id):
 # compare img
 @api_bp.route("/compareFace", methods=["POST"])
 def compare_face():
-    try:
+     try:
         # Get the image file from the request
         if 'file' not in request.files:
             return jsonify({"error": "No file part in the request"}), 400
@@ -105,7 +107,7 @@ def compare_face():
         print("generated embedding", photo_embedding)
         os.remove(temp_file_path)
 
-        people = get_db_people()
+        people = get_db_deepfaceDB()
         print('printing people', people)
         comparation_result = compare_img_people(photo_embedding, people)
 
@@ -130,32 +132,39 @@ def get_embedding_representation(my_img):
 # def load_embedding(embedding_name):
 #     return np.load("reference_embedding.npy", allow_pickle=True)
 
-def add_db_people_embedding(user_id, new_photo_vector):
+def add_db_deepfacedb_embedding(user_id, new_photo_vector):
     client = MongoClient(db_string)
 
     try:
-        # Access the database
-        db = client["FacialDB"]  # Replace with your database name
-        # Access the collection
-        people = db["people"]  # Replace with your collection name
-        # add new embedding
-        person = people.update_one(
-            {"identification": user_id},
-            {"$set":{"photo_vector": new_photo_vector}}
+        # Accede a la base de datos
+        db = client["FacialDB"]  # Nombre de la base de datos
+        # Accede a la colección
+        deepfacePerson = db["deepfaceDB"]  # Nombre de la colección
+
+        # Añade o actualiza el embedding
+        result = deepfacePerson.update_one(
+            {"identification": user_id},  # Filtro para buscar el documento
+            {"$set": {"photo_vector": new_photo_vector}},  # Actualización
+            upsert=True  # Crea un nuevo documento si no existe
         )
-        if person.matched_count > 0:
+
+        if result.matched_count > 0:
             print(f"Document with ID {user_id} updated successfully.")
             return True
+        elif result.upserted_id is not None:
+            print(f"Document with ID {user_id} created successfully.")
+            return True
         else:
-            print(f"No document found with ID {user_id}.")
+            print("No changes were made.")
             return False
 
     except Exception as e:
-        print("error on add_db_people_embedding", e)
+        print("Error on add_db_deepfacedb_embedding:", e)
+        return False
     finally:
-        print("add_db_people_embedding went to finally")
+        print("add_db_deepfacedb_embedding finished execution.")
 
-def get_db_people():
+def get_db_deepfaceDB():
 
     client = MongoClient(db_string)
 
@@ -163,9 +172,9 @@ def get_db_people():
         # Access the database
         db = client["FacialDB"]  # Replace with your database name5000
         # Access the collection
-        people = db["people"]  # Replace with your collection name
+        deepfacePerson = db["deepfaceDB"]  # Replace with your collection name
         # Fetch all documents in the collection
-        return list(people.find())
+        return list(deepfacePerson.find())
 
         # Optionally: Extract and return only the embeddings data
         # return [doc.get("embedding") for doc in embeddings if "embedding" in doc]
@@ -180,17 +189,31 @@ def get_db_people():
 
 def compare_img_people(photo_embedding, people):
     threshold = 0.9
+    best_match = None
+    best_score = float('inf')  # La menor distancia encontrada
+
     try:
         for person in people:
             reference_embedding = person['photo_vector']
+
             if reference_embedding and photo_embedding:
                 cosine_dist = distance.cosine(photo_embedding, reference_embedding)
-                if cosine_dist < threshold:
-                    return {"status":str(True), "person":person["name"],"id":person["identification"]}
-                else:
-                    return {"status":str(False)}
+                print(f"Comparing with {person['identification']} - Distance: {cosine_dist}")
+
+                # Si la distancia es mejor que la actual
+                if cosine_dist < best_score:
+                    best_score = cosine_dist
+                    best_match = person
+
+        # Verificar si el mejor match está debajo del umbral
+        if best_score < threshold:
+            return {"status": str(True), "id": best_match["identification"], "score": best_score}
+        else:
+            return {"status": str(False), "score": best_score}
+
     except Exception as e:
-        return {"status":str(False)}
+        print(f"Error during comparison: {e}")
+        return {"status": str(False), "error": str(e)}
 
 
 app.register_blueprint(api_bp)
