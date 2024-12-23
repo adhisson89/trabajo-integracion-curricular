@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { PantallaAnalisisComponent } from './pantalla-analisis.component';
 
 describe('PantallaAnalisisComponent', () => {
@@ -8,7 +7,7 @@ describe('PantallaAnalisisComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PantallaAnalisisComponent]
+      declarations: [PantallaAnalisisComponent], // Declara el componente aquí
     })
     .compileComponents();
 
@@ -20,4 +19,10 @@ describe('PantallaAnalisisComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  
+  //pruebas unitarias 
+  
+
+
 });
