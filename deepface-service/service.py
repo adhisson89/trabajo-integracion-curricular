@@ -31,7 +31,7 @@ except Exception as e:
 # Flask app
 app = Flask(__name__)
 
-api_bp = Blueprint('api', __name__, url_prefix='/api/deepface')
+api_bp = Blueprint('api', __name__, url_prefix='/api/face-recognition')
 
 
 @api_bp.route("/health", methods=["GET"])
@@ -219,4 +219,4 @@ def compare_img_people(photo_embedding, people):
 app.register_blueprint(api_bp)
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=PORT)
+    app.run(debug=False,host="0.0.0.0", port=PORT)
