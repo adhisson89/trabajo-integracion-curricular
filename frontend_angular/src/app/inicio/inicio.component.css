@@ -83,7 +83,7 @@ button.btn_Admin:hover {
 }
 
 /* Botón Empezar */
-button.btn_Empezar {
+button.btn_EnVivo {
     font-family: "gro";
     letter-spacing: 3px;
     background-color: #838488;
@@ -98,11 +98,35 @@ button.btn_Empezar {
     transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
-button.btn_Empezar:hover {
+button.btn_EnVivo:hover {
     background-color: #011466;
     transform: scale(1.05);
     box-shadow: 0px 0px 20px #556999;
 }
+
+
+/* Botón subir */
+button.btn_subir {
+    font-family: "gro";
+    letter-spacing: 3px;
+    background-color: #838488;
+    color: #ffffff;
+    border: none;
+    padding: 12px 25px;
+    font-size: 1.1em;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: 20px;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+button.btn_subir:hover {
+    background-color: #011466;
+    transform: scale(1.05);
+    box-shadow: 0px 0px 20px #556999;
+}
+
 
 /* Ilustraciones */
 .illustration {
@@ -186,7 +210,7 @@ button.btn_Empezar:hover {
         height: 150px;
     }
 
-    .btn_Empezar {
+    .btn_EnVivo {
         margin-left: 0;
     }
 }
