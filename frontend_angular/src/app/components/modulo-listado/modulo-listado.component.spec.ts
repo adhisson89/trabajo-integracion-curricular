@@ -47,7 +47,7 @@ describe('ModuloListadoComponent', () => {
     component.fetchItems();
 
     expect(component.items.length).toBe(1);
-    console.log('se trajo corectamente los items');
+    console.log('FrontEnd Policia Nacional del Ecuadorse trajo corectamente los items');
   
   });
 
@@ -74,7 +74,7 @@ describe('ModuloListadoComponent', () => {
     expect(component.editForm.value.surename).toBe('Doe');
     expect(component.editForm.value.role).toBe('Admin');
     expect(component.editForm.value.alias).toBe('JDoe');
-    console.log('se lleno el formulario con los datos del item seleccionado');
+    console.log('FrontEnd Policia Nacional del Ecuadorse lleno el formulario con los datos del item seleccionado');
   });
 
   it('should set itemToDelete and show delete confirmation', () => {
@@ -85,7 +85,7 @@ describe('ModuloListadoComponent', () => {
     expect(component.showDeleteConfirmation).toBe(true);
     expect(component.itemToDelete).toEqual(itemToDelete);
 
-    console.log('se elimino el item seleccionado');
+    console.log('FrontEnd Policia Nacional del Ecuadorse elimino el item seleccionado');
   });
 
   it('should handle file selection correctly', () => {
@@ -95,7 +95,7 @@ describe('ModuloListadoComponent', () => {
     component.onFileSelected(event);
 
     expect(component.selectedFile).toBe(mockFile);
-    console.log('se selecciono el archivo correctamente');
+    console.log('FrontEnd Policia Nacional del Ecuadorse selecciono el archivo correctamente');
   });
 
   it('should disable fields when role is INDIVIDUAL', () => {
@@ -104,7 +104,7 @@ describe('ModuloListadoComponent', () => {
     expect(component.editForm.get('nombreGrupo')?.disabled).toBe(true);
     expect(component.editForm.get('jerarquia')?.disabled).toBe(true);
     expect(component.editForm.get('sentencia')?.enabled).toBe(true);
-    console.log('se deshabilitaron los campos correctamente');
+    console.log('FrontEnd Policia Nacional del Ecuadorse deshabilitaron los campos correctamente');
   });
 
 
@@ -118,13 +118,13 @@ describe('ModuloListadoComponent', () => {
 
     
     expect(component.items.length).toBe(0);
-    console.log('se elimino el item correctamente');
+    console.log('FrontEnd Policia Nacional del Ecuadorse elimino el item correctamente');
   });
 
 
 
   it('should filter items by identification', fakeAsync(() => {
-    console.log('filtrado de items por identificación exitoso');
+    console.log('FrontEnd Policia Nacional del Ecuadorfiltrado de items por identificación exitoso');
     // Configuramos un mock para la respuesta de fetch
     const mockFilteredItem = {
       other_data: null,
