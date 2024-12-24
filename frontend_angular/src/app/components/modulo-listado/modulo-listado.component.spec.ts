@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, flushMicrotasks, TestBed } from '@angular/core/testing';
 import { ModuloListadoComponent } from './modulo-listado.component';
 import { of } from 'rxjs';
 import Swal from 'sweetalert2';
@@ -47,6 +47,7 @@ describe('ModuloListadoComponent', () => {
     component.fetchItems();
 
     expect(component.items.length).toBe(1);
+    console.log('se trajo corectamente los items');
   
   });
 
@@ -73,6 +74,7 @@ describe('ModuloListadoComponent', () => {
     expect(component.editForm.value.surename).toBe('Doe');
     expect(component.editForm.value.role).toBe('Admin');
     expect(component.editForm.value.alias).toBe('JDoe');
+    console.log('se lleno el formulario con los datos del item seleccionado');
   });
 
   it('should set itemToDelete and show delete confirmation', () => {
@@ -82,6 +84,8 @@ describe('ModuloListadoComponent', () => {
 
     expect(component.showDeleteConfirmation).toBe(true);
     expect(component.itemToDelete).toEqual(itemToDelete);
+
+    console.log('se elimino el item seleccionado');
   });
 
   it('should handle file selection correctly', () => {
@@ -91,6 +95,7 @@ describe('ModuloListadoComponent', () => {
     component.onFileSelected(event);
 
     expect(component.selectedFile).toBe(mockFile);
+    console.log('se selecciono el archivo correctamente');
   });
 
   it('should disable fields when role is INDIVIDUAL', () => {
@@ -99,6 +104,7 @@ describe('ModuloListadoComponent', () => {
     expect(component.editForm.get('nombreGrupo')?.disabled).toBe(true);
     expect(component.editForm.get('jerarquia')?.disabled).toBe(true);
     expect(component.editForm.get('sentencia')?.enabled).toBe(true);
+    console.log('se deshabilitaron los campos correctamente');
   });
 
 
@@ -112,10 +118,45 @@ describe('ModuloListadoComponent', () => {
 
     
     expect(component.items.length).toBe(0);
-    
+    console.log('se elimino el item correctamente');
   });
 
 
+
+  it('should filter items by identification', fakeAsync(() => {
+    console.log('filtrado de items por identificación exitoso');
+    // Configuramos un mock para la respuesta de fetch
+    const mockFilteredItem = {
+      other_data: null,
+      identification: '123',
+      name: 'Jane',
+      surename: 'Doe',
+      role: 'Admin',
+      modus: 'Active',
+      photo_id: 'photo123',
+    };
+  
+    spyOn(window, 'fetch').and.returnValue(Promise.resolve({
+      ok: true,
+      json: () => Promise.resolve(mockFilteredItem),
+    } as Response));
+  
+    // Configuramos los datos iniciales y el filtro
+    component.filterIdentification = '123';
+  
+    // Llamamos al método
+    component.filterByIdentification();
+  
+    // Procesamos tareas pendientes
+    flushMicrotasks();
+    
+    // Verificamos que el filtrado funcione correctamente
+    expect(component.filteredItems.length).toBe(1);
+    expect(component.filteredItems[0].identification).toBe('123');
+    expect(component.filteredItems[0].name).toBe('Jane');
+    expect(component.filteredItems[0].surename).toBe('Doe');
+  
+  }));
 
   
 });
