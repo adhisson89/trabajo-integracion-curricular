@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, flushMicrotasks, TestBed } from '@angular/core/testing';
 import { ModuloListadoComponent } from './modulo-listado.component';
 import { of } from 'rxjs';
 import Swal from 'sweetalert2';
@@ -122,7 +122,41 @@ describe('ModuloListadoComponent', () => {
     console.log('llenado de formulario para editar');
   });
 
-
+  it('should filter items by identification', fakeAsync(() => {
+    console.log('filtrado de items por identificación exitoso');
+    // Configuramos un mock para la respuesta de fetch
+    const mockFilteredItem = {
+      other_data: null,
+      identification: '123',
+      name: 'Jane',
+      surename: 'Doe',
+      role: 'ESTUDIANTE',
+      modo: 'ESTUDIANTE',
+      photo_id: 'photo123',
+    };
+  
+    spyOn(window, 'fetch').and.returnValue(Promise.resolve({
+      ok: true,
+      json: () => Promise.resolve(mockFilteredItem),
+    } as Response));
+  
+    // Configuramos los datos iniciales y el filtro
+    component.filterIdentification = '123';
+  
+    // Llamamos al método
+    component.filterByIdentification();
+  
+    // Procesamos tareas pendientes
+    flushMicrotasks();
+    
+    // Verificamos que el filtrado funcione correctamente
+    expect(component.filteredItems.length).toBe(1);
+    expect(component.filteredItems[0].identification).toBe('123');
+    expect(component.filteredItems[0].name).toBe('Jane');
+    expect(component.filteredItems[0].surename).toBe('Doe');
+  
+  }));
+  
 
 
 
