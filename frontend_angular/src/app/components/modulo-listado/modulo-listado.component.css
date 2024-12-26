@@ -471,5 +471,9 @@ button[type="button"]:hover {
 }
 
 .date-button:hover {
-    background-color: #054e9c;
+    
+  background-color: #b6b6b6;
+    transform: scale(1.05);
+    box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.8);
+
 }
