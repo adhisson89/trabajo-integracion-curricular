@@ -70,58 +70,6 @@ body {
     filter: invert(100%);
 }
 
-/* Responsiveness */
-
-/* Para pantallas pequeñas (celulares) */
-@media (max-width: 600px) {
-    .module {
-        width: 100px;
-        height: 100px;
-    }
-
-    .module img {
-        width: 60px;
-        height: 60px;
-    }
-
-    .label {
-        font-size: 12px;
-    }
-}
-
-/* Para tabletas */
-@media (min-width: 601px) and (max-width: 900px) {
-    .module {
-        width: 140px;
-        height: 140px;
-    }
-
-    .module img {
-        width: 100px;
-        height: 100px;
-    }
-
-    .label {
-        font-size: 16px;
-    }
-}
-
-/* Para laptops y pantallas grandes */
-@media (min-width: 901px) {
-    .module {
-        width: 150px;
-        height: 150px;
-    }
-
-    .module img {
-        width: 120px;
-        height: 120px;
-    }
-
-    .label {
-        font-size: 18px;
-    }
-}
 
 .date-container {
     margin-top: 30px;
