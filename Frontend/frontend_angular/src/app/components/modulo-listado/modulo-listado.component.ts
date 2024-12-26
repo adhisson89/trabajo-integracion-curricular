@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ManagementService } from '../../services/management.service';
 import { HttpClientModule } from '@angular/common/http';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 interface Item {
   other_data: any;
@@ -26,156 +27,160 @@ interface Item {
 })
 export class ModuloListadoComponent implements OnInit {
 
-  filterIdentification: string = '';
-  item: any;
-  items: Item[] = [];
-  filteredItems: Item[] = [...this.items];
-  editingItem: Item | null = null;
-  editForm: FormGroup;
-  isLoading: boolean = true;
-  showDeleteConfirmation: boolean = false;
-  itemToDelete: Item | null = null;
-  token: string | null = localStorage.getItem('authToken');
-  selectedFile: File | null = null; // Variable para almacenar el archivo seleccionado
-
-  constructor(private fb: FormBuilder, private managementService: ManagementService) {
-    this.editForm = this.fb.group({
-      foto: [''],
-      identificacion: ['', Validators.required],
-      role: ['', Validators.required],
-      name: ['', Validators.required],
-      surename: ['', Validators.required],
-      codigoUnico: [''],
-      unidadAcademica: [''],
-      direccionAdministrativa: [''],
-      photo_id: ['']
-    });
-  }
-  ngOnInit(): void {
-    this.fetchItems();
-    // Inicializar formulario reactivo
-    this.editForm = this.fb.group({
-      identificacion: ['', Validators.required],
-      name: ['', Validators.required],
-      surename: ['', Validators.required],
-      role: ['', Validators.required],
-      codigoUnico: [''],
-      unidadAcademica: [''],
-      carrera: [''],
-      direccionAdministrativa: [''],
-      photo_id: [''],
-    });
-  
-    // Escuchar cambios en el campo "modo" para gestionar dinámicamente los campos
-    this.editForm.get('rol')?.valueChanges.subscribe((modo: string) => {
-      this.onRoleChange(modo);
-    });
-  }
+  redirectTo(route: string) {
  
-
-  fetchItems() {
-    const token = localStorage.getItem('authToken') || '';
-    this.isLoading = true;
-  
-    this.managementService.getPeople(token).subscribe({
-      next: (data) => {
-        console.log(data);
-        this.items = data;
-        this.filteredItems = [...this.items];
-        this.isLoading = false;
-      },
-      error: (error) => {
-        console.error(error);
-        this.isLoading = false;
-      }
-    });
+    this.router.navigate([route]);
   }
+    filterIdentification: string = '';
+    item: any;
+    items: Item[] = [];
+    filteredItems: Item[] = [...this.items];
+    editingItem: Item | null = null;
+    editForm: FormGroup;
+    isLoading: boolean = true;
+    showDeleteConfirmation: boolean = false;
+    itemToDelete: Item | null = null;
+    token: string | null = localStorage.getItem('authToken');
+    selectedFile: File | null = null; // Variable para almacenar el archivo seleccionado
 
-  
+    constructor(private fb: FormBuilder, private managementService: ManagementService, private router: Router) {
+      this.editForm = this.fb.group({
+        foto: [''],
+        identificacion: ['', Validators.required],
+        role: ['', Validators.required],
+        name: ['', Validators.required],
+        surename: ['', Validators.required],
+        codigoUnico: [''],
+        unidadAcademica: [''],
+        direccionAdministrativa: [''],
+        photo_id: ['']
+      });
+    }
+    ngOnInit(): void {
+      this.fetchItems();
+      // Inicializar formulario reactivo
+      this.editForm = this.fb.group({
+        identificacion: ['', Validators.required],
+        name: ['', Validators.required],
+        surename: ['', Validators.required],
+        role: ['', Validators.required],
+        codigoUnico: [''],
+        unidadAcademica: [''],
+        carrera: [''],
+        direccionAdministrativa: [''],
+        photo_id: [''],
+      });
 
-  confirmDelete(item: Item) {
-    this.showDeleteConfirmation = true;
-    this.itemToDelete = item;
-  }
+      // Escuchar cambios en el campo "modo" para gestionar dinámicamente los campos
+      this.editForm.get('rol')?.valueChanges.subscribe((modo: string) => {
+        this.onRoleChange(modo);
+      });
+    }
 
-  cancelDelete() {
-    this.showDeleteConfirmation = false;
-    this.itemToDelete = null;
-  }
 
-  deleteItem() {
-    if (this.itemToDelete) {
+    fetchItems() {
       const token = localStorage.getItem('authToken') || '';
-      this.managementService.deletePerson(token, this.itemToDelete.identification).subscribe({
-        next: () => {
-          this.filteredItems = this.filteredItems.filter(item => item !== this.itemToDelete);
-          this.items = this.items.filter(item => item !== this.itemToDelete);
+      this.isLoading = true;
 
-          Swal.fire({
-            title: '¡Éxito!',
-            text: 'El registro ha sido eliminado con éxito',
-            icon: 'success',
-            confirmButtonText: 'Aceptar',
-          });
-
-        
+      this.managementService.getPeople(token).subscribe({
+        next: (data) => {
+          console.log(data);
+          this.items = data;
+          this.filteredItems = [...this.items];
+          this.isLoading = false;
         },
         error: (error) => {
           console.error(error);
-          Swal.fire({
-            title: 'Error',
-            text: 'No se pudo eliminar el registro',
-            icon: 'error',
-            confirmButtonText: 'Aceptar',
-          });
-          
-        },
-        complete: () => {
-          this.showDeleteConfirmation = false;
-          this.itemToDelete = null;
+          this.isLoading = false;
         }
       });
     }
-  }
-
- 
-  
-  startEdit(item: Item) {
-    this.editingItem = item;
-    // Extraer valores de `other_data`
-    const unidadAcademica = item.other_data?.find((data: { key: string; }) => data.key === 'UNIDAD ACADEMICA')?.value || '';
-    const codigoUnico = item.other_data?.find((data: { key: string; }) => data.key === 'CÓDIGO ÚNICO')?.value || '';
-    const correoInstitucional = item.other_data?.find((data: { key: string; }) => data.key === 'CORREO INSTITUCIONAL')?.value || '';
-    const carrera = item.other_data?.find((data: { key: string; }) => data.key === 'CARRERA/PROGRAMA')?.value || ''; // Extrae la carrera
-    const direccionAdministrativa = item.other_data?.find((data: { key: string; }) => data.key === 'DIRECCION ADMINISTRATIVA')?.value || ''; // Extrae la carrera
-
-    // Configurar valores del formulario
-    this.editForm.patchValue({
-      identificacion: item.identification,
-      name: item.name,
-      surename: item.surename,
-      codigoUnico: codigoUnico,
-      unidadAcademica: unidadAcademica,
-      carrera: carrera, // Asigna la carrera al formulario
-
-      direccionAdministrativa: direccionAdministrativa, // Si aplicara en otro contexto
-      role: item.role, // Usar `role` como `modo`
-      photo_id: item.photo_id
-      
-    });
-  }
-
-  cancelEdit() {
-    this.editingItem = null;
-    this.editForm.reset();
-  }
 
 
-  // Método para manejar el archivo seleccionado
-  onFileSelected(event: Event): void {
 
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
+    confirmDelete(item: Item) {
+      this.showDeleteConfirmation = true;
+      this.itemToDelete = item;
+    }
+
+    cancelDelete() {
+      this.showDeleteConfirmation = false;
+      this.itemToDelete = null;
+    }
+
+    deleteItem() {
+      if (this.itemToDelete) {
+        const token = localStorage.getItem('authToken') || '';
+        this.managementService.deletePerson(token, this.itemToDelete.identification).subscribe({
+          next: () => {
+            this.filteredItems = this.filteredItems.filter(item => item !== this.itemToDelete);
+            this.items = this.items.filter(item => item !== this.itemToDelete);
+
+            Swal.fire({
+              title: '¡Éxito!',
+              text: 'El registro ha sido eliminado con éxito',
+              icon: 'success',
+              confirmButtonText: 'Aceptar',
+            });
+
+
+          },
+          error: (error) => {
+            console.error(error);
+            Swal.fire({
+              title: 'Error',
+              text: 'No se pudo eliminar el registro',
+              icon: 'error',
+              confirmButtonText: 'Aceptar',
+            });
+
+          },
+          complete: () => {
+            this.showDeleteConfirmation = false;
+            this.itemToDelete = null;
+          }
+        });
+      }
+    }
+
+
+
+    startEdit(item: Item) {
+      this.editingItem = item;
+      // Extraer valores de `other_data`
+      const unidadAcademica = item.other_data?.find((data: { key: string; }) => data.key === 'UNIDAD ACADEMICA')?.value || '';
+      const codigoUnico = item.other_data?.find((data: { key: string; }) => data.key === 'CÓDIGO ÚNICO')?.value || '';
+      const correoInstitucional = item.other_data?.find((data: { key: string; }) => data.key === 'CORREO INSTITUCIONAL')?.value || '';
+      const carrera = item.other_data?.find((data: { key: string; }) => data.key === 'CARRERA/PROGRAMA')?.value || ''; // Extrae la carrera
+      const direccionAdministrativa = item.other_data?.find((data: { key: string; }) => data.key === 'DIRECCION ADMINISTRATIVA')?.value || ''; // Extrae la carrera
+
+      // Configurar valores del formulario
+      this.editForm.patchValue({
+        identificacion: item.identification,
+        name: item.name,
+        surename: item.surename,
+        codigoUnico: codigoUnico,
+        unidadAcademica: unidadAcademica,
+        carrera: carrera, // Asigna la carrera al formulario
+
+        direccionAdministrativa: direccionAdministrativa, // Si aplicara en otro contexto
+        role: item.role, // Usar `role` como `modo`
+        photo_id: item.photo_id
+
+      });
+    }
+
+    cancelEdit() {
+      this.editingItem = null;
+      this.editForm.reset();
+    }
+
+
+    // Método para manejar el archivo seleccionado
+    onFileSelected(event: Event): void {
+
+      const input = event.target as HTMLInputElement;
+      if(input.files && input.files.length > 0) {
       this.selectedFile = input.files[0]; // Guardar el archivo seleccionado
     } else {
       this.selectedFile = null; // Si no se selecciona un archivo, limpiar la variable
@@ -191,13 +196,13 @@ export class ModuloListadoComponent implements OnInit {
       input.value = ''; // Resetea el valor del campo de archivo
     }
   }
-  
+
   onRoleChange(modo: string): void {
     if (modo === 'ESTUDIANTE') {
       // Limpiar campos no relacionados con estudiante
       this.editForm.patchValue({ direccionAdministrativa: '' });
       this.editForm.get('direccionAdministrativa')?.disable();
-  
+
       // Habilitar campos relacionados con estudiante
       this.editForm.get('codigoUnico')?.enable();
       this.editForm.get('unidadAcademica')?.enable();
@@ -208,7 +213,7 @@ export class ModuloListadoComponent implements OnInit {
       this.editForm.get('codigoUnico')?.disable();
       this.editForm.get('unidadAcademica')?.disable();
       this.editForm.get('carrera')?.disable();
-  
+
       // Habilitar campos relacionados con roles diferentes a estudiante
       this.editForm.get('direccionAdministrativa')?.enable();
     }
@@ -231,7 +236,7 @@ export class ModuloListadoComponent implements OnInit {
           { key: 'DIRECCION ADMINISTRATIVA', value: this.editForm.value.direccionAdministrativa || '' },
         ],
       };
-  
+
       this.managementService.updatePerson(this.editForm.value.identificacion, payload, token).subscribe({
         next: () => {
           Swal.fire({
@@ -240,7 +245,7 @@ export class ModuloListadoComponent implements OnInit {
             icon: 'success',
             confirmButtonText: 'Aceptar',
           });
-         
+
           this.fetchItems();
           this.cancelEdit();
         },
@@ -252,11 +257,11 @@ export class ModuloListadoComponent implements OnInit {
             icon: 'error',
             confirmButtonText: 'Aceptar',
           });
-          
+
 
         }
       });
-  
+
       if (this.selectedFile) {
         this.managementService.uploadImage(this.selectedFile, this.editForm.value.photo_id, token).subscribe({
           next: () => console.log('Imagen subida con éxito'),
@@ -267,16 +272,16 @@ export class ModuloListadoComponent implements OnInit {
   }
 
 
-   //filtrado por ci/
+  //filtrado por ci/
   filterByIdentification() {
     if (!this.filterIdentification.trim()) {
       // Si el campo de búsqueda está vacío, mostrar todos los elementos
       this.filteredItems = [...this.items];
       return;
     }
-  
+
     const token = localStorage.getItem('authToken');
-  
+
     fetch(`http://localhost:8080/api/administration/management/person/${token}/${this.filterIdentification}`, {
       method: 'GET',
       headers: {
@@ -302,11 +307,11 @@ export class ModuloListadoComponent implements OnInit {
           icon: 'error',
           confirmButtonText: 'Intentar de nuevo',
         });
-       
+
         this.filteredItems = []; // Limpia la lista si no se encuentra nada
       });
   }
-  
+
 
 
 

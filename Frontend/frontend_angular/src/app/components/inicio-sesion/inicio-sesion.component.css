@@ -1,5 +1,6 @@
 /* Contenedor envolvente para centrar */
 .container-wrapper {
+    margin-right: 90px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -16,6 +17,7 @@
 .container {
     height: 350px;
     margin-top: 45px;
+
     max-width: 280px;
     background: #ffffff;
     border-radius: 10px;
@@ -45,6 +47,8 @@ input {
     border-radius: 4px;
     box-sizing: border-box;
 }
+
+
 
 
 .login-container {
@@ -87,4 +91,38 @@ button:disabled {
 }
 small{
     color: red;
+}
+
+.date-container {
+    margin-top: 1px;
+}
+
+.date-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+
+
+.date-button {
+    width: 70px;
+    height: auto;
+    margin-top: 60px;
+    margin-right: 20px;
+    padding: 10px 20px;
+    font-size: 50px;
+    cursor: pointer;
+    border: 1px solid #f4f3f3;
+    background-color: #0000aa;
+    color: white;
+    border-radius: 55px;
+    transition: background-color 0.3s;
+}
+
+.date-button:hover {
+    background-color: #0000aa;
+    transform: scale(1.05);
+    box-shadow: 0px 0px 20px rgba(0, 19, 230, 0.8);
 }

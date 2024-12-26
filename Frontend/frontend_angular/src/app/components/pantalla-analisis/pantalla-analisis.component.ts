@@ -9,6 +9,11 @@ import { Router } from '@angular/router';
 })
 export class PantallaAnalisisComponent implements OnInit, OnDestroy {
 
+  redirectTo(route: string) {
+ 
+    this.router.navigate([route]);
+  }
+
   private inactivityTimeout: any;
   private readonly inactivityTimeLimit: number = 300000; //300000-- 5 minutos ----30000---30s
   private detectionInterval: any;

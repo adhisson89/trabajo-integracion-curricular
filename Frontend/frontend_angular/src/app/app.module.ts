@@ -6,7 +6,7 @@ import { InicioSesionComponent } from './components/inicio-sesion/inicio-sesion.
 import { ReactiveFormsModule } from '@angular/forms';  // Importar ReactiveFormsModule
 import { ModuloListadoComponent } from './components/modulo-listado/modulo-listado.component';
 import { ToastrModule } from 'ngx-toastr';
-
+import { GoogleAnalyticsService } from './services/google-analytics.service';
 
 @NgModule({
   declarations: [
@@ -19,7 +19,7 @@ import { ToastrModule } from 'ngx-toastr';
     ModuloListadoComponent,
      ToastrModule.forRoot()
   ],
-  providers: [],
+  providers: [GoogleAnalyticsService],
   bootstrap: []
 })
 export class AppModule { }
