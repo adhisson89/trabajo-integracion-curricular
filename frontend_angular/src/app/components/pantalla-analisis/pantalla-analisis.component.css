@@ -107,23 +107,27 @@ body {
     text-align: center;
 }
 
-
-.content {
+#video-container { 
     position: relative;
-    padding: 20px;
-    background: #edececc9;
-    border-radius: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+    display: inline-block;
 }
 
 #video {
+    padding: 10px;
     width: 100%;
     height: auto;
     border-radius: 10px;
     border: 2px solid #ddd;
-  
 }
 
+#overlay-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Permite interactuar con el video, no con el canvas */
+}
 .status-icon {
     position: absolute;
     top: 50%;
@@ -136,22 +140,23 @@ body {
 button {
     font-family: "gro";
     letter-spacing: 2px;
-    background-color: #838488;
+    background-color: #0606c4;
     color: #ffffff;
     border: none;
     font-size: 15px;
     border-radius: 5px;
     cursor: pointer;
-    margin: 5px;
+    margin: 10px;
     padding: 5px;
     transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 button:hover {
-    background-color: #b6b6b6;
+    background-color: #0000aa;
     transform: scale(1.05);
-    box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.8);
+    box-shadow: 0px 0px 20px rgba(0, 19, 230, 0.8);
 }
+
 
 /* Estilos responsivos */
 @media (max-width: 768px) {
