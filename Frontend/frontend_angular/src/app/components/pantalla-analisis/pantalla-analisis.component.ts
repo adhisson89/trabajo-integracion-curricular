@@ -92,27 +92,37 @@ export class PantallaAnalisisComponent implements OnInit, OnDestroy {
     if (!this.videoRef) return;
 
     const videoElement = this.videoRef;
-    const canvas = faceapi.createCanvasFromMedia(videoElement);
-    document.body.append(canvas);
+    const canvas = document.getElementById('overlay-canvas') as HTMLCanvasElement;
+
+    if (!canvas) {
+        console.error('No se encontró el canvas para superponer');
+        return;
+    }
 
     const displaySize = { width: videoElement.videoWidth, height: videoElement.videoHeight };
+    canvas.width = displaySize.width;
+    canvas.height = displaySize.height;
     faceapi.matchDimensions(canvas, displaySize);
 
     this.detectionInterval = setInterval(async () => {
-      const detections = await faceapi.detectAllFaces(videoElement, new faceapi.TinyFaceDetectorOptions())
-        .withFaceLandmarks()
-        .withFaceDescriptors();
+        const detections = await faceapi.detectAllFaces(videoElement, new faceapi.TinyFaceDetectorOptions())
+            .withFaceLandmarks()
+            .withFaceDescriptors();
 
-      const resizedDetections = faceapi.resizeResults(detections, displaySize);
-      canvas.getContext('2d')?.clearRect(0, 0, canvas.width, canvas.height);
-      faceapi.draw.drawDetections(canvas, resizedDetections);
-      faceapi.draw.drawFaceLandmarks(canvas, resizedDetections);
+        const resizedDetections = faceapi.resizeResults(detections, displaySize);
+        const ctx = canvas.getContext('2d');
+        if (ctx) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            faceapi.draw.drawDetections(canvas, resizedDetections);
+            faceapi.draw.drawFaceLandmarks(canvas, resizedDetections);
+        }
 
-      if (detections.length > 0) {
-        console.log('Rostro detectado:', detections);
-      }
+        if (detections.length > 0) {
+            console.log('Rostro detectado:', detections);
+        }
     }, 100);
-  }
+}
+
 
   captureImageAsJPG(): void {
     if (this.videoRef) {

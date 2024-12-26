@@ -2,8 +2,8 @@
 <html lang="es">
 
 <body>
-       <!-- Selector de flechas -->
-       <div class="date-container">
+    <!-- Selector de flechas -->
+    <div class="date-container">
         <div class="date-controls">
             <button class="date-button" (click)="redirectTo('inicio')">
                 < </button>
@@ -14,13 +14,19 @@
         <div class="header">
             <img src="../../../assets/imagenes/png/EPN.png" alt="Logo EPN" class="logo">
             <h2>SISTEMA DE RECONOCIMIENTO </h2>
-    
+
         </div>
         <div class="content">
-            <video id="video" autoplay></video>
-            <button (click)="captureImageAsJPG()"> <img src="../../../assets/imagenes/png/iconos/camara.png"  width="30px" height="30px" style="  filter: invert(100); margin-right: 10px;">Capturar</button>
+            <div id="video-container">
+                <video id="video" autoplay></video>
+                <canvas id="overlay-canvas"></canvas>
+            </div>
         </div>
-        
+        <button (click)="captureImageAsJPG()">
+            <img src="../../../assets/imagenes/png/iconos/camara.png" width="30px" height="30px"
+                style="filter: invert(100); margin-right: 10px;">
+            Capturar
+        </button>
     </div>
     <script src="pantalla-analisis.component.ts"></script>
 </body>
