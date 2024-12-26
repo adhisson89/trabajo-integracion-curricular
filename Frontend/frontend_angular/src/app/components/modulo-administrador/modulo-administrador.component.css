@@ -50,11 +50,13 @@ body {
 }
 
 .module:hover {
-    background-color: #000083;
+    background-color: #0000aa;
+    transform: scale(1.05);
+    box-shadow: 0px 0px 20px rgba(16, 10, 201, 0.8);
 }
 
 .label {
-    font-size: 14px;
+    font-size: 19px;
     margin-top: 10px;
 }
 

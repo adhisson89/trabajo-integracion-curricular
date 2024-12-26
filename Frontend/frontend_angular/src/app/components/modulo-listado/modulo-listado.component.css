@@ -1,3 +1,68 @@
+/* Contenedor principal */
+.header {
+    position: absolute;
+    top: 10px;
+    left: 30%;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+/* Título con efecto de luz sobre las letras */
+.header h1 {
+    font-family: "teko";
+    font-size: 70px;
+    margin: 15px;
+    border-color: #838488 2px;
+
+    color: transparent;
+    /* El texto es transparente */
+    background: linear-gradient(to right,
+            #A8ACAF,
+            #A8ACAF 40%,
+            rgba(255, 255, 255, 0.8) 50%,
+            #0a369d 60%,
+            #0a369d);
+    /* Degradado dinámico */
+    background-clip: text;
+    /* El fondo se recorta en las letras */
+    -webkit-background-clip: text;
+    /* Compatibilidad con navegadores WebKit */
+    background-size: 200%;
+    /* Amplía el tamaño del degradado para el efecto */
+    animation: lightMove 3s infinite linear;
+    /* Movimiento continuo */
+    white-space: nowrap;
+    /* Evita saltos de línea */
+    overflow: hidden;
+    /* Asegura que nada se desborde */
+    /* Borde en las letras */
+    -webkit-text-stroke: 0.1px #3939395c;
+    /* Grosor y color del borde */
+}
+
+/* Definición de la animación */
+@keyframes lightMove {
+    0% {
+        background-position: 100%;
+        /* Comienza fuera del texto a la derecha */
+    }
+
+    100% {
+        background-position: -100%;
+        /* Termina fuera del texto a la izquierda */
+    }
+}
+
+/* Logo */
+.header .logo2 {
+    position: absolute;
+    top: 20px;
+    left: -80px;
+    height: 50px;
+    width: 90px;
+}
+
 
 /* Reset básico */
 * {
@@ -24,7 +89,7 @@ body {
     width: 100%;
     max-width: 100px;
     padding: 20px;
-    background: #fffefe;
+    background: #ffffff;
     border-radius: 10px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
 
@@ -175,7 +240,7 @@ p {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: #fffefe;
+    background: #ffffff;
     border-radius: 10px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
     padding: 20px;
@@ -293,7 +358,7 @@ button[type="button"]:hover {
 .confirmation-modal {
     width: 500px;
     padding: 30px;
-    background: #fffefe;
+    background: #ffffff;
     border-radius: 10px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
     display: flex;
@@ -327,7 +392,7 @@ button[type="button"]:hover {
     /* Ajusta el posicionamiento para centrar completamente */
     z-index: 1000;
     /* Asegura que se sobreponga sobre otros elementos */
-    background: #fffefe;
+    background: #ffffff;
     border-radius: 10px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
     /* Estética */
@@ -335,7 +400,51 @@ button[type="button"]:hover {
     /* Aplica la animación */
 }
 
+/* Media Queries */
+@media (min-width: 768px) {
+    .filter {
+        flex-direction: row;
+        align-items: center;
+        gap: 15px;
+    }
 
+    li {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .item-text {
+        flex-grow: 1;
+        margin-bottom: 0;
+    }
+}
+
+@media (min-width: 1024px) {
+    .container {
+        margin-top: 120px;
+        max-width: 700px;
+        margin-bottom: 80px;
+
+    }
+
+    .filter input {
+        width: 300px;
+    }
+
+    .edit-btn,
+    .delete-btn {
+
+        padding: 8px 15px;
+    }
+}
+
+@media (max-width: 600px) {
+    .edit-form {
+        width: 100%;
+        padding: 20px;
+    }
+}
 .date-container {
     margin-top: 30px;
     margin-right: 20px;
@@ -364,7 +473,8 @@ button[type="button"]:hover {
 
 .date-button:hover {
     
-    background-color: #0000aa;
+  background-color: #0000aa;
     transform: scale(1.05);
-    box-shadow: 0px 0px 20px rgba(0, 19, 230, 0.8);
+    box-shadow: 0px 0px 20px rgba(16, 10, 201, 0.8);
+
 }
