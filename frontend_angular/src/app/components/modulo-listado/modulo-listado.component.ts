@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ManagementService } from '../../services/management.service';
 import { HttpClientModule } from '@angular/common/http';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 interface Item {
   other_data: any;
@@ -26,6 +27,13 @@ interface Item {
 })
 export class ModuloListadoComponent implements OnInit {
 
+
+  redirectTo(route: string) {
+ 
+    this.router.navigate([route]);
+  }
+
+
   filterIdentification: string = '';
   item: any;
   items: Item[] = [];
@@ -38,7 +46,7 @@ export class ModuloListadoComponent implements OnInit {
   token: string | null = localStorage.getItem('authToken');
   selectedFile: File | null = null; // Variable para almacenar el archivo seleccionado
 
-  constructor(private fb: FormBuilder, private managementService: ManagementService) {
+  constructor(private fb: FormBuilder, private managementService: ManagementService, private router: Router) {
     this.editForm = this.fb.group({
       foto: [''],
       identificacion: ['', Validators.required],

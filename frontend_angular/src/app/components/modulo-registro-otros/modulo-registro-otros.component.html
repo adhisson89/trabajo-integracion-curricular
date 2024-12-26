@@ -3,104 +3,116 @@
     <img src="assets/imagenes/png/bandera.png" class="logo2">
     <h1>POLICIA NACIONAL DEL ECUADOR</h1>
 </header>
-<div class="container">
-    <h2>Formulario de Registro</h2>
-    <form [formGroup]="registroForm" (ngSubmit)="onSubmit()">
-        <!-- Foto -->
-        <label for="foto">Foto:</label>
-        <div class="file-container">
-            <img src="../assets/imagenes/png/iconos/subir.png" width="50px" height="50px">
-            <input type="file" id="foto" (change)="onImageSelected($event)" accept="image/*"
-                style="position: relative;">
-        </div>
-        <div *ngIf="hasError('foto', 'required')" class="error">
-            La foto es obligatoria.
-        </div>
 
-        <!-- Modus Operandi -->
-        <label>Modus Operandi:</label>
-        <div class="radio-group">
-            <label>
-                <input type="radio" formControlName="modus" value="individual"
-                    (click)="redirectTo('moduloRegistro', 'individual')" checked> INDIVIDUAL
-            </label>
-            <label>
-                <input type="radio" formControlName="modus" value="grupal"
-                    (click)="redirectTo('moduloRegistroOtros', 'grupal')"> GRUPAL
-            </label>
-            <!-- <label>
+<body>
+
+    <!-- Selector de flechas -->
+    <div class="date-container">
+        <div class="date-controls">
+            <button class="date-button" (click)="redirectTo('moduloAdministrador', 'admin')">
+                < </button>
+                    <!-- <button class="date-button"> > </button> -->
+        </div>
+    </div>
+    <div class="container">
+        <h2>Formulario de Registro</h2>
+        <form [formGroup]="registroForm" (ngSubmit)="onSubmit()">
+            <!-- Foto -->
+            <label for="foto">Foto:</label>
+            <div class="file-container">
+                <img src="../assets/imagenes/png/iconos/subir.png" width="50px" height="50px">
+                <input type="file" id="foto" (change)="onImageSelected($event)" accept="image/*"
+                    style="position: relative;">
+            </div>
+            <div *ngIf="hasError('foto', 'required')" class="error">
+                La foto es obligatoria.
+            </div>
+
+            <!-- Modus Operandi -->
+            <label>Modus Operandi:</label>
+            <div class="radio-group">
+                <label>
+                    <input type="radio" formControlName="modus" value="individual"
+                        (click)="redirectTo('moduloRegistro', 'individual')" checked> INDIVIDUAL
+                </label>
+                <label>
+                    <input type="radio" formControlName="modus" value="grupal"
+                        (click)="redirectTo('moduloRegistroOtros', 'grupal')"> GRUPAL
+                </label>
+                <!-- <label>
                 <input type="radio" formControlName="modus" value="transnacional"
                     (click)="redirectTo('moduloRegistroOtros', 'transnacional')"> Transnacional
             </label> -->
 
-        </div>
-        <div *ngIf="hasError('modus', 'required')" class="error">
-            Debe seleccionar un modus.
-        </div>
+            </div>
+            <div *ngIf="hasError('modus', 'required')" class="error">
+                Debe seleccionar un modus.
+            </div>
 
-        <!-- Resto del formulario igual -->
-        <label for="identificacion">Cédula o Pasaporte:</label>
-        <input type="text" id="identificacion" formControlName="identificacion">
-        <div *ngIf="hasError('identificacion', 'required')" class="error">
-            La cédula o pasaporte es obligatorio.
-        </div>
-        <div *ngIf="hasError('identificacion', 'pattern')" class="error">
-            La cédula debe tener exactamente 10 dígitos numéricos.
-        </div>
+            <!-- Resto del formulario igual -->
+            <label for="identificacion">Cédula o Pasaporte:</label>
+            <input type="text" id="identificacion" formControlName="identificacion">
+            <div *ngIf="hasError('identificacion', 'required')" class="error">
+                La cédula o pasaporte es obligatorio.
+            </div>
+            <div *ngIf="hasError('identificacion', 'pattern')" class="error">
+                La cédula debe tener exactamente 10 dígitos numéricos.
+            </div>
 
-        <label for="nombres">Nombres:</label>
-        <input type="text" id="nombres" formControlName="nombres" (keypress)="preventNumberInput($event)">
-        <div *ngIf="hasError('nombres', 'required')" class="error">
-            Los nombres son obligatorios.
-        </div>
-        <div *ngIf="hasError('nombres', 'pattern')" class="error">
-            Ingrese dos nombres correctamente separados por un espacio.
-        </div>
+            <label for="nombres">Nombres:</label>
+            <input type="text" id="nombres" formControlName="nombres" (keypress)="preventNumberInput($event)">
+            <div *ngIf="hasError('nombres', 'required')" class="error">
+                Los nombres son obligatorios.
+            </div>
+            <div *ngIf="hasError('nombres', 'pattern')" class="error">
+                Ingrese dos nombres correctamente separados por un espacio.
+            </div>
 
-        <label for="apellidos">Apellidos:</label>
-        <input type="text" id="apellidos" formControlName="apellidos" (keypress)="preventNumberInput($event)">
-        <div *ngIf="hasError('apellidos', 'required')" class="error">
-            Los apellidos son obligatorios.
-        </div>
-        <div *ngIf="hasError('apellidos', 'pattern')" class="error">
-            Ingrese dos apellidos correctamente separados por un espacio.
-        </div>
+            <label for="apellidos">Apellidos:</label>
+            <input type="text" id="apellidos" formControlName="apellidos" (keypress)="preventNumberInput($event)">
+            <div *ngIf="hasError('apellidos', 'required')" class="error">
+                Los apellidos son obligatorios.
+            </div>
+            <div *ngIf="hasError('apellidos', 'pattern')" class="error">
+                Ingrese dos apellidos correctamente separados por un espacio.
+            </div>
 
-        <label for="alias">Alias:</label>
-        <input type="text" id="alias" formControlName="alias">
-        <div *ngIf="hasError('alias', 'required')" class="error">
-            La alias es obligatoria.
-        </div>
+            <label for="alias">Alias:</label>
+            <input type="text" id="alias" formControlName="alias">
+            <div *ngIf="hasError('alias', 'required')" class="error">
+                La alias es obligatoria.
+            </div>
 
-        <label for="nombreGrupo">Nombre del grupo u Organización:</label>
-        <input type="text" id="nombreGrupo" formControlName="nombreGrupo">
-        <div *ngIf="hasError('nombreGrupo', 'required')" class="error">
-            El Nombre del grupo u Organización es obligatoria.
-        </div>
+            <label for="nombreGrupo">Nombre del grupo u Organización:</label>
+            <input type="text" id="nombreGrupo" formControlName="nombreGrupo">
+            <div *ngIf="hasError('nombreGrupo', 'required')" class="error">
+                El Nombre del grupo u Organización es obligatoria.
+            </div>
 
-        <label for="jerarquia">Jerarquía en el grupo:</label>
-        <select id="jerarquia" formControlName="jerarquia">
-            <option value="">Seleccione</option>
-            <option value="LIDER">LÍDER</option>
-            <option value="SUBORDINADO">SUBORDINADO</option>
-            <option value="COLABORADOR">COLABORADOR</option>
-        </select>
-        <div *ngIf="hasError('jerarquia', 'required')" class="error">
-            La jerarquía dentro del grupo es obligatoria.
-        </div>
+            <label for="jerarquia">Jerarquía en el grupo:</label>
+            <select id="jerarquia" formControlName="jerarquia">
+                <option value="">Seleccione</option>
+                <option value="LIDER">LÍDER</option>
+                <option value="SUBORDINADO">SUBORDINADO</option>
+                <option value="COLABORADOR">COLABORADOR</option>
+            </select>
+            <div *ngIf="hasError('jerarquia', 'required')" class="error">
+                La jerarquía dentro del grupo es obligatoria.
+            </div>
 
 
-        <label for="tipoDelito">Tipo de Delito:</label>
-        <input type="text" id="tipoDelito" formControlName="tipoDelito">
-        <div *ngIf="hasError('tipoDelito', 'required')" class="error">
-            El tipo de delito es obligatorio.
-        </div>
-        <label for="sentencia">Sentencia:</label>
-        <input type="text" id="sentencia" formControlName="sentencia">
-        <div *ngIf="hasError('sentencia', 'required')" class="error">
-            La sentencia es obligatoria.
-        </div>
+            <label for="tipoDelito">Tipo de Delito:</label>
+            <input type="text" id="tipoDelito" formControlName="tipoDelito">
+            <div *ngIf="hasError('tipoDelito', 'required')" class="error">
+                El tipo de delito es obligatorio.
+            </div>
+            <label for="sentencia">Sentencia:</label>
+            <input type="text" id="sentencia" formControlName="sentencia">
+            <div *ngIf="hasError('sentencia', 'required')" class="error">
+                La sentencia es obligatoria.
+            </div>
 
-        <button type="submit">Registrar</button>
-    </form>
-</div>
+            <button type="submit">Registrar</button>
+        </form>
+    </div>
+</body>

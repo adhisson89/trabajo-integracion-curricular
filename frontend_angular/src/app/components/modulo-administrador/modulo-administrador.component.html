@@ -6,6 +6,13 @@
         <h1>POLICIA NACIONAL DEL ECUADOR</h1>
       </header>
 <body>
+      <!-- Selector de flechas -->
+      <div class="date-container">
+        <div class="date-controls">
+            <button class="date-button" (click)="redirectTo('inicioSesion')"> < </button>
+            <!-- <button class="date-button"> > </button> -->
+        </div>
+    </div>
     <div class="container">
         <div class="modules" (click)="redirectTo('moduloRegistro')">
             <div class="module">

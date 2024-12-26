@@ -5,6 +5,15 @@
 </header>
 
 <div class="container-wrapper">
+  <!-- Selector de flechas -->
+  <div class="date-container">
+    <div class="date-controls">
+      <button class="date-button" (click)="redirectTo('inicio')">
+        < </button>
+          <!-- <button class="date-button"> > </button> -->
+    </div>
+  </div>
+  
   <div class="container">
     <img src="../assets/imagenes/png/iconos/admin.png" width="100px" height="100px" style=" padding-left:10px;" >
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">

@@ -3,7 +3,18 @@
     <img src="assets/imagenes/png/bandera.png" class="logo2">
     <h1>POLICIA NACIONAL DEL ECUADOR</h1>
   </header>
-<div class="container">
+
+<body>
+    <!-- Selector de flechas -->
+    <div class="date-container">
+        <div class="date-controls">
+            <button class="date-button" (click)="redirectTo('moduloAdministrador', 'admin')">
+                < </button>
+                    <!-- <button class="date-button"> > </button> -->
+        </div>
+    </div>
+    <div class="container">
+        
     <h2>Formulario de Registro</h2>
     <form [formGroup]="registroForm" (ngSubmit)="onSubmit()">
         <!-- Foto -->
@@ -86,3 +97,4 @@
         <button type="submit">Registrar</button>
     </form>
 </div>
+</body>

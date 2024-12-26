@@ -16,6 +16,12 @@ import Swal from 'sweetalert2';
 })
 
 export class SubirFotoComponent implements OnInit {
+
+  redirectTo(route: string) {
+ 
+    this.router.navigate([route]);
+  }
+
 //PERIODO DE INACTIVIDAD 
 private inactivityTimeout: any;
   private readonly inactivityTimeLimit: number = 300000; //300000-- 5 minutos ----30000---30s
@@ -51,10 +57,6 @@ handleInactivity(): void {
       foto: [null, Validators.required], // Foto es obligatoria
 
     });
-  }
-
-  redirectTo(route: string, mode: string) {
-    this.router.navigate([route], { state: { selectedMode: mode } });
   }
 
   onImageSelected(event: Event): void {

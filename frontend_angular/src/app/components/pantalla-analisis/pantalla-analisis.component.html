@@ -1,22 +1,32 @@
 <!DOCTYPE html>
 <html lang="es">
-    <header class="header2">
-        <title>SR-PNE</title>
-        <img src="assets/imagenes/png/bandera.png" class="logo2">
-        <h1>POLICIA NACIONAL DEL ECUADOR</h1>
-      </header>
+<header class="header2">
+    <title>SR-PNE</title>
+    <img src="assets/imagenes/png/bandera.png" class="logo2">
+    <h1>POLICIA NACIONAL DEL ECUADOR</h1>
+</header>
+
 <body>
+    <!-- Selector de flechas -->
+    <div class="date-container">
+        <div class="date-controls">
+            <button class="date-button" (click)="redirectTo('inicio')">
+                < </button>
+                    <!-- <button class="date-button"> > </button> -->
+        </div>
+    </div>
     <div class="container">
         <div class="header">
-            <img src="../../../assets/imagenes/png/poli.png" alt="Logo" class="logo">
+            <img src="../../../assets/imagenes/png/poli.png" class="logo">
             <h2>SISTEMA DE RECONOCIMIENTO </h2>
-    
+
         </div>
         <div class="content">
             <video id="video" autoplay></video>
-            <button (click)="captureImageAsJPG()"> <img src="../../../assets/imagenes/png/iconos/camara.png"  width="30px" height="30px" style="  filter: invert(100); margin-right: 10px;">Capturar</button>
+            <button (click)="captureImageAsJPG()"> <img src="../../../assets/imagenes/png/iconos/camara.png"
+                    width="30px" height="30px" style="  filter: invert(100); margin-right: 10px;">Capturar</button>
         </div>
-        
+
     </div>
     <script src="pantalla-analisis.component.ts"></script>
 </body>
