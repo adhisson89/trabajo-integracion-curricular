@@ -51,7 +51,8 @@ body {
     margin-left: 50px;
     position: absolute; /* Para posicionarlo en la esquina derecha */
     top: 0;
-    left: 1050px; /* Ajusta la distancia al borde derecho */
+    left: 1160px; /* Ajusta la distancia al borde derecho */
+
 }
 
 /* Logo */
