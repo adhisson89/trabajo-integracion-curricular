@@ -41,10 +41,11 @@
   <div *ngIf="showDeleteConfirmation" class="confirmation-modal">
     <button class="deletex-btn" (click)="cancelDelete()">X</button>
     <h2 class="pop-up2">¿Está seguro de que desea eliminar este registro?</h2>
-    <button class="edit-btn" (click)="deleteItem()">Confirmar</button>
-    <button class="delete-btn" (click)="cancelDelete()">Cancelar</button>
+    <button class="edit-btn" (click)="deleteItem()"> <img src="../assets/imagenes/png/iconos/visto.png" width="20px"
+        height="20px" style="filter: contrast(0%) brightness(200%);; margin-right: 10px;">Confirmar</button>
+    <button class="delete-btn" (click)="cancelDelete()"><img src="../assets/imagenes/png/iconos/xrojo.png" width="30px"
+        height="20px" style="filter: contrast(0%) brightness(200%);; margin-right: 10px;">Cancelar</button>
   </div>
-
   <!-- Formulario de edición -->
 
 
@@ -128,7 +129,7 @@
           style="  filter: invert(100); margin-right: 10px;">Guardar</button>
 
       <button type="button" class="delete-btn" (click)="cancelEdit()"><img src="../assets/imagenes/png/iconos/xrojo.png"
-          width="30px" height="20px" style=" filter: contrast(50); margin-right: 10px;">Cancelar</button>
+          width="30px" height="20px" style=" filter: contrast(0%) brightness(200%);; margin-right: 10px;">Cancelar</button>
     </form>
   </div>
 
