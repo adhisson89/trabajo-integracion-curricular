@@ -101,3 +101,111 @@ body {
     transform: scale(1.05);
     box-shadow: 0px 0px 20px rgba(0, 19, 230, 0.8);
 }
+/* Responsive para dispositivos móviles (celulares) */
+@media (max-width: 480px) {
+    .container {
+        width: 90%;
+        font-size: 18px;
+    }
+
+    .modules {
+        gap: 10px;
+        margin: 10px;
+    }
+
+    .module {
+        width: 120px;
+        height: 120px;
+    }
+
+    .module img {
+        width: 60px;
+        height: 60px;
+    }
+
+    .date-button {
+        font-size: 30px;
+        padding: 8px 16px;
+    }
+}
+
+/* Responsive para tabletas */
+@media (min-width: 481px) and (max-width: 768px) {
+    .container {
+        width: 80%;
+        font-size: 20px;
+    }
+
+    .modules {
+        gap: 15px;
+    }
+
+    .module {
+        width: 130px;
+        height: 130px;
+    }
+
+    .module img {
+        width: 70px;
+        height: 70px;
+    }
+
+    .date-button {
+        font-size: 35px;
+        padding: 9px 18px;
+    }
+}
+
+/* Responsive para laptops */
+@media (min-width: 769px) and (max-width: 1200px) {
+    .container {
+        width: 70%;
+        font-size: 22px;
+    }
+
+    .modules {
+        gap: 20px;
+    }
+
+    .module {
+        width: 140px;
+        height: 140px;
+    }
+
+    .module img {
+        width: 75px;
+        height: 75px;
+    }
+
+    .date-button {
+        font-size: 38px;
+        padding: 10px 20px;
+    }
+}
+
+/* Responsive para pantallas grandes (PC) */
+@media (min-width: 1201px) {
+    .container {
+        width: 400px;
+        font-size: 25px;
+    }
+
+    .modules {
+        gap: 20px;
+    }
+
+    .module {
+        width: 150px;
+        height: 150px;
+    }
+
+    .module img {
+        width: 80px;
+        height: 80px;
+    }
+
+    .date-button {
+        font-size: 40px;
+        padding: 10px 20px;
+    }
+}

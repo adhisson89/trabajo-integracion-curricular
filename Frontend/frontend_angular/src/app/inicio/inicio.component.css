@@ -120,3 +120,112 @@ button.btn_Empezar:hover {
     box-shadow: 0px 0px 25px #fa0001;
 }
 
+
+/* Dispositivos Móviles */
+@media (max-width: 480px) {
+    .container {
+        padding: 15px;
+        flex-direction: column; /* Ajusta el contenedor a columna */
+        gap: 15px;
+    }
+
+    .content h1 {
+        font-size: 28px;
+    }
+
+    .content h2 {
+        font-size: 13px;
+    }
+
+    .content p {
+        font-size: 16px;
+    }
+
+    button.btn_Admin {
+        top: 5px;
+        left: 85%;
+        font-size: 0.8em;
+    }
+
+    button.btn_Empezar {
+        font-size: 1em;
+        padding: 10px 20px;
+    }
+
+    .illustration img {
+        width: 150px;
+        height: 150px;
+    }
+}
+
+/* Dispositivos Tablets */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+        flex-direction: column; /* Ajusta el contenedor a columna */
+        gap: 20px;
+    }
+
+    .content h1 {
+        font-size: 32px;
+    }
+
+    .content h2 {
+        font-size: 14px;
+    }
+
+    .content p {
+        font-size: 17px;
+    }
+
+    button.btn_Admin {
+        top: 8px;
+        left: 88%;
+        font-size: 0.85em;
+    }
+
+    button.btn_Empezar {
+        font-size: 1.05em;
+        padding: 11px 22px;
+    }
+
+    .illustration img {
+        width: 180px;
+        height: 180px;
+    }
+}
+
+/* Dispositivos Laptops y Pantallas Grandes */
+@media (min-width: 1024px) {
+    .container {
+        padding: 20px;
+        flex-direction: row; /* Vuelve a la dirección de fila */
+        gap: 30px;
+    }
+
+    .content h1 {
+        font-size: 40px;
+    }
+
+    .content h2 {
+        font-size: 15px;
+    }
+
+    .content p {
+        font-size: 18px;
+    }
+
+    button.btn_Admin {
+        font-size: 1em;
+    }
+
+    button.btn_Empezar {
+        font-size: 1.1em;
+        padding: 12px 25px;
+    }
+
+    .illustration img {
+        width: 200px;
+        height: 200px;
+    }
+}

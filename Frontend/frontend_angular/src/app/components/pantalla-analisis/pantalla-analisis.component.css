@@ -133,3 +133,110 @@ button:hover {
 .date-button:hover {
     background-color: #054e9c;
 }
+
+
+/* Media query para tablets y móviles en orientación horizontal */
+@media (max-width: 768px) {
+    .container {
+        width: 95%; /* Se ajusta más en pantallas más pequeñas */
+        margin-right: 20px;
+    }
+
+    .header {
+        font-size: 12px; /* Reducir tamaño de la fuente en la cabecera */
+        padding: 5px;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .header h2 {
+        font-size: 0.9rem; /* Reducir tamaño del título */
+    }
+
+    #video {
+        width: 100%;
+        height: auto;
+        padding: 5px; /* Ajustar el padding del video */
+    }
+
+    .status-icon {
+        width: 60px; /* Reducir el tamaño del ícono de estado */
+        height: 60px;
+    }
+
+    button {
+        font-size: 13px; /* Reducir tamaño del texto en botones */
+        padding: 8px;
+        margin: 8px 0; /* Ajuste de márgenes */
+    }
+
+    .date-button {
+        font-size: 30px; /* Reducir tamaño de los botones de fecha */
+        padding: 5px 15px;
+    }
+}
+
+/* Media query para dispositivos móviles */
+@media (max-width: 480px) {
+    body {
+        padding: 5px;
+    }
+
+    .container {
+        width: 100%;
+        margin-right: 0;
+        margin-top: 20px;
+        padding: 10px;
+    }
+
+    .header {
+        font-size: 11px;
+    }
+
+    .header h2 {
+        font-size: 0.8rem;
+    }
+
+    #video {
+        padding: 0;
+    }
+
+    .status-icon {
+        width: 50px;
+        height: 50px;
+    }
+
+    button {
+        font-size: 12px;
+        padding: 6px;
+    }
+
+    .date-button {
+        font-size: 25px; /* Aún más pequeño para móviles */
+        padding: 5px 10px;
+    }
+}
+
+/* Media query para laptops y pantallas grandes */
+@media (min-width: 1024px) {
+    .container {
+        width: 80%; /* Ajusta el contenedor para pantallas más grandes */
+        margin-right: 100px;
+    }
+
+    .header {
+        font-size: 16px; /* Mayor tamaño para pantallas grandes */
+    }
+
+    .header h2 {
+        font-size: 1.2rem;
+    }
+
+    .date-button {
+        font-size: 45px; /* Mayor tamaño de botones */
+    }
+
+    button {
+        font-size: 16px;
+    }
+}

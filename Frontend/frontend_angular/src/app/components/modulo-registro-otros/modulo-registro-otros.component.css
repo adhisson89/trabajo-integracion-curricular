@@ -162,3 +162,77 @@ button:hover {
     transform: scale(1.05);
     box-shadow: 0px 0px 20px rgba(0, 19, 230, 0.8);
 }
+/* Media queries para diferentes dispositivos */
+@media (max-width: 768px) {  /* Tablets y móviles en orientación horizontal */
+    .container {
+        width: 90%;  /* Ajusta el ancho al 90% */
+        margin-right: 20px;  /* Reduce el margen */
+        margin-top: 30px;  /* Menor margen superior */
+    }
+
+    h2 {
+        font-size: 18px;  /* Reduce el tamaño del título */
+    }
+
+    form input[type="text"],
+    form input[type="file"] {
+        font-size: 12px;  /* Ajusta el tamaño de fuente de los inputs */
+    }
+
+    .date-button {
+        font-size: 30px;  /* Ajusta el tamaño de los botones */
+        padding: 5px 15px;
+    }
+}
+
+@media (max-width: 480px) {  /* Dispositivos móviles */
+    body {
+        padding: 5px;  /* Menor padding */
+    }
+
+    .container {
+        width: 100%;  /* Full width en móviles */
+        margin-right: 0;  /* Elimina el margen derecho */
+        margin-top: 20px;  /* Reduce el margen superior */
+        padding: 20px;  /* Menor padding */
+    }
+
+    h2 {
+        font-size: 16px;  /* Reduce aún más el tamaño del título */
+    }
+
+    .file-container {
+        flex-direction: column;  /* Apila los elementos verticalmente */
+        gap: 5px;
+    }
+
+    form input[type="text"],
+    form input[type="file"] {
+        font-size: 12px;  /* Ajusta el tamaño de fuente */
+    }
+
+    .date-button {
+        font-size: 25px;  /* Reduce el tamaño de los botones */
+        padding: 5px 10px;
+    }
+
+    button {
+        font-size: 12px;  /* Ajusta el tamaño del botón */
+        padding: 8px;  /* Menos padding */
+    }
+}
+
+/* Para dispositivos más grandes como laptops y PCs */
+@media (min-width: 1024px) {
+    .container {
+        width: 600px;  /* Aumenta el tamaño de la caja en pantallas más grandes */
+    }
+
+    h2 {
+        font-size: 22px;  /* Título un poco más grande */
+    }
+
+    .date-button {
+        font-size: 45px;  /* Mayor tamaño de botones */
+    }
+}
