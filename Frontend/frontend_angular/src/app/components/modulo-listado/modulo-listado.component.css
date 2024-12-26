@@ -335,51 +335,7 @@ button[type="button"]:hover {
     /* Aplica la animación */
 }
 
-/* Media Queries */
-@media (min-width: 768px) {
-    .filter {
-        flex-direction: row;
-        align-items: center;
-        gap: 15px;
-    }
 
-    li {
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .item-text {
-        flex-grow: 1;
-        margin-bottom: 0;
-    }
-}
-
-@media (min-width: 1024px) {
-    .container {
-        margin-top: 120px;
-        max-width: 700px;
-        margin-bottom: 80px;
-
-    }
-
-    .filter input {
-        width: 300px;
-    }
-
-    .edit-btn,
-    .delete-btn {
-
-        padding: 8px 15px;
-    }
-}
-
-@media (max-width: 600px) {
-    .edit-form {
-        width: 100%;
-        padding: 20px;
-    }
-}
 .date-container {
     margin-top: 30px;
     margin-right: 20px;
