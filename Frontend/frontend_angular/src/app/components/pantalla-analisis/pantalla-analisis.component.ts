@@ -142,11 +142,28 @@ export class PantallaAnalisisComponent implements OnInit, OnDestroy {
     }
   }
 
+  // sendToBackend(blob: Blob): void {
+  //   fetch('http://localhost:8080/api/face-recognition/compareFace', {
+  //     method: 'POST',
+  //     body: blob,
+  //     headers: { 'Content-Type': 'image/jpeg' }
+  //   }).then(response => {
+  //     if (response.ok) {
+  //       console.log('Imagen enviada exitosamente');
+  //     } else {
+  //       console.error('Error al enviar la imagen');
+  //     }
+  //   }).catch(err => console.error('Error en la solicitud:', err));
+  // }
+
+  
   sendToBackend(blob: Blob): void {
-    fetch('http://localhost:8080/api/face-recognition/compare', {
+    const formData = new FormData();
+    formData.append('file', blob, 'imagen.jpg');
+    
+    fetch('http://localhost:8080/api/face-recognition/compareFace', {
       method: 'POST',
-      body: blob,
-      headers: { 'Content-Type': 'image/jpeg' }
+      body: formData
     }).then(response => {
       if (response.ok) {
         console.log('Imagen enviada exitosamente');
@@ -155,6 +172,9 @@ export class PantallaAnalisisComponent implements OnInit, OnDestroy {
       }
     }).catch(err => console.error('Error en la solicitud:', err));
   }
+
+
+
 
   ngOnDestroy(): void {
     clearTimeout(this.inactivityTimeout);
