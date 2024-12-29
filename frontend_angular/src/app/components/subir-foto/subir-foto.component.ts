@@ -1,4 +1,4 @@
-import { Component, OnInit,HostListener } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -12,50 +12,44 @@ import Swal from 'sweetalert2';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, HttpClientModule],
   templateUrl: './subir-foto.component.html',
-  styleUrl: './subir-foto.component.css'
+  styleUrls: ['./subir-foto.component.css'],
 })
-
 export class SubirFotoComponent implements OnInit {
-
   redirectTo(route: string) {
- 
     this.router.navigate([route]);
   }
 
-//PERIODO DE INACTIVIDAD 
-private inactivityTimeout: any;
-  private readonly inactivityTimeLimit: number = 300000; //300000-- 5 minutos ----30000---30s
+  // PERIODO DE INACTIVIDAD
+  private inactivityTimeout: any;
+  private readonly inactivityTimeLimit: number = 300000; // 5 minutos
   private detectionInterval: any;
 
   registroForm!: FormGroup;
 
+  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router) {}
 
-  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router) { }
+  // Gestión de inactividad
+  @HostListener('document:mousemove')
+  @HostListener('document:click')
+  @HostListener('document:keydown')
+  handleUserActivity(): void {
+    this.resetInactivityTimer();
+  }
 
-// Gestión de inactividad
-@HostListener('document:mousemove')
-@HostListener('document:click')
-@HostListener('document:keydown')
-handleUserActivity(): void {
-  this.resetInactivityTimer();
-}
+  resetInactivityTimer(): void {
+    clearTimeout(this.inactivityTimeout);
+    this.inactivityTimeout = setTimeout(() => {
+      this.handleInactivity();
+    }, this.inactivityTimeLimit);
+  }
 
-resetInactivityTimer(): void {
-  clearTimeout(this.inactivityTimeout);
-  this.inactivityTimeout = setTimeout(() => {
-    this.handleInactivity();
-  }, this.inactivityTimeLimit);
-}
-
-handleInactivity(): void {
-  this.router.navigate(['/inicio']);
-}
-
+  handleInactivity(): void {
+    this.router.navigate(['/inicio']);
+  }
 
   ngOnInit(): void {
     this.registroForm = this.fb.group({
       foto: [null, Validators.required], // Foto es obligatoria
-
     });
   }
 
@@ -70,93 +64,52 @@ handleInactivity(): void {
     }
   }
 
-  uploadImage(file: File): Promise<any> {
-    const formData = new FormData();
-    formData.append('photo', file);
-    return this.http
-      .post('http://localhost:8080/api/administration/management/image', formData)
-      .toPromise();
-  }
-
-  sendFormData(imageId: string): void {
-    
-    const formData = {
-      photo_id: imageId,
-     
-    };
-
-    this.http
-      .post('http://localhost:8080/api/administration/management/person', formData)
-      .subscribe({
-        next: (response) => {
-          console.log('Formulario enviado exitosamente', response);
-          Swal.fire({
-            title: '¡Éxito!',
-            text: 'Datos enviados con éxito.',
-            icon: 'success',
-            confirmButtonText: 'Aceptar',
-          });
-        },
-        error: (error) => {
-          console.error('Error al enviar los datos:', error);
-       
-          Swal.fire({
-            title: 'Error',
-            html: '<p>Error al enviar los datos.</p><p>Verifíca que los campos esten completos</p>',
-            icon: 'error',
-            confirmButtonText: 'Aceptar',
-          });
-        },
-      });
-  }
-
   onSubmit(): void {
     if (this.registroForm.invalid) {
       Swal.fire({
         title: 'Atención',
-        text: 'Por favor complete todos los campos.',
+        text: 'Problema en el envío de la foto',
         icon: 'warning',
         confirmButtonText: 'Aceptar',
       });
       return;
     }
 
+    // Obtenemos el archivo directamente del formulario
     const file = this.registroForm.get('foto')?.value;
 
-    if (file instanceof File) {
-      this.uploadImage(file)
-        .then((response: any) => {
-          console.log('Imagen subida correctamente', response);
-          const imageId = response.imageId; // Asegúrate de que el backend devuelva este valor
-          if (imageId) {
-            this.sendFormData(imageId);
-          } else {
-            throw new Error('imageId no recibido del servidor.');
-          }
-        })
-        .catch((error) => {
-          console.error('Error al subir la imagen', error);
-          Swal.fire({
-            title: 'Error',
-            text: 'Error al subir la imagen.',
-            icon: 'error',
-            confirmButtonText: 'Intentar de nuevo',
-          });
+    // URL de ejemplo
+    const apiUrl = 'https://ejemplo.com/api/subir-foto';
+
+    this.http.post(apiUrl, file, {
+      headers: {
+        'Content-Type': file.type, // El tipo MIME del archivo
+      },
+      responseType: 'text', // Si el servidor retorna texto plano
+    }).subscribe(
+      response => {
+        Swal.fire({
+          title: 'Éxito',
+          text: 'La foto se ha subido correctamente.',
+          icon: 'success',
+          confirmButtonText: 'Aceptar',
         });
-    } else {
-    
-      Swal.fire({
-        title: 'Error',
-        text: 'Por favor selecciona una imagen válida.',
-        icon: 'error',
-        confirmButtonText: 'Aceptar',
-      });
-    }
+        console.log('Respuesta del servidor:', response);
+      },
+      error => {
+        Swal.fire({
+          title: 'Error',
+          text: 'Hubo un problema al subir la foto. Inténtalo nuevamente.',
+          icon: 'error',
+          confirmButtonText: 'Aceptar',
+        });
+        console.error('Error al subir la foto:', error);
+      }
+    );
   }
 
   hasError(field: string, errorType: string): boolean {
     const control = this.registroForm.get(field);
     return control?.hasError(errorType) && control?.touched ? true : false;
   }
-
 }
