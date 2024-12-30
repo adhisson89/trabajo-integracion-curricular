@@ -81,7 +81,7 @@ def add_face(user_id):
 # compare img
 @api_bp.route("/compareFace", methods=["POST"])
 def compare_face():
-     try:
+    try:
         # Get the image file from the request
         if 'file' not in request.files:
             return jsonify({"error": "No file part in the request"}), 400
@@ -114,7 +114,7 @@ def compare_face():
         print("comparation result", comparation_result)
 
         return jsonify({"message": str(comparation_result)})
-        except Exception as e:
+    except Exception as e:
         print("Error on compare_face: ", str(e))
         return jsonify({"error":str(e)})
     # finally:
