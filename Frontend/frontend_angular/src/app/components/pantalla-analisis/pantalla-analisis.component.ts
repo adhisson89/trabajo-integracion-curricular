@@ -123,42 +123,138 @@ export class PantallaAnalisisComponent implements OnInit, OnDestroy {
     }, 100);
 }
 
-
-  captureImageAsJPG(): void {
+  async captureImageAsJPG(): Promise<void> {
     if (this.videoRef) {
       const canvas = document.createElement('canvas');
       canvas.width = this.videoRef.videoWidth;
       canvas.height = this.videoRef.videoHeight;
-
+  
       const context = canvas.getContext('2d');
       if (context) {
+        // Dibuja la imagen del video en el canvas
         context.drawImage(this.videoRef, 0, 0, canvas.width, canvas.height);
-        canvas.toBlob(blob => {
-          if (blob) {
-            this.sendToBackend(blob);
+  
+        // Detecta el rostro en la imagen
+        const detections = await faceapi.detectAllFaces(this.videoRef, new faceapi.TinyFaceDetectorOptions())
+          .withFaceLandmarks()
+          .withFaceDescriptors();
+  
+        if (detections.length > 0) {
+          // Obtiene las coordenadas del primer rostro detectado (puedes mejorar esto para manejar varios rostros)
+          const firstFace = detections[0].detection;
+  
+          // Recorta la zona del rostro del canvas
+          const { x, y, width, height } = firstFace.box;
+          const faceCanvas = document.createElement('canvas');
+          faceCanvas.width = width;
+          faceCanvas.height = height;
+          const faceContext = faceCanvas.getContext('2d');
+          if (faceContext) {
+            // Recorta el rostro y lo dibuja en el nuevo canvas
+            faceContext.drawImage(canvas, x, y, width, height, 0, 0, width, height);
           }
-        }, 'image/jpeg', 0.95);
+  
+          // Convierte el canvas de la cara recortada a una URL base64
+          const base64Image = faceCanvas.toDataURL('image/jpeg', 0.95);
+  
+          // Convierte la imagen en un blob para enviarla al backend
+          faceCanvas.toBlob(blob => {
+            if (blob) {
+              console.log('Imagen recortada en formato Blob:', blob);
+              this.sendToBackend(blob); // Envía la imagen al backend
+            }
+          }, 'image/jpeg', 0.95);
+        } else {
+          console.error('No se detectó rostro en la imagen');
+        }
       }
     }
   }
 
 
+//para ver como se ve la imagen
+  // async captureImageAsJPG(): Promise<void> {
+  //   if (this.videoRef) {
+  //     const canvas = document.createElement('canvas');
+  //     canvas.width = this.videoRef.videoWidth;
+  //     canvas.height = this.videoRef.videoHeight;
   
+  //     const context = canvas.getContext('2d');
+  //     if (context) {
+  //       // Dibuja la imagen del video en el canvas
+  //       context.drawImage(this.videoRef, 0, 0, canvas.width, canvas.height);
+  
+  //       // Detecta el rostro en la imagen
+  //       const detections = await faceapi.detectAllFaces(this.videoRef, new faceapi.TinyFaceDetectorOptions())
+  //         .withFaceLandmarks()
+  //         .withFaceDescriptors();
+  
+  //       if (detections.length > 0) {
+  //         // Obtiene las coordenadas del primer rostro detectado
+  //         const firstFace = detections[0].detection;
+  
+  //         // Recorta la zona del rostro del canvas
+  //         const { x, y, width, height } = firstFace.box;
+  //         const faceCanvas = document.createElement('canvas');
+  //         faceCanvas.width = width;
+  //         faceCanvas.height = height;
+  //         const faceContext = faceCanvas.getContext('2d');
+  //         if (faceContext) {
+  //           // Recorta el rostro y lo dibuja en el nuevo canvas
+  //           faceContext.drawImage(canvas, x, y, width, height, 0, 0, width, height);
+  //         }
+  
+  //         // Convierte el canvas de la cara recortada a una URL base64
+  //         const base64Image = faceCanvas.toDataURL('image/jpeg', 0.95);
+  
+  //         // Convierte la imagen en un blob para enviarla al backend
+  //         faceCanvas.toBlob(blob => {
+  //           if (blob) {
+  //             console.log('Imagen recortada en formato Blob:', blob);
+  //             this.sendToBackend(blob); // Envía la imagen al backend
+  //             this.downloadImage(base64Image); // Llama a la función de descarga
+  //           }
+  //         }, 'image/jpeg', 0.95);
+  //       } else {
+  //         console.error('No se detectó rostro en la imagen');
+  //       }
+  //     }
+  //   }
+  // }
+  //segunda parte para ver como se ve la imagen
+  // downloadImage(base64Image: string): void {
+  //   const link = document.createElement('a');
+  //   link.href = base64Image;  // La URL base64 de la imagen
+  //   link.download = 'rostro.jpg'; // Nombre del archivo que se descargará
+  //   link.click(); // Inicia la descarga
+  // }
+  
+
+
   sendToBackend(blob: Blob): void {
     const formData = new FormData();
     formData.append('file', blob, 'imagen.jpg');
     
+    // Asegúrate de que la URL coincida con el backend
     fetch('http://localhost:8080/api/face-recognition/compareFace', {
       method: 'POST',
       body: formData
-    }).then(response => {
-      if (response.ok) {
-        console.log('Imagen enviada exitosamente');
+    })
+    .then(response => response.json())  // Asume que el backend devuelve un JSON
+    .then(data => {
+      if (data.match) {
+        console.log('Rostro reconocido, ID:', data.id);
       } else {
-        console.error('Error al enviar la imagen');
+        console.error('No se encontró un rostro coincidente');
       }
-    }).catch(err => console.error('Error en la solicitud:', err));
+    })
+    .catch(err => {
+      console.error('Error en la solicitud:', err);
+    });
   }
+  
+
+
 
 
 
