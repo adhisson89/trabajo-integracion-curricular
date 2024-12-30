@@ -114,7 +114,7 @@ def compare_face():
         print("comparation result", comparation_result)
 
         return jsonify({"message": str(comparation_result)})
-    except Exception as e:
+        except Exception as e:
         print("Error on compare_face: ", str(e))
         return jsonify({"error":str(e)})
     # finally:
