@@ -123,8 +123,8 @@ button.btn_Empezar:hover {
 @media (max-width: 600px) {
     /* Ajusta el contenedor envolvente */
     .container-wrapper {
-        height: 100%;
-        width: 100%;
+        height: 50%;
+        width: 50%;
         padding: 10px; /* Agrega algo de padding para evitar que los elementos se toquen los bordes */
         box-sizing: border-box;
     }
