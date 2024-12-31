@@ -173,12 +173,12 @@ export class PantallaAnalisisComponent implements OnInit, OnDestroy {
     }
   }
 
-  
+
 
   sendToBackend(blob: Blob): void {
     const formData = new FormData();
     formData.append('file', blob, 'imagen.jpg');
-  
+
     // Muestra un swal para indicar que se está procesando
     Swal.fire({
       title: 'Procesando...',
@@ -186,11 +186,11 @@ export class PantallaAnalisisComponent implements OnInit, OnDestroy {
       icon: 'info',
       showConfirmButton: false,
       didOpen: () => {
-       
+
         console.log(`Procesando...`);
       }
     });
-  
+
     //  la url para el modelo de DANI
     fetch('http://localhost:8080/api/face-recognition/compareFace', {
       method: 'POST',
@@ -229,9 +229,9 @@ export class PantallaAnalisisComponent implements OnInit, OnDestroy {
         });
       });
   }
-  
 
-  
+
+
 
   ngOnDestroy(): void {
     clearTimeout(this.inactivityTimeout);

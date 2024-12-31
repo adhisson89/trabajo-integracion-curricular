@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core'; 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -26,7 +26,7 @@ export class SubirFotoComponent implements OnInit {
 
   registroForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router) {}
+  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router) { }
 
   // Gestión de inactividad
   @HostListener('document:mousemove')
@@ -81,6 +81,19 @@ export class SubirFotoComponent implements OnInit {
     // URL de ejemplo
     const apiUrl = 'https://ejemplo.com/api/subir-foto';
 
+    // Muestra el Swal de "Procesando..." mientras se espera la respuesta
+    let processingSwal: any;
+    Swal.fire({
+      title: 'Procesando...',
+      text: 'Estamos subiendo tu foto, por favor espera.',
+      icon: 'info',
+      showConfirmButton: false,
+      allowOutsideClick: false,
+      didOpen: () => {
+        processingSwal = Swal.showLoading();
+      }
+    });
+
     this.http.post(apiUrl, file, {
       headers: {
         'Content-Type': file.type, // El tipo MIME del archivo
@@ -88,15 +101,21 @@ export class SubirFotoComponent implements OnInit {
       responseType: 'text', // Si el servidor retorna texto plano
     }).subscribe(
       response => {
+        // Cierra el Swal de "Procesando..." cuando recibimos la respuesta
+        processingSwal.close();
+
         Swal.fire({
           title: 'Éxito',
-          text: 'La foto se ha subido correctamente.',
+          text: `La foto se ha subido correctamente.\nRespuesta del servidor: ${response}`,
           icon: 'success',
           confirmButtonText: 'Aceptar',
         });
         console.log('Respuesta del servidor:', response);
       },
       error => {
+        // Cierra el Swal de "Procesando..." si ocurre un error
+        processingSwal.close();
+
         Swal.fire({
           title: 'Error',
           text: 'Hubo un problema al subir la foto. Inténtalo nuevamente.',
