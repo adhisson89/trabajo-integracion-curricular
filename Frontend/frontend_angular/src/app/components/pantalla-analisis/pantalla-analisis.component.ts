@@ -186,29 +186,34 @@ export class PantallaAnalisisComponent implements OnInit, OnDestroy {
       icon: 'info',
       showConfirmButton: false,
       didOpen: () => {
-       
         console.log(`Procesando...`);
       }
     });
   
-    // Asegúrate de que la URL coincida con el backend
-    fetch('http://localhost:8080/api/face-recognition/compareFace', {
+    // URL del backend
+    fetch('http://localhost:8080/api/face-recognition/compareFace?file', {
       method: 'POST',
       body: formData
     })
-      .then(response => response.json())  // Asume que el backend devuelve un JSON
+      .then(response => response.json()) // Convertir respuesta a JSON
       .then(data => {
-        if (data.match) {
-          // Alerta de éxito con información del backend
-          Swal.fire({
+        // El backend devuelve el mensaje como string en la clave "message"
+        const messageString = data.message;
+  
+        // Convertir el mensaje a un objeto JSON válido
+        const messageObject = JSON.parse(messageString.replace(/'/g, '"')); // Reemplaza comillas simples por dobles para hacer el JSON válido
+  
+        if (messageObject.status === 'True') {
+          // Alerta de éxito con el ID recibido
+          Swal.fire({ 
             title: '¡Éxito!',
-            text: `Rostro reconocido, ID: ${data.id}`,
+            html: `<p>Persona Autorizada</p><p>ID: <strong>${messageObject.id}</strong></p>`,
             icon: 'success',
             confirmButtonText: 'Aceptar',
           });
-          console.log('Rostro reconocido, ID:', data.id); // Información adicional en consola
+          console.log('Rostro reconocido, ID:', messageObject.id); // Información adicional en consola
         } else {
-          // Alerta de error
+          // Alerta de error si no se encuentra un rostro coincidente
           Swal.fire({
             title: '¡Persona No Autorizada!',
             text: `No se encontró un rostro coincidente.`,
@@ -229,7 +234,8 @@ export class PantallaAnalisisComponent implements OnInit, OnDestroy {
         });
       });
   }
-  
+
+
 
   
 
