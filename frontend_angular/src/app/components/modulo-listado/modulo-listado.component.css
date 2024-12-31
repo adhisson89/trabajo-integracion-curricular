@@ -332,7 +332,7 @@ select {
 
 button {
     padding: 5px;
-    background-color: #007bff;
+    background-color: #9c9d9f;
     color: #ffffff;
     border: none;
     border-radius: 4px;
@@ -530,5 +530,68 @@ button[type="button"]:hover {
         width: 50%;
         max-width: 50%;
         padding: 20px;
+    }
+}
+
+/* Media Queries para pantallas pequeñas */
+@media (max-width: 600px) {
+    .header {
+        top: 5px;
+        left: 10%;
+        flex-direction: column; /* Cambia la dirección a columna */
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+    }
+
+    /* Ajustes de tamaño para el título */
+    .header h1 {
+    
+        margin: 10px;
+        text-align: center;
+        -webkit-text-stroke: 0.05px #3939395c; /* Ajusta el borde */
+    }
+
+    /* Ajustes de logo */
+    .header .logo2 {
+  
+        height: 40px;
+        width: 80px;
+    }
+}
+
+/* Media Queries para pantallas medianas (por ejemplo, tabletas) */
+@media (max-width: 900px) {
+    .header {
+        left: 20%;
+    }
+
+    /* Ajustes de tamaño para el título */
+    .header h1 {
+        font-size: 30px; /* Tamaño de texto moderado */
+    }
+
+    /* Ajustes de logo */
+    .header .logo2 {
+        height: 45px;
+        width: 85px;
+    }
+}
+
+/* Media Queries para pantallas grandes */
+@media (min-width: 901px) {
+    .header {
+        left: 30%; /* Mantén la posición centrada */
+    }
+
+    /* Ajustes de tamaño para el título */
+    .header h1 {
+        font-size: 70px; /* Tamaño de texto grande */
+    }
+
+    /* Ajustes de logo */
+    .header .logo2 {
+        height: 50px;
+        width: 90px;
     }
 }

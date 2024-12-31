@@ -90,7 +90,7 @@ body {
 }
 
 .module {
-    background-color: #0000aa;
+    background-color: #a7a7a7;
     color: #ffffff;
     width: 150px;
     height: 150px;
@@ -157,4 +157,66 @@ body {
       background-color: #0000aa;
     transform: scale(1.05);
     box-shadow: 0px 0px 20px rgba(0, 19, 230, 0.8);
+}
+/* Media Queries para pantallas pequeñas */
+@media (max-width: 600px) {
+    .header {
+        top: 5px;
+        left: 10%;
+        flex-direction: column; /* Cambia la dirección a columna */
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+    }
+
+    /* Ajustes de tamaño para el título */
+    .header h1 {
+    
+        margin: 10px;
+        text-align: center;
+        -webkit-text-stroke: 0.05px #3939395c; /* Ajusta el borde */
+    }
+
+    /* Ajustes de logo */
+    .header .logo2 {
+  
+        height: 40px;
+        width: 80px;
+    }
+}
+
+/* Media Queries para pantallas medianas (por ejemplo, tabletas) */
+@media (max-width: 900px) {
+    .header {
+        left: 20%;
+    }
+
+    /* Ajustes de tamaño para el título */
+    .header h1 {
+        font-size: 30px; /* Tamaño de texto moderado */
+    }
+
+    /* Ajustes de logo */
+    .header .logo2 {
+        height: 45px;
+        width: 85px;
+    }
+}
+
+/* Media Queries para pantallas grandes */
+@media (min-width: 901px) {
+    .header {
+        left: 30%; /* Mantén la posición centrada */
+    }
+
+    /* Ajustes de tamaño para el título */
+    .header h1 {
+        font-size: 70px; /* Tamaño de texto grande */
+    }
+
+    /* Ajustes de logo */
+    .header .logo2 {
+        height: 50px;
+        width: 90px;
+    }
 }

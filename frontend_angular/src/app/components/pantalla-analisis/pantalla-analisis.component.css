@@ -158,50 +158,6 @@ button:hover {
 }
 
 
-/* Estilos responsivos */
-@media (max-width: 768px) {
-    .container {
-        max-width: 90%; /* Ajuste más flexible */
-    }
-
-    .header {
-        font-size: 12px;
-        padding: 8px;
-    }
-
-    .logo {
-        width: 30px;
-    }
-
-    #video {
-        max-height: 250px;
-    }
-}
-
-@media (max-width: 480px) {
-    .header {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .header h2, .header h3 {
-        font-size: 0.8rem;
-        margin: 5px 0;
-    }
-
-    .logo {
-        margin: 0;
-    }
-
-    #video {
-        max-height: 200px;
-    }
-
-    button {
-        font-size: 0.9rem;
-        padding: 8px 16px;
-    }
-}
 .date-container {
     margin-top: 30px;
     margin-right: 20px;
@@ -232,4 +188,66 @@ button:hover {
   background-color: #b6b6b6;
     transform: scale(1.05);
     box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.8);
+}
+/* Media Queries para pantallas pequeñas */
+@media (max-width: 600px) {
+    .header {
+        top: 5px;
+        left: 10%;
+        flex-direction: column; /* Cambia la dirección a columna */
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+    }
+
+    /* Ajustes de tamaño para el título */
+    .header h1 {
+    
+        margin: 10px;
+        text-align: center;
+        -webkit-text-stroke: 0.05px #3939395c; /* Ajusta el borde */
+    }
+
+    /* Ajustes de logo */
+    .header .logo2 {
+  
+        height: 40px;
+        width: 80px;
+    }
+}
+
+/* Media Queries para pantallas medianas (por ejemplo, tabletas) */
+@media (max-width: 900px) {
+    .header {
+        left: 10%;
+    }
+
+    /* Ajustes de tamaño para el título */
+    .header h1 {
+        font-size: 30px; /* Tamaño de texto moderado */
+    }
+
+    /* Ajustes de logo */
+    .header .logo2 {
+        height: 45px;
+        width: 85px;
+    }
+}
+
+/* Media Queries para pantallas grandes */
+@media (min-width: 901px) {
+    .header {
+        left: 10%; /* Mantén la posición centrada */
+    }
+
+    /* Ajustes de tamaño para el título */
+    .header h1 {
+        font-size: 30px; /* Tamaño de texto grande */
+    }
+
+    /* Ajustes de logo */
+    .header .logo2 {
+        height: 50px;
+        width: 90px;
+    }
 }
