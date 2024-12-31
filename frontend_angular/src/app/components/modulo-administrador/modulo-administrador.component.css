@@ -52,7 +52,6 @@
     height: 50px;
     width: 90px;
 }
-
 /* Reset básico */
 * {
     margin: 0;
@@ -61,7 +60,6 @@
 }
 
 body {
-    margin-right: 50px;
     color: #333;
     display: flex;
     justify-content: center;
@@ -71,6 +69,7 @@ body {
 }
 
 .container {
+    margin-right: 100px;
     font-family: "gro";
     font-size: 25px;
     width: 400px;
@@ -78,6 +77,7 @@ body {
     background: #edececc9;
     border-radius: 10px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+
 }
 
 
@@ -90,7 +90,7 @@ body {
 }
 
 .module {
-    background-color: #838488;
+    background-color: #0000aa;
     color: #ffffff;
     width: 150px;
     height: 150px;
@@ -105,11 +105,13 @@ body {
 }
 
 .module:hover {
-    background-color: #000083;
+    background-color: #0000aa;
+    transform: scale(1.05);
+    box-shadow: 0px 0px 20px rgba(16, 10, 201, 0.8);
 }
 
 .label {
-    font-size: 14px;
+    font-size: 19px;
     margin-top: 10px;
 }
 
@@ -125,58 +127,7 @@ body {
     filter: invert(100%);
 }
 
-/* Responsiveness */
 
-/* Para pantallas pequeñas (celulares) */
-@media (max-width: 600px) {
-    .module {
-        width: 100px;
-        height: 100px;
-    }
-
-    .module img {
-        width: 60px;
-        height: 60px;
-    }
-
-    .label {
-        font-size: 12px;
-    }
-}
-
-/* Para tabletas */
-@media (min-width: 601px) and (max-width: 900px) {
-    .module {
-        width: 140px;
-        height: 140px;
-    }
-
-    .module img {
-        width: 100px;
-        height: 100px;
-    }
-
-    .label {
-        font-size: 16px;
-    }
-}
-
-/* Para laptops y pantallas grandes */
-@media (min-width: 901px) {
-    .module {
-        width: 150px;
-        height: 150px;
-    }
-
-    .module img {
-        width: 120px;
-        height: 120px;
-    }
-
-    .label {
-        font-size: 18px;
-    }
-}
 .date-container {
     margin-top: 30px;
     margin-right: 20px;
@@ -203,10 +154,7 @@ body {
 }
 
 .date-button:hover {
-    
-  background-color: #b6b6b6;
+      background-color: #0000aa;
     transform: scale(1.05);
-    box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.8);
-
-
+    box-shadow: 0px 0px 20px rgba(0, 19, 230, 0.8);
 }

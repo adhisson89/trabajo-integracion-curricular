@@ -9,16 +9,15 @@
 
 /* Contenedor principal */
 .container {
-    height: 270px;
+    width: 100%;
     margin-top: 45px;
-    max-width: 900px;
     background: #edececc9;
     border-radius: 10px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
     display: flex;
     padding: 20px;
     gap: 20px;
-    overflow: hidden;
+    
     align-items: center;
     flex-wrap: wrap;
 }
@@ -182,107 +181,157 @@ button.btn_subir:hover {
 }
 
 
-
-
-
-/* Responsividad */
-@media (max-width: 768px) {
-    .container {
-        flex-direction: column;
-        text-align: center;
-        height: auto;
+/* Media Queries para pantallas pequeñas (celulares) */
+@media (max-width: 600px) {
+    /* Ajusta el contenedor envolvente */
+    .container-wrapper {
+        height: auto; /* Ajusta la altura */
+        padding: 10px; /* Agrega algo de padding para evitar que los elementos se toquen los bordes */
+        box-sizing: border-box;
     }
 
+    /* Contenedor principal */
+    .container {
+        height: auto; /* Deja que el contenedor ajuste su altura según el contenido */
+        margin-top: 20px; /* Reduce el margen superior */
+        padding: 10px; /* Reduce el padding */
+        gap: 10px; /* Reduce el espacio entre elementos */
+        max-width: 100%; /* Asegura que el contenedor no sea más grande que el ancho de la pantalla */
+        flex-direction: column; /* Cambia la dirección del flex para apilar los elementos */
+        align-items: center; /* Centra los elementos */
+    }
+
+    /* Contenido principal */
     .content h1 {
-        font-size: 24px;
+        font-size: 28px; /* Reduce el tamaño del título */
+        margin: 10px 0; /* Ajusta los márgenes */
     }
 
     .content h2 {
-        font-size: 12px;
+        font-size: 14px; /* Reduce el tamaño del subtítulo */
+        margin-top: 5px;
     }
 
     .content p {
-        font-size: 12px;
+        font-size: 16px; /* Reduce el tamaño de la fuente del párrafo */
+        margin: 10px 0; /* Reduce los márgenes */
+        text-align: left; /* Alinea el texto a la izquierda para mejor lectura */
     }
 
+    /* Botón Admin */
+    button.btn_Admin {
+        font-size: 0.8em; /* Reduce el tamaño de la fuente */
+        top: 5px; /* Ajusta la posición */
+        left: 80%; /* Ajusta la posición del botón */
+        margin: 5px; /* Reduce el margen */
+    }
+
+    /* Botón EnVivo */
+    button.btn_EnVivo {
+        font-size: 1em; /* Ajusta el tamaño de la fuente */
+        padding: 10px 20px; /* Ajusta el tamaño del padding */
+        margin-left: 0; /* Alinea el botón a la izquierda */
+        width: 50%; /* Haz que el botón ocupe el 100% del ancho disponible */
+        margin-bottom: 10px;
+    }
+
+    /* Botón Subir */
+    button.btn_subir {
+        font-size: 1em; /* Ajusta el tamaño de la fuente */
+        padding: 10px 20px; /* Ajusta el tamaño del padding */
+        margin-left: 0; /* Alinea el botón a la izquierda */
+        width: 50%; /* Haz que el botón ocupe el 100% del ancho disponible */
+    }
+
+    /* Ilustraciones */
     .illustration img {
-        width: 150px;
-        height: 150px;
+        max-width: 100%; /* Asegura que la imagen no exceda el ancho del contenedor */
+        height: auto; /* Mantiene la proporción de la imagen */
+        margin-right: 0; /* Elimina el margen derecho */
+        margin-bottom: 10px; /* Agrega margen abajo */
     }
 
-    .btn_EnVivo {
-        margin-left: 0;
+    .illustration2 img {
+       width: 100px; /* Asegura que la imagen no exceda el ancho del contenedor */
+        height: 100px; /* Mantiene la proporción de la imagen */
+        margin-right: 0; /* Elimina el margen derecho */
+        margin-bottom: 10px; /* Agrega margen abajo */
+        position: relative;
+        top: -280px;
+    }
+
+    /* Ajusta la visibilidad de la ilustración3 */
+    .illustration3 {
+        width: 10%; /* Asegura que la ilustración ocupe el 100% del ancho disponible */
+        opacity: 0; /* Hazla visible */
+        margin-right: 0; /* Elimina el margen derecho */
     }
 }
-
-@media (max-width: 480px) {
-    .content h1 {
-        font-size: 20px;
+/* Media Queries para pantallas más grandes (por ejemplo, tabletas, computadoras de escritorio) */
+@media (min-width: 601px) {
+    /* Ajustes para pantallas más grandes */
+    .container-wrapper {
+        height: 100vh; /* Altura completa */
+        padding: 20px;
     }
 
-    .content h2 {
-        font-size: 10px;
-    }
-
-    .illustration img {
-        width: 100px;
-        height: 100px;
-    }
-
-    .content button {
-        font-size: 12px;
-        padding: 6px 12px;
-    }
-}
-
-/* Estilo específico para resolución 1920x1080 */
-@media screen and (min-width: 1920px) {
     .container {
-        height: 300px;
-        max-width: 1200px;
-        gap: 30px;
+       height: auto;
+        margin-top: 5px;
+        padding: 20px;
+        gap: 20px;
+        flex-direction: row; /* Establece la dirección del flex para que los elementos estén en fila */
+        align-items: center;
     }
 
     .content h1 {
-        font-size: 50px;
+        font-size: 40px; /* Tamaño grande del título */
+        margin: 5px 0;
     }
 
     .content h2 {
-        font-size: 18px;
+        font-size: 15px;
     }
 
     .content p {
-        font-size: 16px;
+        font-size: 18px; /* Tamaño normal del texto */
+        margin: 20px;
+        text-align: justify;
+    }
+
+    button.btn_Admin {
+        font-size: 0.9em;
+        top: 10px;
+        left: 90%;
+        margin: 10px;
+    }
+
+    button.btn_EnVivo,
+    button.btn_subir {
+        font-size: 1.1em;
+        padding: 12px 25px;
+        margin-left: auto;
+    }
+
+    /* Imágenes en pantallas más grandes */
+    .illustration img,
+    .illustration2 img {
+        max-width: 100%; /* Asegura que la imagen no exceda el ancho */
+        height: auto; /* Mantiene la relación de aspecto */
     }
 
     .illustration img {
-        width: 250px;
-        height: 250px;
-    }
-}
-
-/* Estilo específico para resolución 1360x768 */
-@media screen and (min-width: 1360px) and (max-width: 1920px) {
-    .container {
-        height: 250px;
-        max-width: 800px;
-        gap: 15px;
+        max-width: 200px; /* Tamaño máximo en pantallas grandes */
     }
 
-    .content h1 {
-        font-size: 35px;
+    .illustration2 img {
+        max-width: 400px; /* Tamaño máximo para ilustración2 */
     }
 
-    .content h2 {
-        font-size: 14px;
-    }
-
-    .content p {
-        font-size: 14px;
-    }
-
-    .illustration img {
-        width: 180px;
-        height: 180px;
+    .illustration3 {
+        opacity: 0; /* Se oculta o se puede mostrar según sea necesario */
+        width: 1px;
+        height: 1px;
+        margin-right: 100px;
     }
 }

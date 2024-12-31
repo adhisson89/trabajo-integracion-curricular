@@ -73,7 +73,7 @@
 }
 
 body {
-    
+
     color: #333;
     display: flex;
     justify-content: center;
@@ -84,13 +84,15 @@ body {
 }
 
 .container {
+    margin-right: 90px;
     margin-top: 30px;
     width: 100%;
-    max-width: 100px;
+
     padding: 20px;
     background: #edececc9;
     border-radius: 10px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+
 
 }
 
@@ -192,14 +194,14 @@ p {
 }
 
 .pop-up {
- 
+
     text-align: center;
     font-size: 18px;
     color: #333333;
     font-family: "qua";
     letter-spacing: 1px;
     position: relative;
-   
+
     top: -30px;
 
 }
@@ -239,17 +241,21 @@ p {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #ffffff;
+    background: #edececc9;
     border-radius: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+
     padding: 20px;
-    width: 90%; /* Se adapta al ancho del contenedor */
-    max-width: 500px; /* Tamaño máximo */
-    max-height: 650px; /* Tamaño máximo */
+    width: 90%;
+    /* Se adapta al ancho del contenedor */
+    max-width: 500px;
+    /* Tamaño máximo */
+    max-height: 650px;
+    /* Tamaño máximo */
     animation: pop-up 0.5s ease-out;
     overflow: auto;
 }
-    
+
 
 .file-container {
     position: relative;
@@ -360,6 +366,7 @@ button[type="button"]:hover {
     background: #edececc9;
     border-radius: 10px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -369,7 +376,7 @@ button[type="button"]:hover {
 /* Animación pop-up */
 @keyframes pop-up {
     from {
-        transform:translate(-50%, -50%) scale(0.8);
+        transform: translate(-50%, -50%) scale(0.8);
         opacity: 0;
     }
 
@@ -391,13 +398,52 @@ button[type="button"]:hover {
     /* Ajusta el posicionamiento para centrar completamente */
     z-index: 1000;
     /* Asegura que se sobreponga sobre otros elementos */
-    background: #edececf1;
+    background: #edececc9;
     border-radius: 10px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+
     /* Estética */
     animation: pop-up 0.5s ease-out;
     /* Aplica la animación */
 }
+
+
+.date-container {
+    margin-top: 30px;
+    margin-right: 20px;
+}
+
+.date-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+
+
+.date-button {
+    width: auto;
+    padding: 5px 20px 10px 20px;
+    font-size: 40px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    background-color: #0000aa;
+    color: white;
+    border-radius: 55px;
+    transition: background-color 0.3s;
+}
+
+.date-button:hover {
+
+    background-color: #0000aa;
+    transform: scale(1.05);
+    box-shadow: 0px 0px 20px rgba(16, 10, 201, 0.8);
+
+}
+
+
+
 
 /* Media Queries */
 @media (min-width: 768px) {
@@ -438,42 +484,51 @@ button[type="button"]:hover {
     }
 }
 
+/* Media Queries */
 @media (max-width: 600px) {
-    .edit-form {
+    .container {
         width: 100%;
+        height: 500px;
+        margin-right: 0;
+        margin-top: 50px;
+        padding: 10px;
+        max-width: 100%;
+        /* Asegura que ocupe todo el ancho disponible */
+        overflow: auto;
+    }
+
+    /* Ajuste en el título para pantallas pequeñas */
+    .header h1 {
+        font-size: 40px;
+        /* Disminuye el tamaño del título */
+    }
+
+    /* Ajuste de la imagen del logo */
+    .header .logo2 {
+        top: 10px;
+        left: 10px;
+        /* Ajuste de posición del logo */
+        height: 40px;
+        width: 70px;
+    }
+
+    li {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    /* Asegúrate de que los botones y otros elementos también se adapten */
+    .filter input,
+    .filter button {
+        width: 300px;
+    }
+
+    /* Ajustes adicionales si es necesario */
+    .edit-form,
+    .confirmation-modal {
+        width: 50%;
+        max-width: 50%;
         padding: 20px;
     }
-}
-.date-container {
-    margin-top: 30px;
-    margin-right: 20px;
-}
-
-.date-controls {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-}
-
-
-
-.date-button {
-    width: auto;
-    padding: 5px 20px 10px 20px;
-    font-size: 40px;
-    cursor: pointer;
-    border: 1px solid #ccc;
-    background-color: #0000aa;
-    color: white;
-    border-radius: 55px;
-    transition: background-color 0.3s;
-}
-
-.date-button:hover {
-    
-  background-color: #b6b6b6;
-    transform: scale(1.05);
-    box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.8);
-
 }
