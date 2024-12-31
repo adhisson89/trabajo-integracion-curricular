@@ -11,14 +11,13 @@
 .container {
     height: 270px;
     margin-top: 45px;
-    max-width: 900px;
     background: #ffffff;
     border-radius: 10px;
     box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.415);
     display: flex;
     padding: 20px;
     gap: 20px;
-    overflow: hidden;
+    overflow: auto;
     align-items: center;
     flex-wrap: wrap;
 }
@@ -119,4 +118,66 @@ button.btn_Empezar:hover {
 .illustration img:hover {
     box-shadow: 0px 0px 25px #fa0001;
 }
+
+/* Media Queries para pantallas pequeñas (celulares) */
+@media (max-width: 600px) {
+    /* Ajusta el contenedor envolvente */
+    .container-wrapper {
+        height: 100%;
+        width: 100%;
+        padding: 10px; /* Agrega algo de padding para evitar que los elementos se toquen los bordes */
+        box-sizing: border-box;
+    }
+
+    /* Contenedor principal */
+    .container {
+        height: auto; /* Deja que el contenedor ajuste su altura según el contenido */
+        margin-top: 80px; /* Reduce el margen superior */
+        padding: 10px; /* Reduce el padding */
+        gap: 10px; /* Reduce el espacio entre elementos */
+        flex-direction: column; /* Cambia la dirección del flex para apilar los elementos */
+        align-items: center; /* Centra los elementos */
+    }
+
+    /* Contenido principal */
+    .content h1 {
+        font-size: 28px; /* Reduce el tamaño del título */
+        margin: 10px 0; /* Ajusta los márgenes */
+    }
+
+    .content h2 {
+        font-size: 14px; /* Reduce el tamaño del subtítulo */
+        margin-top: 5px;
+    }
+
+    .content p {
+        font-size: 16px; /* Reduce el tamaño de la fuente del párrafo */
+        margin: 10px 0; /* Reduce los márgenes */
+    }
+
+    /* Botón Admin */
+    button.btn_Admin {
+        font-size: 0.8em; /* Reduce el tamaño de la fuente */
+        top: 5px; /* Ajusta la posición */
+        left: 80%; /* Ajusta la posición del botón */
+        margin: 5px; /* Reduce el margen */
+    }
+
+    /* Botón Empezar */
+    button.btn_Empezar {
+        font-size: 1em; /* Reduce el tamaño de la fuente */
+        padding: 10px 20px; /* Ajusta el tamaño del padding */
+        margin-left: 0; /* Alinea el botón a la izquierda */
+        width: 50%; /* Haz que el botón ocupe el 100% del ancho disponible */
+    }
+
+    /* Ilustraciones */
+    .illustration img {
+        width: 150px; /* Reduce el tamaño de la imagen */
+        height: 150px; /* Ajusta la altura de la imagen */
+        margin-right: 0; /* Elimina el margen derecho */
+        margin-bottom: 10px; /* Agrega margen abajo */
+    }
+}
+
 
