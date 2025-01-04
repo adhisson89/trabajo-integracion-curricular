@@ -8,20 +8,6 @@ import { HttpClientModule } from '@angular/common/http'; // Importar HttpClientM
 import Swal from 'sweetalert2';
 
 
-// Swal.fire({
-//   title: '¿Estás seguro?',
-//   text: 'No podrás revertir esta acción.',
-//   icon: 'warning',
-//   showCancelButton: true,
-//   confirmButtonText: 'Sí, continuar',
-//   cancelButtonText: 'Cancelar',
-// }).then((result) => {
-//   if (result.isConfirmed) {
-//       // Acción al confirmar
-//       console.log('Confirmado');
-//   }
-//});
-
 @Component({
   selector: 'app-modulo-registro-otros',
   templateUrl: './modulo-registro-otros.component.html',
