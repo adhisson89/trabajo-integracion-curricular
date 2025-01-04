@@ -11,10 +11,9 @@ import os
 import tempfile
 import random
 
-#db_string = 'mongodb+srv://adhisson:XVNqbidUA8Lu7iAm@tic.cerq8.mongodb.net/FacialDB?retryWrites=true&w=majority&appName=TIC'
            
 db_string   = 'mongodb+srv://adhisson:XVNqbidUA8Lu7iAm@tic.cerq8.mongodb.net/FacialDB?retryWrites=true&w=majority&appName=TIC'
-# Generate a random ID
+
 
 
 PORT = random.randint(5000, 6000)
@@ -39,16 +38,14 @@ def health_check():
     return jsonify({"status": "UP"})
 
 # send img to save on db
-@api_bp.route("/addFace/<user_id>", methods=["POST"])
-def add_face(user_id):
+@api_bp.route("/addFace", methods=["POST"])
+def add_face():
     try:
         # Get the image file from the request
         if 'file' not in request.files:
             return jsonify({"error": "No file part in the request"}), 400
 
         file = request.files['file']
-        # print("user_id", user_id)
-        # print("file", file.read())
 
         ext = ('.jpeg', '.jpg')
 
@@ -64,15 +61,16 @@ def add_face(user_id):
             file.save(temp_file_path)  # Save the uploaded file to the temp file
 
         photo_embedding = get_embedding_representation(temp_file_path)
-     #  photo_embedding = get_embedding_representation(img_path=temp_file_path, model_name='VGG-Face')
         print("generated embedding", photo_embedding)
         os.remove(temp_file_path)
         update_result = add_db_deepfacedb_embedding(user_id,photo_embedding)
         print('adding to deepfacedb', update_result)
+        
+        if update_result:
+            return jsonify({"message": "Face added successfully", "_id": str(update_result)}), 200
+        else:
+            return jsonify({"error": "Failed to add face to the database"}), 500
 
-        return jsonify({"message": "ok"})
-        # return jsonify({"message": update_result})
-        # return jsonify({"message": "Face added successfully", "result": update_result}), 200
 
     except Exception as e:
         return jsonify({"error":str(e)}), 500
@@ -117,22 +115,15 @@ def compare_face():
     except Exception as e:
         print("Error on compare_face: ", str(e))
         return jsonify({"error":str(e)})
-    # finally:
-    #     print("compare_face went to finally")
-    #     return jsonify({"message": str(False)})
+    
 
 
 def get_embedding_representation(my_img):
     print("going to get embedding for", my_img)
     return DeepFace.represent(img_path=my_img, model_name='VGG-Face', enforce_detection=False)[0]['embedding']
 
-# def save_embedding(my_embedding, embedding_name):
-#     np.save(embedding_name, reference_embedding)
 
-# def load_embedding(embedding_name):
-#     return np.load("reference_embedding.npy", allow_pickle=True)
-
-def add_db_deepfacedb_embedding(user_id, new_photo_vector):
+def add_db_deepfacedb_embedding(new_photo_vector):
     client = MongoClient(db_string)
 
     try:
@@ -142,21 +133,15 @@ def add_db_deepfacedb_embedding(user_id, new_photo_vector):
         deepfacePerson = db["deepfaceDB"]  # Nombre de la colección
 
         # Añade o actualiza el embedding
-        result = deepfacePerson.update_one(
-            {"identification": user_id},  # Filtro para buscar el documento
-            {"$set": {"photo_vector": new_photo_vector}},  # Actualización
-            upsert=True  # Crea un nuevo documento si no existe
-        )
+        new_document = {"photo_vector": new_photo_vector}
+        result = deepfacePerson.insert_one(new_document)
 
-        if result.matched_count > 0:
-            print(f"Document with ID {user_id} updated successfully.")
-            return True
-        elif result.upserted_id is not None:
-            print(f"Document with ID {user_id} created successfully.")
-            return True
+        if result.inserted_id:
+            print(f"Document created successfully with ObjectID: {result.inserted_id}")
+            return result.inserted_id  # Retorna el ObjectID del documento recién creado
         else:
-            print("No changes were made.")
-            return False
+            print("Failed to create a new document.")
+            return None
 
     except Exception as e:
         print("Error on add_db_deepfacedb_embedding:", e)
@@ -188,7 +173,7 @@ def get_db_deepfaceDB():
         client.close()
 
 def compare_img_people(photo_embedding, people):
-    threshold = 0.9
+    threshold = 0.8
     best_match = None
     best_score = float('inf')  # La menor distancia encontrada
 
@@ -206,8 +191,32 @@ def compare_img_people(photo_embedding, people):
                     best_match = person
 
         # Verificar si el mejor match está debajo del umbral
-        if best_score < threshold:
-            return {"status": str(True), "id": best_match["identification"], "score": best_score}
+        if best_score < threshold and best_match:
+            match_id = best_match["_id"]
+            print(type(str(match_id)))  
+            print("match_id",str(match_id))
+            client = MongoClient(db_string)
+            db = client["FacialDB"]
+            people_collection = db["people"]
+            print(people_collection.name)  # Check the collection name
+
+
+            person_details = people_collection.find_one(
+                {"photo_vector": str(match_id)}, # Filtrar por el ID encontrado
+                {"name": 1, "surname": 1, "role": 1, "identification": 1, "_id": 0}  # Proyección
+            )
+            print("person_details", person_details)
+            
+            if person_details:
+                return {
+                    "status": str(True),
+                    "match_details": person_details,
+                    "score": best_score
+                }
+            else:
+                print(f"No details found for match ID: {match_id}")
+                return {"status": str(False), "score": best_score}
+
         else:
             return {"status": str(False), "score": best_score}
 
