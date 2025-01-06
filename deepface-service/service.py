@@ -63,7 +63,7 @@ def add_face():
         photo_embedding = get_embedding_representation(temp_file_path)
         print("generated embedding", photo_embedding)
         os.remove(temp_file_path)
-        update_result = add_db_deepfacedb_embedding(user_id,photo_embedding)
+        update_result = add_db_deepfacedb_embedding(photo_embedding)
         print('adding to deepfacedb', update_result)
         
         if update_result:
@@ -183,7 +183,7 @@ def compare_img_people(photo_embedding, people):
 
             if reference_embedding and photo_embedding:
                 cosine_dist = distance.cosine(photo_embedding, reference_embedding)
-                print(f"Comparing with {person['identification']} - Distance: {cosine_dist}")
+                print(f"Comparing with {person['_id']} - Distance: {cosine_dist}")
 
                 # Si la distancia es mejor que la actual
                 if cosine_dist < best_score:
