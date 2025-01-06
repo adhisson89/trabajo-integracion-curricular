@@ -1,12 +1,19 @@
 from flask import Flask, jsonify, request, Blueprint
 from model import extract_face_embedding, store_embedding_for_user, retrieve_all_embeddings, compare_with_db
+from pymongo import MongoClient
 import os
 import random
 import tempfile
-import uuid
+import time
+
+
+# MongoDB connection details
+DB_STRING = "mongodb+srv://adhisson:XVNqbidUA8Lu7iAm@tic.cerq8.mongodb.net/PoliceDB?retryWrites=true&w=majority&appName=TIC"
+client = MongoClient(DB_STRING)
+db = client["PoliceDB"]
+vector_collection = db["vectores"]
+
 # import py_eureka_client.eureka_client as eureka_client
-
-
 # Generate a random ID
 PORT = random.randint(6000, 7000)
 
@@ -26,50 +33,54 @@ api_bp = Blueprint('api', __name__, url_prefix='/api/face-recognition')
 # Home route
 @api_bp.route("/", methods=["GET"])
 def home():
-    return jsonify({"message": "Server is running!"})
+    start_time = time.time()  # Medir el tiempo de inicio
+    response = jsonify({"message": "Server is running!"})
+    end_time = time.time()  # Medir el tiempo de fin
+    print(f"Home route time: {end_time - start_time} seconds")
+    return response
 
 # Health check route
 @api_bp.route("/health", methods=["GET"])
 def health_check():
-    return jsonify({"status": "UP"})
+    start_time = time.time()  # Medir el tiempo de inicio
+    response = jsonify({"status": "UP"})
+    end_time = time.time()  # Medir el tiempo de fin
+    print(f"Health check time: {end_time - start_time} seconds")
+    return response
 
 # Endpoint to add a new face and store its embedding
 @api_bp.route("/addFace", methods=["POST"])
 def add_face():
     try:
-        # Obtener el archivo de la solicitud
+        start_time = time.time()  # Start timer for execution time
+
         if 'file' not in request.files:
             return jsonify({"error": "No file part in the request"}), 400
 
         file = request.files['file']
         ext = file.filename.split('.')[-1].lower()
 
-        # Verificar la extensión del archivo
         if ext not in ['jpeg', 'jpg', 'png']:
             return jsonify({"error": "Invalid file format. Please upload a JPEG, JPG, or PNG image."}), 400
 
-        # Obtener el photo_id desde la solicitud
-        if 'photo_id' not in request.form:
-            return jsonify({"error": "photo_id is required"}), 400
-
-        photo_id = request.form['photo_id']  # Aquí se obtiene el photo_id de la solicitud
-
-        # Guardar el archivo en un archivo temporal
         with tempfile.NamedTemporaryFile(delete=False, suffix=f".{ext}") as temp_file:
             temp_file_path = temp_file.name
             file.save(temp_file_path)
 
-        # Generar el embedding de la imagen
+        # Generate the embedding for the image
         face_embedding = extract_face_embedding(temp_file_path)
 
-        # Almacenar el embedding en la base de datos
-        success = store_embedding_for_user(photo_id, face_embedding)
+        # Store the embedding in the database (only store the vector)
+        success = store_embedding_for_user(face_embedding)
 
-        # Eliminar el archivo temporal
+        # Remove the temporary file
         os.remove(temp_file_path)
 
+        execution_time = time.time() - start_time  # Calculate execution time
+        print(f"Execution time for addFace: {execution_time} seconds")
+
         if success:
-            return jsonify({"message": f"Face added and embedding stored successfully for photo_id {photo_id}."})
+            return jsonify({"message": f"Face added and embedding stored successfully."})
         else:
             return jsonify({"error": "Failed to store the embedding."}), 500
 
@@ -80,39 +91,38 @@ def add_face():
 @api_bp.route("/compareFace", methods=["POST"])
 def compare_face():
     try:
-        # Check if 'file' is in the request
+        start_time = time.time()  # Start timer for execution time
+
         if 'file' not in request.files:
             return jsonify({"error": "No file part in the request"}), 400
 
         file = request.files['file']
         ext = file.filename.split('.')[-1].lower()
 
-        # Validate file extension
         if ext not in ['jpeg', 'jpg', 'png']:
             return jsonify({"error": "Invalid file format. Please upload a JPEG, JPG, or PNG image."}), 400
 
-        # Save the file to a temporary location
         with tempfile.NamedTemporaryFile(delete=False, suffix=f".{ext}") as temp_file:
             temp_file_path = temp_file.name
             file.save(temp_file_path)
 
-        # Generate the embedding for the uploaded face
+        # Generate the embedding for the image
         face_embedding = extract_face_embedding(temp_file_path)
-
-        # Retrieve stored embeddings from the database
-        stored_vectors = retrieve_all_embeddings()
 
         # Compare the uploaded face embedding with stored ones
         comparison_result = compare_with_db(face_embedding)
 
-        os.remove(temp_file_path)  # Clean up the temporary file
+        # Remove the temporary file
+        os.remove(temp_file_path)
 
-        return jsonify({"message": str(comparison_result)})
+        execution_time = time.time() - start_time  # Calculate execution time
+        print(f"Execution time for compareFace: {execution_time} seconds")
+
+        return jsonify(comparison_result)  # Return the comparison result as JSON
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-# Register the Blueprint with the app
 app.register_blueprint(api_bp)
 
 if __name__ == "__main__":
