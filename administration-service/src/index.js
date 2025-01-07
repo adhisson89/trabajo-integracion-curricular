@@ -1,5 +1,6 @@
 const app = require("./app.js");
 const connectDB = require("./database.js");
+const eureka = require('./eureka-client.js');
 
 require("dotenv").config();
 connectDB();
@@ -8,7 +9,7 @@ const port = Math.floor(Math.random() * (3999 - 3000 + 1)) + 3000;
 process.env.PORT = port;
 const PORT = process.env.PORT || 3000;
 
-require('./eureka-client');
+eureka.registerWithEureka(PORT);
 
 connectDB();
 

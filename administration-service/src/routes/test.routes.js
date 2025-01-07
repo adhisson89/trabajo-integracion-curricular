@@ -6,5 +6,6 @@ const controller  = require("../controllers/test.controller")
 router.get("/", controller.getTest);
 router.put("/:id", controller.updateTest);
 router.get("/health", controller.getHealth);
+router.get("/list/:serviceName", controller.getLista);
 
 module.exports = router;
