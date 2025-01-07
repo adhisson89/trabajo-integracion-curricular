@@ -6,6 +6,10 @@ const controller = {
     updateTest: async function (req, res) {
         return res.status(200).send({ data: "Update Test" });
     },
+
+    getHealth: async function (req, res) {
+        return res.status(200).send('OK');
+    }
     
 }
 

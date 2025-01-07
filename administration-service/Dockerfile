@@ -16,7 +16,7 @@ COPY --chown=node:node --from=builder /app .
 USER node
 
 # Para producción
-# CMD ["npm", "start"]
+CMD ["node", "src/index.js"]
 
 # Para desarrollo
-CMD ["npm", "run", "dev"]
+#CMD ["npm", "run", "dev"]
