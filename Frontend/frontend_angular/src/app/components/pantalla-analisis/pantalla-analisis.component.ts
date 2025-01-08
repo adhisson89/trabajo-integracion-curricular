@@ -173,12 +173,12 @@ export class PantallaAnalisisComponent implements OnInit, OnDestroy {
     }
   }
 
-  
+
 
   sendToBackend(blob: Blob): void {
     const formData = new FormData();
     formData.append('file', blob, 'imagen.jpg');
-  
+
     // Muestra un swal para indicar que se está procesando
     Swal.fire({
       title: 'Procesando...',
@@ -189,55 +189,70 @@ export class PantallaAnalisisComponent implements OnInit, OnDestroy {
         console.log(`Procesando...`);
       }
     });
-  
+
     // URL del backend
-    fetch('http://localhost:8080/api/face-recognition/compareFace?file', {
+    fetch('http://localhost:8080/api/face-recognition/compareFace', {
       method: 'POST',
-      body: formData
+      body: formData,
     })
-      .then(response => response.json()) // Convertir respuesta a JSON
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json(); // Convertir respuesta a JSON
+      })
       .then(data => {
-        // El backend devuelve el mensaje como string en la clave "message"
-        const messageString = data.message;
-  
-        // Convertir el mensaje a un objeto JSON válido
-        const messageObject = JSON.parse(messageString.replace(/'/g, '"')); // Reemplaza comillas simples por dobles para hacer el JSON válido
-  
-        if (messageObject.status === 'True') {
-          // Alerta de éxito con el ID recibido
-          Swal.fire({ 
-            title: '¡Éxito!',
-            html: `<p>Persona Autorizada</p><p>ID: <strong>${messageObject.id}</strong></p>`,
-            icon: 'success',
-            confirmButtonText: 'Aceptar',
-          });
-          console.log('Rostro reconocido, ID:', messageObject.id); // Información adicional en consola
-        } else {
-          // Alerta de error si no se encuentra un rostro coincidente
+        try {
+          if (!data.message) {
+            throw new Error('La clave "message" no está presente en la respuesta.');
+          }
+
+          console.log('Mensaje del backend:', data.message); // Imprime la respuesta para diagnosticar
+          let messageString = data.message;
+
+          // Reemplaza las comillas simples por comillas dobles
+          messageString = messageString.replace(/'/g, '"');
+
+          // Asegúrate de que el mensaje sea un JSON válido
+          const messageObject = JSON.parse(messageString);
+
+          if (messageObject.status === 'True') {
+            Swal.fire({
+              title: '¡Éxito!',
+              html: `<p>Persona Autorizada</p><p>ID: <strong>${messageObject.match_details.identification}</strong></p>`,
+              icon: 'success',
+              confirmButtonText: 'Aceptar',
+            });
+            console.log('Rostro reconocido, ID:', messageObject.match_details.identification);
+          } else {
+            Swal.fire({
+              title: '¡Persona No Autorizada!',
+              text: 'No se encontró un rostro coincidente.',
+              icon: 'error',
+              confirmButtonText: 'Aceptar',
+            });
+            console.error('No se encontró un rostro coincidente');
+          }
+        } catch (error) {
+          console.error('Error al procesar el mensaje del backend:', error);
           Swal.fire({
-            title: '¡Persona No Autorizada!',
-            text: `No se encontró un rostro coincidente.`,
+            title: 'Error en el formato del mensaje',
+            text: 'El mensaje recibido no es válido. Por favor, revisa el backend.',
             icon: 'error',
             confirmButtonText: 'Aceptar',
           });
-          console.error('No se encontró un rostro coincidente');
         }
       })
-      .catch(err => {
-        console.error('Error en la solicitud:', err);
-        // Alerta de error en la solicitud
+      .catch(error => {
+        console.error('Error en la comunicación con el backend:', error);
         Swal.fire({
-          title: 'Error en la solicitud',
-          text: 'Hubo un problema al procesar la imagen. Por favor, intente nuevamente.',
+          title: 'Error',
+          text: 'No se pudo conectar con el servidor. Por favor, intenta nuevamente más tarde.',
           icon: 'error',
           confirmButtonText: 'Aceptar',
         });
       });
   }
-
-
-
-  
 
   ngOnDestroy(): void {
     clearTimeout(this.inactivityTimeout);
