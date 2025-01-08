@@ -58,8 +58,8 @@ services:
         condition: service_healthy
     networks:
      - tic-network
-    volumes:
-      - ./model-service:/app
+    # volumes:
+    #   - ./model-service:/app
 
 networks:
   tic-network:
