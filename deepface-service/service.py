@@ -10,6 +10,7 @@ from pymongo import MongoClient
 import os
 import tempfile
 import random
+import signal
 
            
 db_string   = 'mongodb+srv://adhisson:XVNqbidUA8Lu7iAm@tic.cerq8.mongodb.net/FacialDB?retryWrites=true&w=majority&appName=TIC'
@@ -26,6 +27,21 @@ try:
 except Exception as e:
     print(f"Error registering in Eureka: {e}")
 
+def deregister_from_eureka():
+    try:
+        eureka_client.stop()  # Desregistra el cliente de Eureka
+        print("Successfully deregistered from Eureka")
+    except Exception as e:
+        print(f"Error during Eureka deregistration: {e}")
+
+# Manejador de señales
+def handle_shutdown_signal(signum, frame):
+    print(f"Received shutdown signal: {signum}")
+    deregister_from_eureka()
+    exit(0)
+
+signal.signal(signal.SIGINT, handle_shutdown_signal)  # Ctrl+C
+signal.signal(signal.SIGTERM, handle_shutdown_signal)  # Docker u otros procesos
 
 # Flask app
 app = Flask(__name__)

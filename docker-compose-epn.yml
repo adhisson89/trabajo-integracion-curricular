@@ -60,6 +60,8 @@ services:
         condition: service_healthy
     networks:
      - tic-network
+    volumes:
+      - ./deepface-service:/app
 
 networks:
   tic-network:
