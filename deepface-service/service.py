@@ -219,7 +219,7 @@ def compare_img_people(photo_embedding, people):
 
             person_details = people_collection.find_one(
                 {"photo_vector_id": match_id}, # Filtrar por el ID encontrado
-                {"name": 1, "surname": 1, "role": 1, "identification": 1, "_id": 0}  # Proyección
+                {"name": 1, "surename": 1, "role": 1, "identification": 1, "_id": 0}  # Proyección
             )
             print("person_details", person_details)
             
