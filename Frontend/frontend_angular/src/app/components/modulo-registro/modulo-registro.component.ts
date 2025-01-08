@@ -31,7 +31,7 @@ export class ModuloRegistroComponent implements OnInit {
       apellidos: ['', [Validators.required, Validators.pattern(/^[a-zA-ZñÑ\s]+$/)]],
       codigoUnico: ['', [Validators.required, Validators.pattern(/^\d{9}$/)]],
       unidadAcademica: ['', Validators.required],
-      carrera: ['', [Validators.required, Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/)]], 
+      carrera: ['', [Validators.required, Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/)]],
 
     });
   }
@@ -64,7 +64,7 @@ export class ModuloRegistroComponent implements OnInit {
         icon: 'error',
         confirmButtonText: 'Aceptar',
       });
-      
+
       this.router.navigate(['/inicio-sesion']);
       return Promise.reject('Token no encontrado');
     }
@@ -77,7 +77,7 @@ export class ModuloRegistroComponent implements OnInit {
       .toPromise();
   }
 
-  sendFormData(imageId: string): void {
+  sendFormData(photoVectorId: string, photoImageId: string): void {
     const token = localStorage.getItem('authToken');
     const formData = {
       token: token,
@@ -85,10 +85,11 @@ export class ModuloRegistroComponent implements OnInit {
       name: this.registroForm.get('nombres')?.value.toUpperCase(),
       surename: this.registroForm.get('apellidos')?.value.toUpperCase(),
       role: this.registroForm.get('modo')?.value.toUpperCase(),
-      photo_id: imageId,
+      photo_vector_id: photoVectorId,
+      photo_image_id: photoImageId,
       other_data: [
 
-        
+
         {
           key: 'UNIDAD ACADEMICA',
           value: this.registroForm.get('unidadAcademica')?.value.toUpperCase(),
@@ -102,7 +103,7 @@ export class ModuloRegistroComponent implements OnInit {
           value: this.registroForm.get('codigoUnico')?.value,
         },
         {
-          
+
           key: 'CORREO INSTITUCIONAL',
           value: `${this.registroForm.get('nombres')?.value.split(' ')[0].toLowerCase()}.${this.registroForm.get('apellidos')?.value.split(' ')[0].toLowerCase()}@epn.edu.ec`,
 
@@ -130,7 +131,7 @@ export class ModuloRegistroComponent implements OnInit {
             icon: 'error',
             confirmButtonText: 'Aceptar',
           });
-       
+
         },
       });
   }
@@ -152,11 +153,12 @@ export class ModuloRegistroComponent implements OnInit {
       this.uploadImage(file)
         .then((response: any) => {
           console.log('Imagen subida correctamente', response);
-          const imageId = response.imageId; // Asegúrate de que el backend devuelva este valor
-          if (imageId) {
-            this.sendFormData(imageId);
+          const photoVectorId = response.photo_vector_id;
+          const photoImageId = response.photo_image_id;
+          if (photoVectorId && photoImageId) {
+            this.sendFormData(photoVectorId, photoImageId);
           } else {
-            throw new Error('imageId no recibido del servidor.');
+            throw new Error('photo_vector_id o photo_image_id no recibido del servidor.');
           }
         })
         .catch((error) => {
@@ -175,7 +177,6 @@ export class ModuloRegistroComponent implements OnInit {
         icon: 'warning',
         confirmButtonText: 'Intentar de nuevo',
       });
-      
     }
   }
 

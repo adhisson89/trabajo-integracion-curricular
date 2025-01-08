@@ -62,7 +62,7 @@ export class ModuloRegistroOtrosComponent implements OnInit {
         icon: 'error',
         confirmButtonText: 'Aceptar',
       });
-      
+
       this.router.navigate(['/inicio-sesion']);
       return Promise.reject('Token no encontrado');
     }
@@ -75,7 +75,7 @@ export class ModuloRegistroOtrosComponent implements OnInit {
       .toPromise();
   }
 
-  sendFormData(imageId: string): void {
+  sendFormData(photoVectorId: string, photoImageId: string): void {
     const token = localStorage.getItem('authToken');
     const formData = {
       token: token,
@@ -84,7 +84,8 @@ export class ModuloRegistroOtrosComponent implements OnInit {
       surename: this.registroForm.get('apellidos')?.value.toUpperCase(),
       role: this.registroForm.get('modo')?.value.toUpperCase(),
 
-      photo_id: imageId,
+      photo_vector_id: photoVectorId,
+      photo_image_id: photoImageId,
       other_data: [
         {
           key: 'DIRECCION ADMINISTRATIVA',
@@ -118,7 +119,7 @@ export class ModuloRegistroOtrosComponent implements OnInit {
             icon: 'error',
             confirmButtonText: 'Aceptar',
           });
-          
+
         },
       });
   }
@@ -139,11 +140,12 @@ export class ModuloRegistroOtrosComponent implements OnInit {
       this.uploadImage(file)
         .then((response: any) => {
           console.log('Imagen subida correctamente', response);
-          const imageId = response.imageId; // Asegúrate de que el backend devuelva este valor
-          if (imageId) {
-            this.sendFormData(imageId);
+          const photoVectorId = response.photo_vector_id;
+          const photoImageId = response.photo_image_id;
+          if (photoVectorId && photoImageId) {
+            this.sendFormData(photoVectorId, photoImageId);
           } else {
-            throw new Error('imageId no recibido del servidor.');
+            throw new Error('photo_vector_id o photo_image_id no recibido del servidor.');
           }
         })
         .catch((error) => {
@@ -159,10 +161,9 @@ export class ModuloRegistroOtrosComponent implements OnInit {
       Swal.fire({
         title: 'Error',
         text: 'Por favor selecciona una imagen válida.',
-        icon: 'error',
+        icon: 'warning',
         confirmButtonText: 'Intentar de nuevo',
       });
-      
     }
   }
 

@@ -14,7 +14,7 @@ interface Item {
   surename: string;
   role: string;
   modo: string;
-  photo_id: string;
+  photo_image_id: string;
 }
 
 @Component({
@@ -53,7 +53,7 @@ export class ModuloListadoComponent implements OnInit {
         codigoUnico: [''],
         unidadAcademica: [''],
         direccionAdministrativa: [''],
-        photo_id: ['']
+        photo_image_id: ['']
       });
     }
     ngOnInit(): void {
@@ -68,7 +68,7 @@ export class ModuloListadoComponent implements OnInit {
         unidadAcademica: [''],
         carrera: [''],
         direccionAdministrativa: [''],
-        photo_id: [''],
+        photo_image_id: [''],
       });
 
       // Escuchar cambios en el campo "modo" para gestionar dinámicamente los campos
@@ -165,7 +165,7 @@ export class ModuloListadoComponent implements OnInit {
 
         direccionAdministrativa: direccionAdministrativa, // Si aplicara en otro contexto
         role: item.role, // Usar `role` como `modo`
-        photo_id: item.photo_id
+        photo_image_id: item.photo_image_id
 
       });
     }
@@ -263,7 +263,7 @@ export class ModuloListadoComponent implements OnInit {
       });
 
       if (this.selectedFile) {
-        this.managementService.uploadImage(this.selectedFile, this.editForm.value.photo_id, token).subscribe({
+        this.managementService.uploadImage(this.selectedFile, this.editForm.value.photo_image_id, token).subscribe({
           next: () => console.log('Imagen subida con éxito'),
           error: (error) => console.error('Error al subir la imagen', error)
         });

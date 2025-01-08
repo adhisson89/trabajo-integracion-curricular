@@ -36,10 +36,10 @@ export class ManagementService {
     return this.http.patch(`${this.apiUrl}/person/${identification}`, payload, { headers });
   }
 
-  uploadImage(file: File, photoId: string, token: string): Observable<any> {
+  uploadImage(file: File, photo_image_id: string, token: string): Observable<any> {
     const formData = new FormData();
     formData.append('photo', file);
-    formData.append('id', photoId);
+    formData.append('id', photo_image_id);
     formData.append('token', token);
     return this.http.patch(`${this.apiUrl}/image`, formData);
   }
