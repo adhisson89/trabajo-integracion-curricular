@@ -209,7 +209,7 @@ def compare_img_people(photo_embedding, people):
         # Verificar si el mejor match está debajo del umbral
         if best_score < threshold and best_match:
             match_id = best_match["_id"]
-            print(type(str(match_id)))  
+            print(type(match_id))  
             print("match_id",str(match_id))
             client = MongoClient(db_string)
             db = client["FacialDB"]
@@ -218,7 +218,7 @@ def compare_img_people(photo_embedding, people):
 
 
             person_details = people_collection.find_one(
-                {"photo_vector": str(match_id)}, # Filtrar por el ID encontrado
+                {"photo_vector_id": match_id}, # Filtrar por el ID encontrado
                 {"name": 1, "surname": 1, "role": 1, "identification": 1, "_id": 0}  # Proyección
             )
             print("person_details", person_details)
