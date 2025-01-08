@@ -6,22 +6,8 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http'; // Importar HttpClientModule
 import Swal from 'sweetalert2';
-import { Observable } from 'rxjs';
 
 
-// Swal.fire({
-//   title: '¿Estás seguro?',
-//   text: 'No podrás revertir esta acción.',
-//   icon: 'warning',
-//   showCancelButton: true,
-//   confirmButtonText: 'Sí, continuar',
-//   cancelButtonText: 'Cancelar',
-// }).then((result) => {
-//   if (result.isConfirmed) {
-//       // Acción al confirmar
-//       console.log('Confirmado');
-//   }
-//});
 
 @Component({
   selector: 'app-modulo-registro',
@@ -91,90 +77,63 @@ export class ModuloRegistroComponent implements OnInit {
       .toPromise();
   }
 
-  sendFormData(imageId: string, imageFile: File): void {
-    const identification = this.registroForm.get('identificacion')?.value;
-  
-    // Primero enviamos la foto al endpoint correspondiente
-    this.sendFaceData(imageFile, identification).subscribe({
-      next: (faceResponse: any) => {
-        console.log('Foto registrada exitosamente:', faceResponse);
-  
-        // Ahora enviamos los datos del formulario
-        const token = localStorage.getItem('authToken');
-        const formData = {
-          token: token,
-          identification: this.registroForm.get('identificacion')?.value,
-          name: this.registroForm.get('nombres')?.value.toUpperCase(),
-          surename: this.registroForm.get('apellidos')?.value.toUpperCase(),
-          role: this.registroForm.get('modo')?.value.toUpperCase(),
-          photo_id: imageId,
-          other_data: [
-            {
-              key: 'UNIDAD ACADEMICA',
-              value: this.registroForm.get('unidadAcademica')?.value.toUpperCase(),
-            },
-            {
-              key: 'CARRERA/PROGRAMA',
-              value: this.registroForm.get('carrera')?.value.toUpperCase(),
-            },
-            {
-              key: 'CÓDIGO ÚNICO',
-              value: this.registroForm.get('codigoUnico')?.value,
-            },
-            {
-              key: 'CORREO INSTITUCIONAL',
-              value: `${this.registroForm.get('nombres')?.value.split(' ')[0].toLowerCase()}.${this.registroForm.get('apellidos')?.value.split(' ')[0].toLowerCase()}@epn.edu.ec`,
-            },
-          ],
-        };
-  
-        this.http
-          .post('http://localhost:8080/api/administration/management/person', formData)
-          .subscribe({
-            next: (response) => {
-              console.log('Formulario enviado exitosamente', response);
-              Swal.fire({
-                title: '¡Éxito!',
-                text: 'Datos enviados con éxito.',
-                icon: 'success',
-                confirmButtonText: 'Aceptar',
-              });
-            },
-            error: (error) => {
-              console.error('Error al enviar los datos:', error);
-              Swal.fire({
-                title: 'Error',
-                text: 'Error al enviar los datos.',
-                icon: 'error',
-                confirmButtonText: 'Aceptar',
-              });
-            },
-          });
-      },
-      error: (error: any) => {
-        console.error('Error al registrar la foto:', error);
-        Swal.fire({
-          title: 'Error',
-          text: 'Error al registrar la foto.',
-          icon: 'error',
-          confirmButtonText: 'Aceptar',
-        });
-      },
-    });
-  }
-  
-  sendFaceData(imageFile: File, identification: string): Observable<any> {
+  sendFormData(imageId: string): void {
     const token = localStorage.getItem('authToken');
-    const formData = new FormData();
-  
-    formData.append('token', token || '');
-    formData.append('identification', identification);
-    formData.append('file', imageFile);
-  
-    return this.http.post(`http://localhost:8080/api/face-recognition/addFace/${identification}`, formData);
+    const formData = {
+      token: token,
+      identification: this.registroForm.get('identificacion')?.value,
+      name: this.registroForm.get('nombres')?.value.toUpperCase(),
+      surename: this.registroForm.get('apellidos')?.value.toUpperCase(),
+      role: this.registroForm.get('modo')?.value.toUpperCase(),
+      photo_id: imageId,
+      other_data: [
+
+        
+        {
+          key: 'UNIDAD ACADEMICA',
+          value: this.registroForm.get('unidadAcademica')?.value.toUpperCase(),
+        },
+        {
+          key: 'CARRERA/PROGRAMA',
+          value: this.registroForm.get('carrera')?.value.toUpperCase(),
+        },
+        {
+          key: 'CÓDIGO ÚNICO',
+          value: this.registroForm.get('codigoUnico')?.value,
+        },
+        {
+          
+          key: 'CORREO INSTITUCIONAL',
+          value: `${this.registroForm.get('nombres')?.value.split(' ')[0].toLowerCase()}.${this.registroForm.get('apellidos')?.value.split(' ')[0].toLowerCase()}@epn.edu.ec`,
+
+        },
+      ],
+    };
+
+    this.http
+      .post('http://localhost:8080/api/administration/management/person', formData)
+      .subscribe({
+        next: (response) => {
+          console.log('Formulario enviado exitosamente', response);
+          Swal.fire({
+            title: '¡Éxito!',
+            text: 'Datos enviados con éxito.',
+            icon: 'success',
+            confirmButtonText: 'Aceptar',
+          });
+        },
+        error: (error) => {
+          console.error('Error al enviar los datos:', error);
+          Swal.fire({
+            title: 'Error',
+            text: 'Error al enviar los datos.',
+            icon: 'error',
+            confirmButtonText: 'Aceptar',
+          });
+       
+        },
+      });
   }
-
-
 
   onSubmit(): void {
     if (this.registroForm.invalid) {
@@ -195,7 +154,7 @@ export class ModuloRegistroComponent implements OnInit {
           console.log('Imagen subida correctamente', response);
           const imageId = response.imageId; // Asegúrate de que el backend devuelva este valor
           if (imageId) {
-            this.sendFormData(imageId, file);
+            this.sendFormData(imageId);
           } else {
             throw new Error('imageId no recibido del servidor.');
           }
