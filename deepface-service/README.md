@@ -50,7 +50,7 @@ En el body de la solicitud, se debe incluir un objeto JSON con los siguientes ca
 | `name`            | `string` | **Requerido**. Nombre de la persona.                 |
 | `surename`        | `string` | **Requerido**. Apellido de la persona.               |
 | `role`            | `string` | **Requerido**. Rol (ESTUDIANTE, PROFESOR, etc.).     |
-| `photo_id`        | `string` | Opcional. ID de la foto en la colección de imágenes. |
+| `photo_image_id`        | `string` | Opcional. ID de la foto en la colección de imágenes. |
 | `other_data`      | `array`  | Opcional. Pares clave-valor con datos adicionales.   |
 | `token`           | `string` | **Requerido**. Token de autorización.                |
 
@@ -88,7 +88,7 @@ En el body de la solicitud, se debe incluir un objeto JSON con los campos a modi
 | `name`            | `string` | Opcional. Nuevo nombre de la persona.                |
 | `surename`        | `string` | Opcional. Nuevo apellido de la persona.              |
 | `role`            | `string` | Opcional. Nuevo rol.                                 |
-| `photo_id`        | `string` | Opcional. Nuevo ID de la foto.                       |
+| `photo_image_id`        | `string` | Opcional. Nuevo ID de la foto.                       |
 | `other_data`      | `array`  | Opcional. Nuevos pares clave-valor para los datos.   |
 | `token`           | `string` | **Requerido**. Token de autorización.                |
 

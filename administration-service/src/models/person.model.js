@@ -28,13 +28,14 @@ const personSchema = new Schema({
         enum: ['ESTUDIANTE', 'PROFESOR', 'ADMINISTRATIVO', 'COLABORADOR', 'INDIVIDUAL', 'GRUPAL'],
         trim: true
     },
-    photo_id: {
+    photo_image_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Image",
         required: false,
     },
-    photo_vector: {
-        type: String,
+    photo_vector_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "deepfaceDB",
         required: true,
     },
     other_data: [otherDataSchema]

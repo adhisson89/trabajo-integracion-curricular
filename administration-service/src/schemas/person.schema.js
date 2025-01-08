@@ -35,7 +35,9 @@ const createPersonSchema = z.object({
         .optional()
         .nullable(),
 
-    photo_id: objectIdValidator.optional().nullable(),
+    photo_image_id: objectIdValidator.optional().nullable(),
+
+    photo_vector_id: objectIdValidator.optional().nullable(),
      
     other_data: z
         .array(
@@ -79,9 +81,9 @@ const updatePersonSchema = z.object({
         .optional()
         .nullable(),
     
-    photo_id: objectIdValidator.optional().nullable(),
+    photo_image_id: objectIdValidator.optional().nullable(),
     
-    photo_vector: z.string().optional().nullable(),
+    photo_vector_id: objectIdValidator.optional().nullable(),
     
     other_data: z
         .array(

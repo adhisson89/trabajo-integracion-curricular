@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/index.js",
-    "dev": "nodemon src/index.js"
+    "dev": "nodemon --signal SIGINT src/index.js"
   },
   "repository": {
     "type": "git",
@@ -18,12 +18,14 @@
   },
   "homepage": "https://github.com/adhisson89/tic/tree/main#readme",
   "dependencies": {
+    "axios": "^1.7.9",
     "bcryptjs": "^2.4.3",
     "cookie": "^1.0.1",
     "cookie-parser": "^1.4.7",
     "dotenv": "^16.4.5",
     "eureka-js-client": "^4.5.0",
     "express": "^4.21.1",
+    "form-data": "^4.0.1",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.8.1",
     "morgan": "^1.10.0",
