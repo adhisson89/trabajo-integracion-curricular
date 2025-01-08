@@ -5,6 +5,7 @@ import os
 import random
 import tempfile
 import time
+import signal
 
 
 # MongoDB connection details
@@ -13,17 +14,33 @@ client = MongoClient(DB_STRING)
 db = client["PoliceDB"]
 vector_collection = db["vectores"]
 
-# import py_eureka_client.eureka_client as eureka_client
+import py_eureka_client.eureka_client as eureka_client
 # Generate a random ID
 PORT = random.randint(6000, 7000)
 
-# try:
-#     # Register the service in Eureka
-#     eureka_client.init(eureka_server="http://172.25.0.3:8761/eureka/",
-#                     app_name="face-recognition-service",
-#                     instance_port=PORT)
-# except Exception as e:
-#     print(f"Error registering in Eureka: {e}")
+try:
+    # Register the service in Eureka
+    eureka_client.init(eureka_server="http://172.25.0.3:8761/eureka/",
+                    app_name="face-recognition-service",
+                    instance_port=PORT)
+except Exception as e:
+    print(f"Error registering in Eureka: {e}")
+
+def deregister_from_eureka():
+    try:
+        eureka_client.stop()  # Desregistra el cliente de Eureka
+        print("Successfully deregistered from Eureka")
+    except Exception as e:
+        print(f"Error during Eureka deregistration: {e}")
+
+# Manejador de señales
+def handle_shutdown_signal(signum, frame):
+    print(f"Received shutdown signal: {signum}")
+    deregister_from_eureka()
+    exit(0)
+
+signal.signal(signal.SIGINT, handle_shutdown_signal)  # Ctrl+C
+signal.signal(signal.SIGTERM, handle_shutdown_signal)  # Docker u otros procesos
 
 app = Flask(__name__)
 
@@ -126,4 +143,4 @@ def compare_face():
 app.register_blueprint(api_bp)
 
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0", port=5000)
+    app.run(debug=False, host="0.0.0.0", port=PORT)
