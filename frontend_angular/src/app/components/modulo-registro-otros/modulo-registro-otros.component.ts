@@ -28,11 +28,11 @@ export class ModuloRegistroOtrosComponent implements OnInit {
       identificacion: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
       nombres: ['', [Validators.required, Validators.pattern(/^[a-zA-ZñÑ\s]+$/)]],
       apellidos: ['', [Validators.required, Validators.pattern(/^[a-zA-ZñÑ\s]+$/)]],
-      alias:  ['', [Validators.required, Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/)]], 
-      tipoDelito: ['', [Validators.required, Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/)]], 
-      sentencia: ['', [Validators.required, Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/)]], 
+      alias: ['', [Validators.required, Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/)]],
+      tipoDelito: ['', [Validators.required, Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/)]],
+      sentencia: ['', [Validators.required, Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/)]],
       nombreGrupo: ['', [Validators.required, Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\s]+$/)]],
-      jerarquia: ['',Validators.required],
+      jerarquia: ['', Validators.required],
 
     });
   }
@@ -60,11 +60,11 @@ export class ModuloRegistroOtrosComponent implements OnInit {
 
     if (!token) {
       Swal.fire({
-              title: 'Error',
-              text: 'Por favor, inicia sesión primero..',
-              icon: 'error',
-              confirmButtonText: 'Aceptar',
-            });
+        title: 'Error',
+        text: 'Por favor, inicia sesión primero..',
+        icon: 'error',
+        confirmButtonText: 'Aceptar',
+      });
 
       this.router.navigate(['/inicio-sesion']);
       return Promise.reject('Token no encontrado');
@@ -78,7 +78,7 @@ export class ModuloRegistroOtrosComponent implements OnInit {
       .toPromise();
   }
 
-  sendFormData(imageId: string): void {
+  sendFormData(photoVectorId: string, photoImageId: string): void {
     const token = localStorage.getItem('authToken');
     const formData = {
       token: token,
@@ -86,10 +86,11 @@ export class ModuloRegistroOtrosComponent implements OnInit {
       name: this.registroForm.get('nombres')?.value.toUpperCase(),
       surename: this.registroForm.get('apellidos')?.value.toUpperCase(),
       role: this.registroForm.get('modus')?.value.toUpperCase(),
-      photo_id: imageId,
+      photo_vector_id: photoVectorId,
+      photo_image_id: photoImageId,
       other_data: [
 
-        
+
         {
           key: 'ALIAS',
           value: this.registroForm.get('alias')?.value.toUpperCase(),
@@ -119,7 +120,7 @@ export class ModuloRegistroOtrosComponent implements OnInit {
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     });
-    
+
     this.http
       .post('http://localhost:8080/api/administration/management/person', formData, { headers })
       .subscribe({
@@ -134,32 +135,32 @@ export class ModuloRegistroOtrosComponent implements OnInit {
         },
         error: (error) => {
           console.error('Error al enviar los datos:', error);
-  
+
           Swal.fire({
-                  title: 'Error',
-                  text: 'Error al enviar los datos.',
-                  icon: 'error',
-                  confirmButtonText: 'Aceptar',
-                });
+            title: 'Error',
+            text: 'Error al enviar los datos.',
+            icon: 'error',
+            confirmButtonText: 'Aceptar',
+          });
         },
       });
   }
 
   onSubmit(): void {
-    
+
 
     const file = this.registroForm.get('foto')?.value;
-console.log(file);
+    console.log(file);
     if (file instanceof File) {
       this.uploadImage(file)
         .then((response: any) => {
           console.log('Imagen subida correctamente', response);
-          const imageId = response.imageId; // Asegúrate de que el backend devuelva este valor
-          console.log(imageId)
-          if (imageId) {
-            this.sendFormData(imageId);
+          const photoVectorId = response.photo_vector_id;
+          const photoImageId = response.photo_image_id;
+          if (photoVectorId && photoImageId) {
+            this.sendFormData(photoVectorId, photoImageId);
           } else {
-            throw new Error('imageId no recibido del servidor.');
+            throw new Error('photo_vector_id o photo_image_id no recibido del servidor.');
           }
         })
         .catch((error) => {
@@ -167,12 +168,12 @@ console.log(file);
           Swal.fire({
             title: 'Error',
             text: 'Error al subir la imagen.',
-            icon: 'error',
+            icon: 'warning',
             confirmButtonText: 'Intentar de nuevo',
           });
         });
     } else {
-  
+
       Swal.fire({
         title: 'Error',
         text: 'Por favor selecciona una imagen válida.',

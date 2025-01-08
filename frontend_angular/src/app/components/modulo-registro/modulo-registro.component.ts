@@ -56,7 +56,7 @@ export class ModuloRegistroComponent implements OnInit {
     const token = localStorage.getItem('authToken');
 
     if (!token) {
-      
+
       Swal.fire({
         title: 'Error',
         text: 'Por favor, inicia sesión primero..',
@@ -75,7 +75,7 @@ export class ModuloRegistroComponent implements OnInit {
       .toPromise();
   }
 
-  sendFormData(imageId: string): void {
+  sendFormData(photoVectorId: string, photoImageId: string): void {
     const token = localStorage.getItem('authToken');
     const formData = {
       token: token,
@@ -83,7 +83,8 @@ export class ModuloRegistroComponent implements OnInit {
       name: this.registroForm.get('nombres')?.value.toUpperCase(),
       surename: this.registroForm.get('apellidos')?.value.toUpperCase(),
       role: this.registroForm.get('modus')?.value.toUpperCase(),
-      photo_id: imageId,
+      photo_vector_id: photoVectorId,
+      photo_image_id: photoImageId,
       other_data: [
 
 
@@ -127,7 +128,7 @@ export class ModuloRegistroComponent implements OnInit {
 
           Swal.fire({
             title: 'Error',
-           html:'<p>Error al enviar los datos.</p><p>Verifíca los campos que esten completos</p>',
+            html: '<p>Error al enviar los datos.</p><p>Verifíca los campos que esten completos</p>',
             icon: 'error',
             confirmButtonText: 'Intentar de nuevo',
           });
@@ -144,12 +145,12 @@ export class ModuloRegistroComponent implements OnInit {
       this.uploadImage(file)
         .then((response: any) => {
           console.log('Imagen subida correctamente', response);
-          const imageId = response.imageId; // Asegúrate de que el backend devuelva este valor
-          console.log(imageId)
-          if (imageId) {
-            this.sendFormData(imageId);
+          const photoVectorId = response.photo_vector_id;
+          const photoImageId = response.photo_image_id;
+          if (photoVectorId && photoImageId) {
+            this.sendFormData(photoVectorId, photoImageId);
           } else {
-            throw new Error('imageId no recibido del servidor.');
+            throw new Error('photo_vector_id o photo_image_id no recibido del servidor.');
           }
         })
         .catch((error) => {
@@ -168,7 +169,7 @@ export class ModuloRegistroComponent implements OnInit {
         icon: 'warning',
         confirmButtonText: 'Intentar de nuevo',
       });
-      
+
     }
   }
 

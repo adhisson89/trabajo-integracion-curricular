@@ -14,7 +14,7 @@ interface Item {
   surename: string;
   role: string;
   modus: string;
-  photo_id: string;
+  photo_image_id: string;
 }
 
 @Component({
@@ -29,7 +29,7 @@ export class ModuloListadoComponent implements OnInit {
 
 
   redirectTo(route: string) {
- 
+
     this.router.navigate([route]);
   }
 
@@ -57,8 +57,8 @@ export class ModuloListadoComponent implements OnInit {
       tipoDelito: [''],
       sentencia: [''],
       nombreGrupo: ['', [Validators.required, Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\s]+$/)]],
-      jerarquia: ['',Validators.required],
-      photo_id: ['']
+      jerarquia: ['', Validators.required],
+      photo_image_id: ['']
     });
   }
   ngOnInit(): void {
@@ -73,21 +73,21 @@ export class ModuloListadoComponent implements OnInit {
       tipoDelito: [''],
       sentencia: [''],
       nombreGrupo: ['', [Validators.required, Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\s]+$/)]],
-      jerarquia: ['',Validators.required],
-      photo_id: [''],
+      jerarquia: ['', Validators.required],
+      photo_image_id: [''],
     });
-  
+
     // Escuchar cambios en el campo "modus" para gestionar dinámicamente los campos
     this.editForm.get('rol')?.valueChanges.subscribe((modus: string) => {
       this.onRoleChange(modus);
     });
   }
- 
+
 
   fetchItems() {
     const token = localStorage.getItem('authToken') || '';
     this.isLoading = true;
-  
+
     this.managementService.getPeople(token).subscribe({
       next: (data) => {
         console.log(data);
@@ -102,7 +102,7 @@ export class ModuloListadoComponent implements OnInit {
     });
   }
 
-  
+
 
   confirmDelete(item: Item) {
     this.showDeleteConfirmation = true;
@@ -128,7 +128,7 @@ export class ModuloListadoComponent implements OnInit {
             confirmButtonText: 'Aceptar',
           });
 
-    
+
         },
         error: (error) => {
           console.error(error);
@@ -147,7 +147,7 @@ export class ModuloListadoComponent implements OnInit {
     }
   }
 
-  
+
 
   startEdit(item: Item) {
     this.editingItem = item;
@@ -155,22 +155,22 @@ export class ModuloListadoComponent implements OnInit {
     const alias = item.other_data?.find((data: { key: string; }) => data.key === 'ALIAS')?.value || '';
     const sentencia = item.other_data?.find((data: { key: string; }) => data.key === 'SENTENCIA')?.value || '';
     const tipoDelito = item.other_data?.find((data: { key: string; }) => data.key === 'TIPO DE DELITO')?.value || ''; // Extrae la tipoDelito
-    const nombreGrupo = item.other_data?.find((data: { key: string; }) => data.key === 'NOMBRE DEL GRUPO/ORGANIZACION')?.value || ''; 
-    const jerarquia = item.other_data?.find((data: { key: string; }) => data.key === 'JERARQUIA')?.value || ''; 
+    const nombreGrupo = item.other_data?.find((data: { key: string; }) => data.key === 'NOMBRE DEL GRUPO/ORGANIZACION')?.value || '';
+    const jerarquia = item.other_data?.find((data: { key: string; }) => data.key === 'JERARQUIA')?.value || '';
 
     // Configurar valores del formulario
     this.editForm.patchValue({
       identificacion: item.identification,
       name: item.name,
       surename: item.surename,
-      sentencia:sentencia,
+      sentencia: sentencia,
       alias: alias,
       tipoDelito: tipoDelito, // Asigna la tipoDelito al formulario
       nombreGrupo: nombreGrupo, // Si aplicara en otro contexto ver
-      jerarquia:jerarquia,
+      jerarquia: jerarquia,
       role: item.role, // Usar `role` como `modus`
-      photo_id: item.photo_id
-      
+      photo_image_id: item.photo_image_id
+
     });
   }
 
@@ -200,7 +200,7 @@ export class ModuloListadoComponent implements OnInit {
       input.value = ''; // Resetea el valor del campo de archivo
     }
   }
-  
+
   onRoleChange(modus: string): void {
     if (modus === 'INDIVIDUAL') {
       // Limpiar campos no relacionados con individual
@@ -211,18 +211,18 @@ export class ModuloListadoComponent implements OnInit {
       this.editForm.patchValue({ jerarquia: '' });//ver
       this.editForm.get('jerarquia')?.disable();//ver
 
-  
+
       // Habilitar campos relacionados con individual
       this.editForm.get('sentencia')?.enable();
       this.editForm.get('alias')?.enable();
       this.editForm.get('tipoDelito')?.enable();
     } else {
       // Limpiar campos no relacionados con roles diferentes a individual
-      this.editForm.patchValue({ sentencia: '', alias: '', tipoDelito: ''  });
+      this.editForm.patchValue({ sentencia: '', alias: '', tipoDelito: '' });
       this.editForm.get('sentencia')?.disable();
       this.editForm.get('alias')?.disable();
       this.editForm.get('tipoDelito')?.disable();
-  
+
       // Habilitar campos relacionados con roles diferentes a individual
       this.editForm.get('nombreGrupo')?.enable();//ver
 
@@ -244,12 +244,12 @@ export class ModuloListadoComponent implements OnInit {
         other_data: [
           { key: 'ALIAS', value: this.editForm.value.alias || '' },
           { key: 'TIPO DE DELITO', value: this.editForm.value.tipoDelito || '' },
-          { key: 'SENTENCIA', value: this.editForm.value.sentencia || '' },    
+          { key: 'SENTENCIA', value: this.editForm.value.sentencia || '' },
           { key: 'NOMBRE DEL GRUPO/ORGANIZACION', value: this.editForm.value.nombreGrupo || '' },
           { key: 'JERARQUIA', value: this.editForm.value.jerarquia || '' },
         ],
       };
-  
+
       this.managementService.updatePerson(this.editForm.value.identificacion, payload, token).subscribe({
         next: () => {
           Swal.fire({
@@ -270,12 +270,12 @@ export class ModuloListadoComponent implements OnInit {
             icon: 'error',
             confirmButtonText: 'Intentar de nuevo',
           });
-        
+
         }
       });
-  
+
       if (this.selectedFile) {
-        this.managementService.uploadImage(this.selectedFile, this.editForm.value.photo_id, token).subscribe({
+        this.managementService.uploadImage(this.selectedFile, this.editForm.value.photo_image_id, token).subscribe({
           next: () => console.log('Imagen subida con éxito'),
           error: (error) => console.error('Error al subir la imagen', error)
         });
@@ -284,7 +284,7 @@ export class ModuloListadoComponent implements OnInit {
   }
 
 
-  
+
 
   //filtrado por ci/
   filterByIdentification() {
@@ -293,9 +293,9 @@ export class ModuloListadoComponent implements OnInit {
       this.filteredItems = [...this.items];
       return;
     }
-  
+
     const token = localStorage.getItem('authToken');
-  
+
     fetch(`http://localhost:8080/api/administration/management/person/${token}/${this.filterIdentification}`, {
       method: 'GET',
       headers: {
@@ -321,11 +321,11 @@ export class ModuloListadoComponent implements OnInit {
           icon: 'warning',
           confirmButtonText: 'Intentar de nuevo',
         });
-       
+
         this.filteredItems = []; // Limpia la lista si no se encuentra nada
       });
   }
-  
+
 
 
 
