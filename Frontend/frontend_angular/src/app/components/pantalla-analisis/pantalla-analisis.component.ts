@@ -219,7 +219,10 @@ export class PantallaAnalisisComponent implements OnInit, OnDestroy {
           if (messageObject.status === 'True') {
             Swal.fire({
               title: '¡Éxito!',
-              html: `<p>Persona Autorizada</p><p>ID: <strong>${messageObject.match_details.identification}</strong></p>`,
+              html: `<p>Persona Autorizada</p><p><strong>ID: </strong><small>${messageObject.match_details.identification}</small></p>
+              <p><strong>NOMBRES: </strong><small>${messageObject.match_details.name}</small></p>
+              <p><strong>APELLIDOS:</strong> <small>${messageObject.match_details.surename}</small></p>
+              <p><strong>ROL:</strong><small>${messageObject.match_details.role}</small></p>`,
               icon: 'success',
               confirmButtonText: 'Aceptar',
             });
