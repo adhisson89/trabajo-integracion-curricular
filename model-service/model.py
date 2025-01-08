@@ -46,7 +46,7 @@ def store_embedding_for_user(embedding_vector):
 
         if result.inserted_id:
             print(f"Document created successfully with ObjectID: {result.inserted_id}")
-            return True
+            return result.inserted_id
         else:
             print("Failed to create a new document.")
             return False

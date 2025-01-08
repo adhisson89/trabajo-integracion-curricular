@@ -97,7 +97,7 @@ def add_face():
         print(f"Execution time for addFace: {execution_time} seconds")
 
         if success:
-            return jsonify({"message": f"Face added and embedding stored successfully."})
+            return jsonify({"message": f"Face added and embedding stored successfully.", "_id": str(success)}), 200
         else:
             return jsonify({"error": "Failed to store the embedding."}), 500
 
