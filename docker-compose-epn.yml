@@ -46,8 +46,8 @@ services:
       - MONGO_URI=mongodb+srv://adhisson:XVNqbidUA8Lu7iAm@tic.cerq8.mongodb.net/FacialDB?retryWrites=true&w=majority&appName=TIC
     networks:
      - tic-network
-    volumes:
-      - ./administration-service:/app
+    # volumes:
+    #   - ./administration-service:/app
 
   deepface-service:
     build:
