@@ -218,8 +218,8 @@ export class PantallaAnalisisComponent implements OnInit, OnDestroy {
 
           if (messageObject.status === 'True') {
             Swal.fire({
-              title: '¡Éxito!',
-              html: `<p>Persona Autorizada</p><p><strong>ID: </strong><small>${messageObject.match_details.identification}</small></p>
+              title: '¡Éxito!<br>Persona Autorizada',
+              html: `<p><strong>ID: </strong><small>${messageObject.match_details.identification}</small></p>
               <p><strong>NOMBRES: </strong><small>${messageObject.match_details.name}</small></p>
               <p><strong>APELLIDOS:</strong> <small>${messageObject.match_details.surename}</small></p>
               <p><strong>ROL:</strong><small>${messageObject.match_details.role}</small></p>`,
@@ -229,7 +229,7 @@ export class PantallaAnalisisComponent implements OnInit, OnDestroy {
             console.log('Rostro reconocido, ID:', messageObject.match_details.identification);
           } else {
             Swal.fire({
-              title: '¡Persona No Autorizada!',
+              title: '¡Error!<br>Persona Autorizada',
               text: 'No se encontró un rostro coincidente.',
               icon: 'error',
               confirmButtonText: 'Aceptar',
