@@ -68,7 +68,6 @@ def retrieve_all_embeddings():
 
 def compare_with_db(uploaded_embedding):
     """Compare the uploaded face embedding with stored embeddings using Euclidean distance."""
-    start_time = time.time()  # Medir el tiempo de inicio
     try:
         stored_vectors = retrieve_all_embeddings()
         print(f"Stored vectors: {stored_vectors}")  # Verificar los vectores recuperados
@@ -84,13 +83,19 @@ def compare_with_db(uploaded_embedding):
                 best_score = similarity_score
                 best_match = vector
 
-        end_time = time.time()  # Medir el tiempo de fin
-        print(f"Comparison time: {end_time - start_time} seconds")
-
         if best_score < 0.8:  # Threshold for matching
-            return {"status": "Match Found", "photo_vector": best_match["photo_vector"], "score": best_score}
+            return {
+                "status": "Match Found", 
+                "photo_vector": best_match["photo_vector"], 
+                "score": best_score,
+                "match_details": best_match
+            }
         else:
-            return {"status": "No Match", "score": best_score}
+            return {
+                "status": "No Match", 
+                "score": best_score,
+                "match_details": {}
+            }
     except Exception as e:
         print(f"Error comparing embeddings: {e}")
         return {"status": "Error", "message": str(e)}

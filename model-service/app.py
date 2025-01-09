@@ -135,10 +135,19 @@ def compare_face():
         execution_time = time.time() - start_time  # Calculate execution time
         print(f"Execution time for compareFace: {execution_time} seconds")
 
-        return jsonify(comparison_result)  # Return the comparison result as JSON
+        # Agregar el campo "message" en la respuesta para que el frontend pueda procesarlo
+        response = {
+            "message": "Face comparison result",  # Agregar mensaje
+            "status": comparison_result["status"],  # Agregar estado
+            "score": comparison_result.get("score", "N/A"),  # Agregar score si está disponible
+            "match_details": comparison_result.get("match_details", {})  # Agregar detalles del match si se encuentran
+        }
+
+        return jsonify(response)
 
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        print("Error on compare_face: ", str(e))
+        return jsonify({"message": "Error processing face comparison", "status": "Error", "error": str(e)}), 500
 
 app.register_blueprint(api_bp)
 
