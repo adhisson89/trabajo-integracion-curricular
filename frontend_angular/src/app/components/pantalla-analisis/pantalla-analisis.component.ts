@@ -179,59 +179,86 @@ export class PantallaAnalisisComponent implements OnInit, OnDestroy {
     const formData = new FormData();
     formData.append('file', blob, 'imagen.jpg');
 
-    // Muestra un swal para indicar que se está procesando
+    // Mostrar un swal mientras se procesa
     Swal.fire({
       title: 'Procesando...',
       text: 'Estamos verificando el rostro, por favor espere.',
       icon: 'info',
       showConfirmButton: false,
+      allowOutsideClick: false,
       didOpen: () => {
-
-        console.log(`Procesando...`);
+        console.log('Procesando...');
       }
     });
 
-    //  la url para el modelo de DANI
+    // URL del backend
     fetch('http://localhost:8080/api/face-recognition/compareFace', {
       method: 'POST',
-      body: formData
+      body: formData,
     })
-      .then(response => response.json())  // Asume que el backend devuelve un JSON
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json(); // Convertir respuesta a JSON
+      })
       .then(data => {
-        if (data.match) {
-          // Alerta de éxito con información del backend
+        try {
+          console.log('Respuesta del backend:', data); // Log para depuración
+
+          if (data.status === 'True') {
+            const matchDetails = data.match_details;
+            Swal.fire({
+              title: '¡Éxito!<br> La persona ingresada posee un registro criminal',
+              html: `
+                <p><strong>Datos del Delincuente</strong></p>
+                <p><strong>ID: </strong><small>${matchDetails.identification}</small></p>
+                <p><strong>Nombres: </strong><small>${matchDetails.name}</small></p>
+                <p><strong>Apellidos:</strong> <small>${matchDetails.surename}</small></p>
+                <p><strong>Rol:</strong> <small>${matchDetails.role}</small></p>
+                <p><strong>Score:</strong> <small>${data.score.toFixed(2)}</small></p>
+              `,
+              icon: 'success',
+              confirmButtonText: 'Aceptar',
+            });
+            console.log('Rostro reconocido, ID:', matchDetails.identification);
+          } else if (data.status === 'False') {
+            Swal.fire({
+              title: 'Error!<br> La persona no posee un registro criminal',
+              text: 'No se encontró un rostro coincidente.',
+              icon: 'error',
+              confirmButtonText: 'Aceptar',
+            });
+            console.warn('No se encontró un rostro coincidente. Score:', data.score);
+          } else {
+            Swal.fire({
+              title: 'Error inesperado',
+              text: 'No se pudo procesar la solicitud correctamente.',
+              icon: 'error',
+              confirmButtonText: 'Aceptar',
+            });
+            console.error('Respuesta inesperada:', data);
+          }
+        } catch (error) {
+          console.error('Error al procesar los datos del backend:', error);
           Swal.fire({
-            title: '¡Éxito!',
-            text: `Rostro reconocido, ID: ${data.id}`,
-            icon: 'success',
-            confirmButtonText: 'Aceptar',
-          });
-          console.log('Rostro reconocido, ID:', data.id); // Información adicional en consola
-        } else {
-          // Alerta de error
-          Swal.fire({
-            title: '¡Persona No Autorizada!',
-            text: `No se encontró un rostro coincidente.`,
+            title: 'Error de formato',
+            text: 'La respuesta del servidor no tiene el formato esperado.',
             icon: 'error',
             confirmButtonText: 'Aceptar',
           });
-          console.error('No se encontró un rostro coincidente');
         }
       })
-      .catch(err => {
-        console.error('Error en la solicitud:', err);
-        // Alerta de error en la solicitud
+      .catch(error => {
+        console.error('Error en la comunicación con el backend:', error);
         Swal.fire({
-          title: 'Error en la solicitud',
-          text: 'Hubo un problema al procesar la imagen. Por favor, intente nuevamente.',
+          title: 'Error de conexión',
+          text: 'No se pudo conectar con el servidor. Por favor, intenta nuevamente más tarde.',
           icon: 'error',
           confirmButtonText: 'Aceptar',
         });
       });
   }
-
-
-
 
   ngOnDestroy(): void {
     clearTimeout(this.inactivityTimeout);

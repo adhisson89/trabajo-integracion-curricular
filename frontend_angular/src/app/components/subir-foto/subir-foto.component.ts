@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core'; 
+import { Component, OnInit, HostListener } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -68,63 +68,111 @@ export class SubirFotoComponent implements OnInit {
     if (this.registroForm.invalid) {
       Swal.fire({
         title: 'Atención',
-        text: 'Problema en el envío de la foto',
+        text: 'Problema en el envío de la foto. Por favor, completa el formulario correctamente.',
         icon: 'warning',
         confirmButtonText: 'Aceptar',
       });
       return;
     }
 
-    // Obtenemos el archivo directamente del formulario
-    const file = this.registroForm.get('foto')?.value;
+    // Obtener el archivo directamente del formulario
+    const file: File = this.registroForm.get('foto')?.value;
+    if (!file) {
+      Swal.fire({
+        title: 'Atención',
+        text: 'No se seleccionó ningún archivo.',
+        icon: 'warning',
+        confirmButtonText: 'Aceptar',
+      });
+      return;
+    }
 
-    // URL de ejemplo
-    const apiUrl = 'https://ejemplo.com/api/subir-foto';
+    // Crear el FormData para enviar el archivo
+    const formData = new FormData();
+    formData.append('file', file, 'imagen.jpg');
 
-    // Muestra el Swal de "Procesando..." mientras se espera la respuesta
-    let processingSwal: any;
+    // Mostrar el Swal mientras se procesa
     Swal.fire({
       title: 'Procesando...',
-      text: 'Estamos subiendo tu foto, por favor espera.',
+      text: 'Estamos verificando el rostro, por favor espere.',
       icon: 'info',
       showConfirmButton: false,
       allowOutsideClick: false,
       didOpen: () => {
-        processingSwal = Swal.showLoading();
+        Swal.showLoading();
       }
     });
 
-    this.http.post(apiUrl, file, {
-      headers: {
-        'Content-Type': file.type, // El tipo MIME del archivo
-      },
-      responseType: 'text', // Si el servidor retorna texto plano
-    }).subscribe(
-      response => {
-        // Cierra el Swal de "Procesando..." cuando recibimos la respuesta
-        processingSwal.close();
+    // URL del backend
+    const apiUrl = 'http://localhost:8080/api/face-recognition/compareFace';
 
-        Swal.fire({
-          title: 'Éxito',
-          text: `La foto se ha subido correctamente.\nRespuesta del servidor: ${response}`,
-          icon: 'success',
-          confirmButtonText: 'Aceptar',
-        });
-        console.log('Respuesta del servidor:', response);
-      },
-      error => {
-        // Cierra el Swal de "Procesando..." si ocurre un error
-        processingSwal.close();
+    // Enviar la solicitud al backend
+    fetch(apiUrl, {
+      method: 'POST',
+      body: formData,
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json(); // Convertir respuesta a JSON
+      })
+      .then(data => {
+        try {
+          Swal.close(); // Cerrar el Swal de "Procesando..."
+          console.log('Respuesta del backend:', data);
 
+          if (data.status === 'True') {
+            const matchDetails = data.match_details;
+            Swal.fire({
+              title: '¡Éxito!<br> La persona ingresada posee un registro criminal',
+              html: `
+              <p><strong>Datos del Delincuente</strong></p>
+                <p><strong>ID: </strong><small>${matchDetails.identification}</small></p>
+                <p><strong>Nombres: </strong><small>${matchDetails.name}</small></p>
+                <p><strong>Apellidos:</strong> <small>${matchDetails.surename}</small></p>
+                <p><strong>Rol:</strong> <small>${matchDetails.role}</small></p>
+                <p><strong>Score:</strong> <small>${data.score.toFixed(2)}</small></p>
+              `,
+              icon: 'success',
+              confirmButtonText: 'Aceptar',
+            });
+          } else if (data.status === 'False') {
+            Swal.fire({
+              title: 'Error!<br> La persona no posee un registro criminal',
+              text: 'No se encontró un rostro coincidente.',
+              icon: 'error',
+              confirmButtonText: 'Aceptar',
+            });
+          } else {
+            Swal.fire({
+              title: 'Error inesperado',
+              text: 'No se pudo procesar la solicitud correctamente.',
+              icon: 'error',
+              confirmButtonText: 'Aceptar',
+            });
+            console.error('Respuesta inesperada:', data);
+          }
+        } catch (error) {
+          console.error('Error al procesar los datos del backend:', error);
+          Swal.fire({
+            title: 'Error de formato',
+            text: 'La respuesta del servidor no tiene el formato esperado.',
+            icon: 'error',
+            confirmButtonText: 'Aceptar',
+          });
+        }
+      })
+      .catch(error => {
+        Swal.close(); // Cerrar el Swal de "Procesando..." en caso de error
+        console.error('Error en la comunicación con el backend:', error);
         Swal.fire({
-          title: 'Error',
-          text: 'Hubo un problema al subir la foto. Inténtalo nuevamente.',
+          title: 'Error de conexión',
+          text: 'No se pudo conectar con el servidor. Por favor, intenta nuevamente más tarde.',
           icon: 'error',
           confirmButtonText: 'Aceptar',
         });
-        console.error('Error al subir la foto:', error);
-      }
-    );
+      });
   }
 
   hasError(field: string, errorType: string): boolean {
