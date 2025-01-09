@@ -84,18 +84,38 @@ def compare_with_db(uploaded_embedding):
                 best_match = vector
 
         if best_score < 0.8:  # Threshold for matching
-            return {
-                "status": "Match Found", 
-                "photo_vector": best_match["photo_vector"], 
-                "score": best_score,
-                "match_details": best_match
-            }
+            # Convertir ObjectId a string
+            if best_match:
+                best_match["_id"] = str(best_match["_id"])  # Convertir ObjectId a string
+
+            # Obtener detalles adicionales de la persona
+            match_id = best_match["_id"]
+            person_details = people_collection.find_one(
+                {"photo_vector_id": match_id},  # Filtrar por el ID encontrado
+                {"name": 1, "surename": 1, "role": 1, "identification": 1, "_id": 0}  # Proyección de los campos
+            )
+
+            print("person_details", person_details)
+
+            # Asegúrate de convertir _id a str antes de retornarlo
+            if person_details:
+                person_details["_id"] = str(match_id)
+                return {
+                    "status": str(True),
+                    "match_details": person_details,
+                    "score": best_score
+                }
+            else:
+                print(f"No details found for match ID: {match_id}")
+                return {"status": str(False), "score": best_score}
+
         else:
             return {
-                "status": "No Match", 
-                "score": best_score,
+                "status": str(False), 
+                "score": best_score, 
                 "match_details": {}
             }
+
     except Exception as e:
         print(f"Error comparing embeddings: {e}")
         return {"status": "Error", "message": str(e)}
