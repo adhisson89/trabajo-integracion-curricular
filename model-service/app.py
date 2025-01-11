@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, request, Blueprint
-from model import extract_face_embedding, store_embedding_for_user, retrieve_all_embeddings, compare_with_db
+from model import extract_face_embedding, store_embedding_for_user, retrieve_all_face_embeddings, compare_embeddings_with_db
 from pymongo import MongoClient
 import os
 import random
@@ -112,41 +112,29 @@ def compare_face():
             return jsonify({"error": "No file part in the request"}), 400
 
         file = request.files['file']
-        ext = file.filename.split('.')[-1].lower()
+        ext = ('.jpeg', '.jpg')
 
-        if ext not in ['jpeg', 'jpg', 'png']:
-            return jsonify({"error": "Invalid file format. Please upload a JPEG, JPG, or PNG image."}), 400
+        if file.filename == '' or not file.filename.lower().endswith(ext):
+            raise Exception("bad file")
 
-        with tempfile.NamedTemporaryFile(delete=False, suffix=f".{ext}") as temp_file:
+        with tempfile.NamedTemporaryFile(delete=False, suffix=".jpg") as temp_file:
             temp_file_path = temp_file.name
             file.save(temp_file_path)
 
-        # Generate the embedding for the image
-        face_embedding = extract_face_embedding(temp_file_path)
-
-        # Compare the uploaded face embedding with stored ones
-        comparison_result = compare_with_db(face_embedding)
-
-        # Remove the temporary file
+        photo_embedding = extract_face_embedding(temp_file_path)
         os.remove(temp_file_path)
 
-        execution_time = time.time() - start_time  # Calculate execution time
-        print(f"Execution time for compareFace: {execution_time} seconds")
+        comparison_result = compare_embeddings_with_db(photo_embedding)
 
-        # Agregar el campo "message" en la respuesta para que el frontend pueda procesarlo
-        response = {
-            "message": "Face comparison result",  # Agregar mensaje
-            "status": comparison_result["status"],  # Agregar estado
-            "score": comparison_result.get("score", "N/A"),  # Agregar score si está disponible
-            "match_details": comparison_result.get("match_details", {})  # Agregar detalles del match si se encuentran
-        }
-
-        return jsonify(response)
+        return jsonify({
+            "message": "Face comparison result",
+            "status": comparison_result["status"],
+            "score": comparison_result.get("score", "N/A"),
+            "match_details": comparison_result.get("match_details", {})
+        })
 
     except Exception as e:
-        print("Error on compare_face: ", str(e))
-        return jsonify({"message": "Error processing face comparison", "status": "Error", "error": str(e)}), 500
-
+        return jsonify({"error": str(e)}), 500
 app.register_blueprint(api_bp)
 
 if __name__ == "__main__":

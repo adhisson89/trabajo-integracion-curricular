@@ -44,6 +44,7 @@ services:
         condition: service_healthy
     environment:
       - MONGO_URI=mongodb+srv://adhisson:XVNqbidUA8Lu7iAm@tic.cerq8.mongodb.net/PoliceDB?retryWrites=true&w=majority&appName=TIC
+      - ACCESS_TOKEN_SECRET=QeMBbVKfHhHxHnzq8981qxmoJaxK2f1b
     networks:
      - tic-network
 
@@ -58,8 +59,8 @@ services:
         condition: service_healthy
     networks:
      - tic-network
-    # volumes:
-    #   - ./model-service:/app
+    volumes:
+      - ./model-service:/app
 
 networks:
   tic-network:

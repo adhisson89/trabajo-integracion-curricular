@@ -5,7 +5,7 @@ import time
 import tempfile
 import os
 
-# Datalles conexión MongoDB
+# Detalles de conexión MongoDB
 DB_STRING = "mongodb+srv://adhisson:XVNqbidUA8Lu7iAm@tic.cerq8.mongodb.net/PoliceDB?retryWrites=true&w=majority&appName=TIC"
 client = MongoClient(DB_STRING)
 db = client["PoliceDB"]
@@ -54,23 +54,22 @@ def store_embedding_for_user(embedding_vector):
         print(f"Error storing embedding in the database: {e}")
         return False
 
-def retrieve_all_embeddings():
+def retrieve_all_face_embeddings():
     """Retrieve all stored face embeddings from the database."""
-    start_time = time.time()  # Medir el tiempo de inicio
+    start_time = time.time()
     try:
         embeddings = list(vector_collection.find())
-        end_time = time.time()  # Medir el tiempo de fin
+        end_time = time.time()
         print(f"Time to retrieve embeddings: {end_time - start_time} seconds")
         return embeddings
     except Exception as e:
         print(f"Error retrieving face vectors: {e}")
         return []
 
-def compare_with_db(uploaded_embedding):
-    """Compare the uploaded face embedding with stored embeddings using Euclidean distance."""
+def compare_embeddings_with_db(uploaded_embedding):
+    """Compare the uploaded face embedding with stored embeddings."""
     try:
-        stored_vectors = retrieve_all_embeddings()
-        print(f"Stored vectors: {stored_vectors}")  # Verificar los vectores recuperados
+        stored_vectors = retrieve_all_face_embeddings()
 
         best_match = None
         best_score = float('inf')
@@ -83,28 +82,25 @@ def compare_with_db(uploaded_embedding):
                 best_score = similarity_score
                 best_match = vector
 
-        if best_score < 0.8:  # Threshold for matching
-            # Convertir ObjectId a string
+        if best_score < 0.8:
             if best_match:
-                {"name": 1, "surename": 1, "role": 1, "identification": 1, "_id": 0}  # Proyección de los campos
-            )
+                match_id = best_match["_id"]
+                person_details = people_collection.find_one(
+                    {"photo_vector_id": match_id},
+                    {"name": 1, "surename": 1, "role": 1, "identification": 1, "_id": 0}
+                )
 
-            if person_details:
-                return {
-                    "status": str(True),
-                    "match_details": person_details,
-                    "score": best_score
-                }
-            else:
-                print(f"No details found for match ID: {match_id}")
-                return {"status": str(False), "score": best_score}
-
+                if person_details:
+                    person_details["_id"] = str(match_id)
+                    return {
+                        "status": "True",
+                        "match_details": person_details,
+                        "score": best_score
+                    }
+                else:
+                    return {"status": "False", "score": best_score, "match_details": {}}
         else:
-            return {
-                "status": str(False), 
-                "score": best_score, 
-                "match_details": {}
-            }
+            return {"status": "False", "score": best_score, "match_details": {}}
 
     except Exception as e:
         print(f"Error comparing embeddings: {e}")
