@@ -108,8 +108,6 @@ def add_face():
 @api_bp.route("/compareFace", methods=["POST"])
 def compare_face():
     try:
-        start_time = time.time()  # Start timer for execution time
-
         if 'file' not in request.files:
             return jsonify({"error": "No file part in the request"}), 400
 

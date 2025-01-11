@@ -86,20 +86,10 @@ def compare_with_db(uploaded_embedding):
         if best_score < 0.8:  # Threshold for matching
             # Convertir ObjectId a string
             if best_match:
-                best_match["_id"] = str(best_match["_id"])  # Convertir ObjectId a string
-
-            # Obtener detalles adicionales de la persona
-            match_id = best_match["_id"]
-            person_details = people_collection.find_one(
-                {"photo_vector_id": match_id},  # Filtrar por el ID encontrado
                 {"name": 1, "surename": 1, "role": 1, "identification": 1, "_id": 0}  # Proyección de los campos
             )
 
-            print("person_details", person_details)
-
-            # Asegúrate de convertir _id a str antes de retornarlo
             if person_details:
-                person_details["_id"] = str(match_id)
                 return {
                     "status": str(True),
                     "match_details": person_details,
