@@ -215,7 +215,7 @@ export class PantallaAnalisisComponent implements OnInit, OnDestroy {
                 <p><strong>ID: </strong><small>${matchDetails.identification}</small></p>
                 <p><strong>Nombres: </strong><small>${matchDetails.name}</small></p>
                 <p><strong>Apellidos:</strong> <small>${matchDetails.surename}</small></p>
-                <p><strong>Rol:</strong> <small>${matchDetails.role}</small></p>
+                <p><strong>Modus Operandi:</strong> <small>${matchDetails.role}</small></p>
                 <p><strong>Score:</strong> <small>${data.score.toFixed(2)}</small></p>
               `,
               icon: 'success',
