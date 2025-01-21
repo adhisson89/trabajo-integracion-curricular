@@ -1,29 +1,36 @@
-# Trabajo de Integración Curricular
+# Backend
 
-Este repositorio es el resultado del trabajo de integración curricular de los estudiantes de la Escuela Politécnica Nacional del Ecuador, de la Facultad de Ingeniería de Sistemas, para la obtención del título de `Ingeniero en Ciencias de la Computación`. El trabajo consiste en la creación de un sistema de reconocimiento facial que permita el acceso al campus politécnico. El sistema se compone de varios microservicios que se comunican entre sí para lograr el objetivo.
+Para el Backend, se creo un sistema de microservicios orquestados por docker compose
 
-## Integrantes
-- [Adhisson Cedeño](https://github.com/adhisson89)
-- [Mireya Ramírez](https://github.com/Ivonne-Ramirez)
-- [Daniela Román](https://github.com/danielaro2)
-- [Verónica Zúñiga](https://github.com/Verolu)
+## Cómo correr el proyecto
 
-## Arquitectura
-La arquitectura del sistema sigue el siguiente diagrama:
+### Requisitos
 
-![Arquitectura](./Arquitectura.png)
+- Docker
+- Docker Compose
 
-### Microservicios
+### Pasos
 
-#### [Microservicio Eureka Discovery](./administration-service/README.md)
+1. Clonar el repositorio
+2. Ingresar a la carpeta `backend`
+3. Ejecutar el comando
 
-Este microservicio es el servidor de descubrimiento que permite a los microservicios registrarse y descubrirse entre sí dinámicamente.
+```bash
+docker compose -f [nombre-del-archivo] up
+```
+ 
+>[!IMPORTANT]
+>En linux el comando es `docker compose`, para windows es `docker-compose`.
 
-#### [Microservicio Spring Gateway](./spring-gateway-service/README.md)
+## FAQ
 
-Este microservicio es el encargado de enrutar las peticiones a los microservicios que se encuentran en la red. Para ello, se utiliza el servidor de descubrimiento Eureka.
+#### Si el sistema no funciona, ¿qué puedo hacer?
 
-#### [Microservicio de Administración](./administration-service/README.md)
-
-Este microservicio se encarga de la administración de la aplicación. Registra administradores, permite el inicio de sesión, un CRUD de las personas a las que va a identificar el sistema.
-
+1. Verificar que los puertos 8080 y 8761 no estén ocupados\
+2. Verificar que Docker esté corriendo
+3. Verificar que Docker Compose esté instalado
+4. Verificar que las variables de ambiente estén correctamente configuradas sea en el archivo `.env` o en el archivo `docker-compose.yml` correspondiente
+5. Volver a crear los contenedores con el comando 
+```bash
+docker compose -f [nombre-del-archivo] up --build --force-recreate --remove-orphans
+```

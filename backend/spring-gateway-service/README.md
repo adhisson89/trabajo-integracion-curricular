@@ -2,6 +2,10 @@
 
 Este microservicio es el encargado de enrutar las peticiones a los microservicios que se encuentran en la red. Para ello, se utiliza el servidor de descubrimiento Eureka.
 
+## Autor
+
+- [Adhisson Cedeño](https://github.com/adhisson89)
+
 ## Requerimientos
 
 - Java 21

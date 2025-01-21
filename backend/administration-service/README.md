@@ -2,6 +2,10 @@
 
 Este microservicio se encarga de la administración de la aplicación. Registra administradores, permite el inicio de sesión, un CRUD de las personas a las que va a identificar el sistema.
 
+## Autor
+
+- [Adhisson Cedeño](https://github.com/adhisson89)
+
 ## Requerimientos
 
 - Node.js >= 20

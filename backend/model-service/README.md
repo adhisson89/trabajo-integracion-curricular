@@ -10,6 +10,11 @@ El servicio está construido con **Flask** para proporcionar una API REST que ex
 
 ---
 
+## Autor
+
+- [Daniela Román](https://github.com/danielaro2)
+
+
 ## Tecnologías Utilizadas
 
 ### Lenguajes y Frameworks
