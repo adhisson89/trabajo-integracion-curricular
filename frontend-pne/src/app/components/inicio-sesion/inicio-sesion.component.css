@@ -1,0 +1,255 @@
+/* Contenedor principal */
+.header {
+    position: absolute;
+    top: 10px;
+    left: 30%;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+/* Título con efecto de luz sobre las letras */
+.header h1 {
+    font-family: "teko";
+    font-size: 70px;
+    margin: 15px;
+    border-color: #838488 2px;
+
+    color: transparent;
+    /* El texto es transparente */
+    background: linear-gradient(to right,
+            #A8ACAF,
+            #A8ACAF 40%,
+            rgba(255, 255, 255, 0.8) 50%,
+            #0a369d 60%,
+            #0a369d);
+    /* Degradado dinámico */
+    background-clip: text;
+    /* El fondo se recorta en las letras */
+    -webkit-background-clip: text;
+    /* Compatibilidad con navegadores WebKit */
+    background-size: 200%;
+    /* Amplía el tamaño del degradado para el efecto */
+    animation: lightMove 3s infinite linear;
+    /* Movimiento continuo */
+    white-space: nowrap;
+    /* Evita saltos de línea */
+    overflow: hidden;
+    /* Asegura que nada se desborde */
+    /* Borde en las letras */
+    -webkit-text-stroke: 0.01px #ffffff63;
+    /* Grosor y color del borde  text-shadow: 1px 1px 1000px rgba(0, 0, 0, 0.182); */
+   
+}
+
+/* Definición de la animación */
+@keyframes lightMove {
+    0% {
+        background-position: 100%;
+        /* Comienza fuera del texto a la derecha */
+    }
+
+    100% {
+        background-position: -100%;
+        /* Termina fuera del texto a la izquierda */
+    }
+}
+
+/* Logo */
+.header .logo2 {
+    position: absolute;
+    top: 20px;
+    left: -80px;
+    height: 50px;
+    width: 90px;
+}
+
+
+/* Contenedor envolvente para centrar */
+.container-wrapper {
+    margin-right: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 390px;
+    width: 370px;
+    margin-top: 80px;
+    padding-bottom: 50px;
+    /* background: #fffefe;
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.208); */
+    border-radius: 10px;
+}
+
+/* Contenedor principal */
+.container {
+    height: 350px;
+    margin-top: 45px;
+    max-width: 280px;
+    background: #edececc9;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+    display: flex;
+    padding: 20px;
+    gap: 20px;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.formulario div {
+    margin-bottom: 10px;
+    /* Ajusta la separación entre los campos */
+}
+
+input {
+    width: 100%;
+    /* Asegura que los campos ocupen el ancho del formulario */
+    padding: 8px;
+    /* Mejora la estética con relleno interno */
+    margin-top: 5px;
+    /* Añade espacio entre el label y el campo */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+
+.login-container {
+    font-family: "gro";
+    font-size: 110px;
+    width: 800px;
+    max-width: 300px;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+.formulario {
+    font-family: "teko";
+    font-size: 20px;
+    text-align: justify;
+    letter-spacing: 1px;
+
+}
+
+button {
+    font-size: 20px;
+    font-family: "teko";
+    margin-top: 10px;
+    width: 100%;
+    padding: 10px;
+    background-color: #838488;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+
+button:disabled {
+    background-color: #ddd;
+    cursor: not-allowed;
+}
+
+small {
+    color: red;
+}
+
+.date-container {
+    margin-top: 1px;
+}
+
+.date-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+
+
+.date-button {
+    width: 70px;
+    height: auto;
+    margin-top: 60px;
+    margin-right: 20px;
+    padding: 10px 20px;
+    font-size: 50px;
+    cursor: pointer;
+    border: 1px solid #f4f3f3;
+    background-color: #0000aa;
+    color: white;
+    border-radius: 55px;
+    transition: background-color 0.3s;
+}
+
+.date-button:hover {
+  background-color: #b6b6b6;
+    transform: scale(1.05);
+    box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.8);
+}
+/* Media Queries para pantallas pequeñas */
+@media (max-width: 600px) {
+    .header {
+        top: 5px;
+        left: 10%;
+        flex-direction: column; /* Cambia la dirección a columna */
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+    }
+
+    /* Ajustes de tamaño para el título */
+    .header h1 {
+    
+        margin: 10px;
+        text-align: center;
+        -webkit-text-stroke: 0.05px #3939395c; /* Ajusta el borde */
+    }
+
+    /* Ajustes de logo */
+    .header .logo2 {
+  
+        height: 40px;
+        width: 80px;
+    }
+}
+
+/* Media Queries para pantallas medianas (por ejemplo, tabletas) */
+@media (max-width: 900px) {
+    .header {
+        left: 20%;
+    }
+
+    /* Ajustes de tamaño para el título */
+    .header h1 {
+        font-size: 30px; /* Tamaño de texto moderado */
+    }
+
+    /* Ajustes de logo */
+    .header .logo2 {
+        height: 45px;
+        width: 85px;
+    }
+}
+
+/* Media Queries para pantallas grandes */
+@media (min-width: 901px) {
+    .header {
+        left: 30%; /* Mantén la posición centrada */
+    }
+
+    /* Ajustes de tamaño para el título */
+    .header h1 {
+        font-size: 70px; /* Tamaño de texto grande */
+    }
+
+    /* Ajustes de logo */
+    .header .logo2 {
+        height: 50px;
+        width: 90px;
+    }
+}

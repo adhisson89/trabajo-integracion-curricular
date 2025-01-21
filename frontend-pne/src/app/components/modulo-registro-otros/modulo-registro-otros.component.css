@@ -1,0 +1,279 @@
+/* Contenedor principal */
+.header {
+    position: absolute;
+    top: 10px;
+    left: 30%;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+/* Título con efecto de luz sobre las letras */
+.header h1 {
+    font-family: "teko";
+    font-size: 70px;
+    margin: 15px;
+    color: transparent; /* El texto es transparente */
+    background: linear-gradient(
+        to right,
+        #0a369d,
+        #0a369d 40%,
+        rgba(255, 255, 255, 0.8) 50%,
+        #0a369d 60%,
+        #0a369d
+    ); /* Degradado dinámico */
+    background-clip: text; /* El fondo se recorta en las letras */
+    -webkit-background-clip: text; /* Compatibilidad con navegadores WebKit */
+    background-size: 200%; /* Amplía el tamaño del degradado para el efecto */
+    animation: lightMove 3s infinite linear; /* Movimiento continuo */
+    white-space: nowrap; /* Evita saltos de línea */
+    overflow: hidden; /* Asegura que nada se desborde */
+}
+
+/* Definición de la animación */
+@keyframes lightMove {
+    0% {
+        background-position: 100%; /* Comienza fuera del texto a la derecha */
+    }
+    100% {
+        background-position: -100%; /* Termina fuera del texto a la izquierda */
+    }
+}
+
+/* Logo */
+.header .logo2 {
+    position: absolute;
+    top: 20px;
+    left: -80px;
+    height: 50px;
+    width: 90px;
+}
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    font-family: "asa";
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+    padding: 10px;
+    margin-right: 100px;
+    height: 100vh;
+  
+    /* Asegura que el body ocupe toda la altura de la pantalla */
+}
+
+.container {
+    
+    margin-top: 100px;
+    height: auto;
+    width: 500px;
+    padding: 30px;
+    background: #edececc9;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+    /* Evita el desbordamiento de contenido fuera del contenedor */
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    /* Espacio entre los elementos dentro de .container */
+    overflow: auto;
+
+}
+
+.file-container {
+
+    display: flex;
+    align-items: center;
+    /* Alinea verticalmente los elementos en el centro */
+    gap: 10px;
+    /* Espacio entre la imagen y el campo de archivo */
+}
+
+
+h2 {
+    margin: 1px;
+    text-align: center;
+    font-size: 20px;
+    color: #333333;
+    font-family: "gro";
+    letter-spacing: 2px;
+
+}
+
+form {
+
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    
+    /* Agrega desplazamiento si el formulario es demasiado largo */
+}
+
+.radio-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 1px;
+}
+
+.radio-group label {
+    flex: 1;
+    text-align: left;
+    font-size: 11px;
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+
+.radio-group input {
+    margin-right: 1px;
+
+}
+
+form label {
+    font-family: "asa";
+    font-size: 13px;
+    display: block;
+    margin: 2px;
+    margin-top: 5px;
+    color: #333333;
+    font-weight: bold;
+}
+
+form input[type="text"],
+form input[type="file"] {
+    width: 99%;
+    padding: 1px;
+    margin-bottom: 5px;
+    margin: 2px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    font-size: 10px;
+    text-transform: uppercase;
+}
+
+
+button {
+    width: 100%;
+    padding: 2px;
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    margin: 5px;
+    margin-top: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.error {
+    color: red;
+    font-size: 12px;
+    margin-top: -20px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    display: contents;
+}
+.date-container {
+    margin-top: 30px;
+    margin-right: 20px;
+}
+
+.date-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+
+
+.date-button {
+    width: auto;
+    padding: 5px 20px 10px 20px;
+    font-size: 40px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    background-color: #0000aa;
+    color: white;
+    border-radius: 55px;
+    transition: background-color 0.3s;
+}
+
+.date-button:hover {
+    
+  background-color: #b6b6b6;
+    transform: scale(1.05);
+    box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.8);
+
+}
+/* Media Queries para pantallas pequeñas */
+@media (max-width: 600px) {
+    .header {
+        top: 5px;
+        left: 10%;
+        flex-direction: column; /* Cambia la dirección a columna */
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+    }
+
+    /* Ajustes de tamaño para el título */
+    .header h1 {
+    
+        margin: 10px;
+        text-align: center;
+        -webkit-text-stroke: 0.05px #3939395c; /* Ajusta el borde */
+    }
+
+    /* Ajustes de logo */
+    .header .logo2 {
+  
+        height: 40px;
+        width: 80px;
+    }
+}
+
+/* Media Queries para pantallas medianas (por ejemplo, tabletas) */
+@media (max-width: 900px) {
+    .header {
+        left: 20%;
+    }
+
+    /* Ajustes de tamaño para el título */
+    .header h1 {
+        font-size: 30px; /* Tamaño de texto moderado */
+    }
+
+    /* Ajustes de logo */
+    .header .logo2 {
+        height: 45px;
+        width: 85px;
+    }
+}
+
+/* Media Queries para pantallas grandes */
+@media (min-width: 901px) {
+    .header {
+        left: 30%; /* Mantén la posición centrada */
+    }
+
+    /* Ajustes de tamaño para el título */
+    .header h1 {
+        font-size: 70px; /* Tamaño de texto grande */
+    }
+
+    /* Ajustes de logo */
+    .header .logo2 {
+        height: 50px;
+        width: 90px;
+    }
+}

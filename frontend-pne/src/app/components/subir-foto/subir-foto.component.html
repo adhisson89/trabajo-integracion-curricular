@@ -1,0 +1,32 @@
+<header class="header">
+    <title>SR-PNE</title>
+    <img src="assets/imagenes/png/bandera.png" class="logo2">
+    <h1>POLICIA NACIONAL DEL ECUADOR</h1>
+  </header>
+
+ <body>
+     <!-- Selector de flechas -->
+  <div class="date-container">
+    <div class="date-controls">
+        <button class="date-button" (click)="redirectTo('inicio')">
+            < </button>
+                <!-- <button class="date-button"> > </button> -->
+    </div>
+</div>
+<div class="container">
+    <h2>Formulario Foto</h2>
+    <form [formGroup]="registroForm" (ngSubmit)="onSubmit()">
+        <!-- Foto -->
+        <label for="foto"></label> 
+        <div class="file-container">
+            <img src="../assets/imagenes/png/iconos/subir.png" width="150px" height="150px">
+            <input type="file" id="foto" (change)="onImageSelected($event)" accept="image/*" style="position: relative;">
+        </div>
+        <div *ngIf="hasError('foto', 'required')" class="error">
+            La foto es obligatoria.
+        </div>
+
+        <button type="submit">Subir Foto</button>
+    </form>
+</div>
+ </body>

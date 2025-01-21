@@ -1,0 +1,148 @@
+<header class="header">
+  <title>SR-PNE</title>
+  <img src="assets/imagenes/png/bandera.png" class="logo2">
+  <h1>POLICIA NACIONAL DEL ECUADOR</h1>
+</header>
+
+<body>
+    <!-- Selector de flechas -->
+    <div class="date-container">
+      <div class="date-controls">
+        <button class="date-button" (click)="redirectTo('moduloAdministrador')">
+          < </button>
+            <!-- <button class="date-button"> > </button> -->
+      </div>
+    </div>
+  <div class="container">
+    <h1>Listado de Ítems</h1>
+  
+    <!-- Filtro -->
+    <div class="filter">
+      <label for="filter">Buscar por identificación:</label>
+      <input type="text" id="filter" [(ngModel)]="filterIdentification" placeholder="Ingrese identificación" />
+      <button (click)="filterByIdentification()"> <img src="../assets/imagenes/png/iconos/lupa.png" width="20px"
+          height="20px" style="  filter: invert(100);">Buscar</button>
+    </div>
+  
+  
+    <!-- Cargando datos -->
+    <div *ngIf="isLoading" class="loading">
+      <p>Cargando...</p>
+    </div>
+  
+    <!-- Lista de ítems -->
+    <ul>
+      <li *ngFor="let item of filteredItems; let i = index">
+        <div class="item-text">
+          <p><strong>Cédula/Pasaporte:</strong> {{ item.identification }}</p>
+          <p><strong>Nombres y Apellidos:</strong> {{ item.name }} {{ item.surename }}</p>
+          <p><strong>Modus Operandi:</strong> {{ item.role }}</p>
+  
+        </div>
+        <button class="edit-btn" (click)="startEdit(item)"><img src="../assets/imagenes/png/iconos/editar.png"
+            width="20px" height="20px" style="  filter: invert(100);">Editar</button>
+        <button class="delete-btn" (click)="confirmDelete(item)"><img src="../assets/imagenes/png/iconos/borrar.png"
+            width="20px" height="20px">Eliminar</button>
+      </li>
+    </ul>
+  
+    <!-- Mensaje de confirmación -->
+    <div *ngIf="showDeleteConfirmation" class="confirmation-modal">
+      <button class="deletex-btn" (click)="cancelDelete()">X</button>
+      <h2 class="pop-up2">¿Está seguro de que desea eliminar este registro?</h2>
+      <button class="edit-btn" (click)="deleteItem()"> <img src="../assets/imagenes/png/iconos/visto.png" width="20px"
+          height="20px" style="filter: contrast(0%) brightness(200%);; margin-right: 10px;">Confirmar</button>
+      <button class="delete-btn" (click)="cancelDelete()"><img src="../assets/imagenes/png/iconos/xrojo.png" width="30px"
+          height="20px" style="filter: contrast(0%) brightness(200%);; margin-right: 10px;">Cancelar</button>
+    </div>
+    <!-- Formulario de edición -->
+  
+  
+    <div *ngIf="editingItem" class="edit-form"><button type="button" class="deletex-btn" (click)="cancelEdit()">X</button>
+      <h2 class="pop-up">Editar Ítem</h2>
+      <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+        <!-- Foto -->
+        <div class="file-container">
+          <img src="../assets/imagenes/png/iconos/subir.png" width="50px" height="50px">
+          <label for="foto">Foto:</label>
+          <input type="file" id="foto" (change)="onFileSelected($event)" />
+          <button type="button" *ngIf="selectedFile" (click)="removeFile()">Quitar foto</button>
+        </div>
+  
+  
+        <label for="photo_image_id">photo_image_id:</label>
+        <input type="text" id="photo_image_id" formControlName="photo_image_id" readonly />
+  
+        <!-- Modus Operandi -->
+        <label>Modus Operandi:</label>
+        <div class="radio-group">
+          <label>
+            <input type="radio" formControlName="role" value="INDIVIDUAL" /> INDIVIDUAL
+          </label>
+          <label>
+            <input type="radio" formControlName="role" value="GRUPAL" /> GRUPAL
+          </label>
+  
+        </div>
+  
+        <!-- Identificación -->
+        <label for="identificacion">Cédula o Pasaporte:</label>
+        <input type="text" id="identificacion" formControlName="identificacion" readonly />
+  
+        <!-- Nombres -->
+        <label for="nombres">Nombres:</label>
+        <input type="text" id="name" formControlName="name" />
+  
+        <!-- Apellidos -->
+        <label for="apellidos">Apellidos:</label>
+        <input type="text" id="surename" formControlName="surename" />
+        <!-- Campos específicos para INDIVIDUAL -->
+        <div *ngIf="editForm.get('role')?.value === 'INDIVIDUAL'">
+  
+          <label for="alias">Alias:</label>
+          <input type="text" id="alias" formControlName="alias" />
+  
+          <label for="tipoDelito">Tipo de Delito:</label>
+          <input type="text" id="tipoDelito" formControlName="tipoDelito" />
+  
+          <label for="sentencia">Sentencia:</label>
+          <input type="text" id="sentencia" formControlName="sentencia" />
+        </div>
+  
+        <!-- Campos específicos para DOCENTE, TRANSNACIONAL o COLABORADOR -->
+        <div *ngIf="editForm.get('role')?.value !== 'INDIVIDUAL'">
+          <label for="alias">Alias:</label>
+          <input type="text" id="alias" formControlName="alias" />
+  
+          <label for="tipoDelito">Tipo de Delito:</label>
+          <input type="text" id="tipoDelito" formControlName="tipoDelito" />
+  
+          <label for="sentencia">Sentencia:</label>
+          <input type="text" id="sentencia" formControlName="sentencia" />
+  
+          <label for="nombreGrupo">Nombre del grupo u organización:</label>
+          <input type="text" id="nombreGrupo" formControlName="nombreGrupo">
+  
+          <label for="jerarquia">Jerarquía en el grupo:</label>
+          <select type="text" id="jerarquia" formControlName="jerarquia">
+            <option value="">Seleccione</option>
+            <option value="LIDER">LÍDER</option>
+            <option value="SUBORDINADO">SUBORDINADO</option>
+            <option value="COLABORADOR">COLABORADOR</option>
+          </select>
+        </div>
+  
+  
+        <button type="submit" class="edit-btn" [disabled]="!editForm.valid"><img
+            src="../assets/imagenes/png/iconos/guardar.png" width="20px" height="20px"
+            style="  filter: invert(100); margin-right: 10px;">Guardar</button>
+  
+        <button type="button" class="delete-btn" (click)="cancelEdit()"><img src="../assets/imagenes/png/iconos/xrojo.png"
+            width="30px" height="20px" style=" filter: contrast(0%) brightness(200%);; margin-right: 10px;">Cancelar</button>
+      </form>
+    </div>
+  
+  
+  
+  </div>
+</body>

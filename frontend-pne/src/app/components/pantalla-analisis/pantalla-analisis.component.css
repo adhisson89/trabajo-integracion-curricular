@@ -1,0 +1,253 @@
+/* Contenedor principal */
+.header2 {
+    position: absolute;
+    top: 10px;
+    left: 30%;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+/* Título con efecto de luz sobre las letras */
+.header2 h1 {
+    font-family: "teko";
+    font-size: 70px;
+    margin: 15px;
+    border-color: #838488  2px  ;
+    
+    color: transparent; /* El texto es transparente */
+    background: linear-gradient(
+        to right,
+        #A8ACAF,
+        #A8ACAF 40%,
+        rgba(255, 255, 255, 0.8) 50%,
+        #0a369d 60%,
+        #0a369d
+    ); /* Degradado dinámico */
+    background-clip: text; /* El fondo se recorta en las letras */
+    -webkit-background-clip: text; /* Compatibilidad con navegadores WebKit */
+    background-size: 200%; /* Amplía el tamaño del degradado para el efecto */
+    animation: lightMove 3s infinite linear; /* Movimiento continuo */
+    white-space: nowrap; /* Evita saltos de línea */
+    overflow: hidden; /* Asegura que nada se desborde */
+     /* Borde en las letras */
+     -webkit-text-stroke: 0.1px #3939395c; /* Grosor y color del borde */
+}
+
+/* Definición de la animación */
+@keyframes lightMove {
+    0% {
+        background-position: 100%; /* Comienza fuera del texto a la derecha */
+    }
+    100% {
+        background-position: -100%; /* Termina fuera del texto a la izquierda */
+    }
+}
+
+/* Logo */
+.header2 .logo2 {
+    position: absolute;
+    top: 20px;
+    left: -80px;
+    height: 50px;
+    width: 90px;
+}
+
+
+/* Estilo general */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    
+    font-family: Arial;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+   
+}
+
+.container {
+    margin-top: 80px;
+    margin-right: 80px;
+    width: 90%; /* Ajustable para dispositivos pequeños */
+    max-width: 1000px; /* Máximo ancho para tablets y laptops */
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    text-align: center;
+    background-color: #fff;
+}
+
+.header {
+    background: linear-gradient(to right, #838488, #4a90e2);
+    padding: 10px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 14px;
+    font-weight: bold;
+    flex-wrap: wrap;
+}
+
+.logo {
+    width: 40px;
+    height: auto;
+    margin-right: 10px;
+}
+
+.header h2 {
+    font-size: 1rem;
+    flex: 1; /* Para ocupar espacio restante */
+    text-align: center;
+}
+
+#video-container { 
+    position: relative;
+    display: inline-block;
+}
+
+#video {
+    padding: 10px;
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    border: 2px solid #ddd;
+}
+
+#overlay-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Permite interactuar con el video, no con el canvas */
+}
+.status-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80px;
+    height: 80px;
+}
+
+button {
+    font-family: "gro";
+    letter-spacing: 2px;
+    background-color: #0606c4;
+    color: #ffffff;
+    border: none;
+    font-size: 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px;
+    padding: 5px;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0000aa;
+    transform: scale(1.05);
+    box-shadow: 0px 0px 20px rgba(0, 19, 230, 0.8);
+}
+
+
+.date-container {
+    margin-top: 30px;
+    margin-right: 20px;
+}
+
+.date-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+
+
+.date-button {
+    width: auto;
+    padding: 5px 20px 10px 20px;
+    font-size: 40px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    background-color: #0000aa;
+    color: white;
+    border-radius: 55px;
+    transition: background-color 0.3s;
+}
+
+.date-button:hover {
+  background-color: #b6b6b6;
+    transform: scale(1.05);
+    box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.8);
+}
+/* Media Queries para pantallas pequeñas */
+@media (max-width: 600px) {
+    .header {
+        top: 5px;
+        left: 10%;
+        flex-direction: column; /* Cambia la dirección a columna */
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+    }
+
+    /* Ajustes de tamaño para el título */
+    .header h1 {
+    
+        margin: 10px;
+        text-align: center;
+        -webkit-text-stroke: 0.05px #3939395c; /* Ajusta el borde */
+    }
+
+    /* Ajustes de logo */
+    .header .logo2 {
+  
+        height: 40px;
+        width: 80px;
+    }
+}
+
+/* Media Queries para pantallas medianas (por ejemplo, tabletas) */
+@media (max-width: 900px) {
+    .header {
+        left: 10%;
+    }
+
+    /* Ajustes de tamaño para el título */
+    .header h1 {
+        font-size: 30px; /* Tamaño de texto moderado */
+    }
+
+    /* Ajustes de logo */
+    .header .logo2 {
+        height: 45px;
+        width: 85px;
+    }
+}
+
+/* Media Queries para pantallas grandes */
+@media (min-width: 901px) {
+    .header {
+        left: 10%; /* Mantén la posición centrada */
+    }
+
+    /* Ajustes de tamaño para el título */
+    .header h1 {
+        font-size: 30px; /* Tamaño de texto grande */
+    }
+
+    /* Ajustes de logo */
+    .header .logo2 {
+        height: 50px;
+        width: 90px;
+    }
+}

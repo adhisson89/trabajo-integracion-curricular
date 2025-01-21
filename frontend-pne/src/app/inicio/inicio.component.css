@@ -1,0 +1,337 @@
+/* Contenedor envolvente para centrar */
+.container-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+}
+
+/* Contenedor principal */
+.container {
+    width: 100%;
+    margin-top: 45px;
+    background: #edececc9;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+    display: flex;
+    padding: 20px;
+    gap: 20px;
+    
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/* Contenido principal */
+.content {
+    flex: 1;
+    padding: 10px;
+    text-align: center;
+    /* background: #edecec55;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5); */
+}
+
+.content h1 {
+    font-family: "teko";
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: 40px;
+    color: #838488;
+    margin: 5px 0;
+}
+
+.content h2 {
+    margin-top: 5px;
+    font-family: "mon";
+    font-size: 15px;
+    color: #949191;
+}
+
+.content p {
+    margin: 20px;
+    font-family: "asa";
+    font-size: 18px;
+    color: #666;
+    line-height: 1.6;
+    text-align: justify;
+}
+
+/* Botón Admin */
+button.btn_Admin {
+    font-family: "gro";
+    letter-spacing: 2px;
+    background-color: #ffffff;
+    color: #838488;
+    font-size: 0.9em;
+    border-radius: 50px;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    left: 90%;
+    margin: 10px;
+    opacity: 0.8;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+button.btn_Admin:hover {
+    background-color: #b9b9b9;
+    color: #ffffff;
+    transform: scale(1.1);
+    box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.8);
+}
+
+/* Botón Empezar */
+button.btn_EnVivo {
+    font-family: "gro";
+    letter-spacing: 3px;
+    background-color: #838488;
+    color: #ffffff;
+    border: none;
+    padding: 12px 25px;
+    font-size: 1.1em;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: 20px;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+button.btn_EnVivo:hover {
+    background-color: #011466;
+    transform: scale(1.05);
+    box-shadow: 0px 0px 20px #556999;
+}
+
+
+/* Botón subir */
+button.btn_subir {
+    font-family: "gro";
+    letter-spacing: 3px;
+    background-color: #838488;
+    color: #ffffff;
+    border: none;
+    padding: 12px 25px;
+    font-size: 1.1em;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: 20px;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+button.btn_subir:hover {
+    background-color: #011466;
+    transform: scale(1.05);
+    box-shadow: 0px 0px 20px #556999;
+}
+
+
+/* Ilustraciones */
+.illustration {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   
+}
+
+.illustration img {
+    width: 200px;
+    height: 200px;
+    margin-right: 20px;
+    border-radius: 10px;
+    object-fit: cover;
+    background: #edecec55;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+
+.illustration2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.illustration2 img {
+    width: 400px;
+    height: 400px;
+    margin-right: 50px;
+    border-radius: 10px;
+    object-fit: cover;
+
+
+}
+
+.illustration2 img:hover {
+    box-shadow: 0px 0px 25px #ffffff00;
+}
+
+
+.illustration3 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+    margin-right: 100px;
+
+}
+
+
+/* Media Queries para pantallas pequeñas (celulares) */
+@media (max-width: 600px) {
+    /* Ajusta el contenedor envolvente */
+    .container-wrapper {
+        height: auto; /* Ajusta la altura */
+        padding: 10px; /* Agrega algo de padding para evitar que los elementos se toquen los bordes */
+        box-sizing: border-box;
+    }
+
+    /* Contenedor principal */
+    .container {
+        height: auto; /* Deja que el contenedor ajuste su altura según el contenido */
+        margin-top: 20px; /* Reduce el margen superior */
+        padding: 10px; /* Reduce el padding */
+        gap: 10px; /* Reduce el espacio entre elementos */
+        max-width: 100%; /* Asegura que el contenedor no sea más grande que el ancho de la pantalla */
+        flex-direction: column; /* Cambia la dirección del flex para apilar los elementos */
+        align-items: center; /* Centra los elementos */
+    }
+
+    /* Contenido principal */
+    .content h1 {
+        font-size: 28px; /* Reduce el tamaño del título */
+        margin: 10px 0; /* Ajusta los márgenes */
+    }
+
+    .content h2 {
+        font-size: 14px; /* Reduce el tamaño del subtítulo */
+        margin-top: 5px;
+    }
+
+    .content p {
+        font-size: 16px; /* Reduce el tamaño de la fuente del párrafo */
+        margin: 10px 0; /* Reduce los márgenes */
+        text-align: left; /* Alinea el texto a la izquierda para mejor lectura */
+    }
+
+    /* Botón Admin */
+    button.btn_Admin {
+        font-size: 0.8em; /* Reduce el tamaño de la fuente */
+        top: 5px; /* Ajusta la posición */
+        left: 80%; /* Ajusta la posición del botón */
+        margin: 5px; /* Reduce el margen */
+    }
+
+    /* Botón EnVivo */
+    button.btn_EnVivo {
+        font-size: 1em; /* Ajusta el tamaño de la fuente */
+        padding: 10px 20px; /* Ajusta el tamaño del padding */
+        margin-left: 0; /* Alinea el botón a la izquierda */
+        width: 50%; /* Haz que el botón ocupe el 100% del ancho disponible */
+        margin-bottom: 10px;
+    }
+
+    /* Botón Subir */
+    button.btn_subir {
+        font-size: 1em; /* Ajusta el tamaño de la fuente */
+        padding: 10px 20px; /* Ajusta el tamaño del padding */
+        margin-left: 0; /* Alinea el botón a la izquierda */
+        width: 50%; /* Haz que el botón ocupe el 100% del ancho disponible */
+    }
+
+    /* Ilustraciones */
+    .illustration img {
+        max-width: 100%; /* Asegura que la imagen no exceda el ancho del contenedor */
+        height: auto; /* Mantiene la proporción de la imagen */
+        margin-right: 0; /* Elimina el margen derecho */
+        margin-bottom: 10px; /* Agrega margen abajo */
+    }
+
+    .illustration2 img {
+       width: 100px; /* Asegura que la imagen no exceda el ancho del contenedor */
+        height: 100px; /* Mantiene la proporción de la imagen */
+        margin-right: 0; /* Elimina el margen derecho */
+        margin-bottom: 10px; /* Agrega margen abajo */
+        position: relative;
+        top: -280px;
+    }
+
+    /* Ajusta la visibilidad de la ilustración3 */
+    .illustration3 {
+        width: 10%; /* Asegura que la ilustración ocupe el 100% del ancho disponible */
+        opacity: 0; /* Hazla visible */
+        margin-right: 0; /* Elimina el margen derecho */
+    }
+}
+/* Media Queries para pantallas más grandes (por ejemplo, tabletas, computadoras de escritorio) */
+@media (min-width: 601px) {
+    /* Ajustes para pantallas más grandes */
+    .container-wrapper {
+        height: 100vh; /* Altura completa */
+        padding: 20px;
+    }
+
+    .container {
+       height: auto;
+        margin-top: 5px;
+        padding: 20px;
+        gap: 20px;
+        flex-direction: row; /* Establece la dirección del flex para que los elementos estén en fila */
+        align-items: center;
+    }
+
+    .content h1 {
+        font-size: 40px; /* Tamaño grande del título */
+        margin: 5px 0;
+    }
+
+    .content h2 {
+        font-size: 15px;
+    }
+
+    .content p {
+        font-size: 18px; /* Tamaño normal del texto */
+        margin: 20px;
+        text-align: justify;
+    }
+
+    button.btn_Admin {
+        font-size: 0.9em;
+        top: 10px;
+        left: 90%;
+        margin: 10px;
+    }
+
+    button.btn_EnVivo,
+    button.btn_subir {
+        font-size: 1.1em;
+        padding: 12px 25px;
+        margin-left: auto;
+    }
+
+    /* Imágenes en pantallas más grandes */
+    .illustration img,
+    .illustration2 img {
+        max-width: 100%; /* Asegura que la imagen no exceda el ancho */
+        height: auto; /* Mantiene la relación de aspecto */
+    }
+
+    .illustration img {
+        max-width: 200px; /* Tamaño máximo en pantallas grandes */
+    }
+
+    .illustration2 img {
+        max-width: 400px; /* Tamaño máximo para ilustración2 */
+    }
+
+    .illustration3 {
+        opacity: 0; /* Se oculta o se puede mostrar según sea necesario */
+        width: 1px;
+        height: 1px;
+        margin-right: 100px;
+    }
+}
