@@ -46,15 +46,15 @@ El trabajo se dividió en componententes individuales que al juntarse crean el s
 
 Para el Backend, se creo un sistema de microservicios orquestados por docker compose
 
-#### [Microservicio Eureka Discovery](./administration-service/README.md)
+#### [Microservicio Eureka Discovery](./backend/eureka-discovery-service/README.md)
 
 Este microservicio es el servidor de descubrimiento que permite a los microservicios registrarse y descubrirse entre sí dinámicamente.
 
-#### [Microservicio Spring Gateway](./spring-gateway-service/README.md)
+#### [Microservicio Spring Gateway](./backend/spring-gateway-service/README.md)
 
 Este microservicio es el encargado de enrutar las peticiones a los microservicios que se encuentran en la red. Para ello, se utiliza el servidor de descubrimiento Eureka.
 
-#### [Microservicio de Administración](./administration-service/README.md)
+#### [Microservicio de Administración](./backend/administration-service/README.md)
 
 Este microservicio se encarga de la administración de la aplicación. Registra administradores, permite el inicio de sesión, un CRUD de las personas a las que va a identificar el sistema.
 
