@@ -43,8 +43,8 @@ services:
       spring-gateway-service:
         condition: service_healthy
     environment:
-      - MONGO_URI=mongodb+srv://adhisson:XVNqbidUA8Lu7iAm@tic.cerq8.mongodb.net/PoliceDB?retryWrites=true&w=majority&appName=TIC
-      - ACCESS_TOKEN_SECRET=QeMBbVKfHhHxHnzq8981qxmoJaxK2f1b
+      - MONGO_URI=
+      - ACCESS_TOKEN_SECRET=
     networks:
      - tic-network
 
