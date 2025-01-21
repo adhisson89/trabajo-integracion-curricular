@@ -1,0 +1,8 @@
+Flask
+numpy
+tensorflow
+deepface
+scipy
+opencv-python
+pymongo
+py-eureka-client

@@ -1,0 +1,38 @@
+{
+  "name": "administration-service",
+  "version": "1.0.0",
+  "description": "Microservicio para la administración del sistema",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon --signal SIGINT src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adhisson89/tic.git#main"
+  },
+  "author": "Adhisson Cedeño",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/adhisson89/tic/issues"
+  },
+  "homepage": "https://github.com/adhisson89/tic/tree/main#readme",
+  "dependencies": {
+    "axios": "^1.7.9",
+    "bcryptjs": "^2.4.3",
+    "cookie": "^1.0.1",
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^16.4.5",
+    "eureka-js-client": "^4.5.0",
+    "express": "^4.21.1",
+    "form-data": "^4.0.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.8.1",
+    "morgan": "^1.10.0",
+    "multer": "1.4.5-lts.1",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  }
+}
