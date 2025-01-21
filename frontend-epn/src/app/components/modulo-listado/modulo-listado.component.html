@@ -1,0 +1,131 @@
+<body>
+  <!-- Selector de flechas -->
+  <div class="date-container">
+    <div class="date-controls">
+      <button class="date-button" (click)="redirectTo('moduloAdministrador')">
+        < </button>
+          <!-- <button class="date-button"> > </button> -->
+    </div>
+  </div>
+  <div class="container">
+    <h1>Listado de Ítems</h1>
+
+    <!-- Filtro -->
+    <div class="filter">
+      <label for="filter">Buscar por identificación:</label>
+      <input type="text" id="filter" [(ngModel)]="filterIdentification" placeholder="Ingrese identificación" />
+      <button (click)="filterByIdentification()"> <img src="../assets/imagenes/png/iconos/lupa.png" width="20px"
+          height="20px" style="  filter: invert(100);">Buscar</button>
+    </div>
+
+
+    <!-- Cargando datos -->
+    <div *ngIf="isLoading" class="loading">
+      <p>Cargando...</p>
+    </div>
+
+    <!-- Lista de ítems -->
+    <ul>
+      <li *ngFor="let item of filteredItems; let i = index">
+        <div class="item-text">
+          <p><strong>Cédula/Pasaporte:</strong> {{ item.identification }}</p>
+          <p><strong>Nombres y Apellidos:</strong> {{ item.name }} {{ item.surename }}</p>
+          <p><strong>Rol:</strong> {{ item.role }}</p>
+
+        </div>
+        <button class="edit-btn" (click)="startEdit(item)"><img src="../assets/imagenes/png/iconos/editar.png"
+            width="20px" height="20px" style="  filter: invert(100);">Editar</button>
+        <button class="delete-btn" (click)="confirmDelete(item)"><img src="../assets/imagenes/png/iconos/borrar.png"
+            width="20px" height="20px">Eliminar</button>
+      </li>
+    </ul>
+
+    <!-- Mensaje de confirmación -->
+    <div *ngIf="showDeleteConfirmation" class="confirmation-modal">
+      <button class="deletex-btn" (click)="cancelDelete()">X</button>
+      <h2 class="pop-up2">¿Está seguro de que desea eliminar este registro?</h2>
+      <button class="edit-btn" (click)="deleteItem()">Confirmar</button>
+      <button class="delete-btn" (click)="cancelDelete()">Cancelar</button>
+    </div>
+
+    <!-- Formulario de edición -->
+
+
+    <div *ngIf="editingItem" class="edit-form"><button type="button" class="deletex-btn"
+        (click)="cancelEdit()">X</button>
+      <h2 class="pop-up">Editar Ítem</h2>
+      <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+        <!-- Foto -->
+        <div class="file-container">
+          <img src="../assets/imagenes/png/iconos/subir.png" width="50px" height="50px">
+          <label for="foto">Foto:</label>
+          <input type="file" id="foto" (change)="onFileSelected($event)" />
+          <button type="button" *ngIf="selectedFile" (click)="removeFile()">Quitar foto</button>
+        </div>
+
+
+        <label for="photo_image_id">photo_image_id:</label>
+        <input type="text" id="photo_image_id" formControlName="photo_image_id" readonly />
+
+        <!-- Modo -->
+        <label>Modo:</label>
+        <div class="radio-group">
+          <label>
+            <input type="radio" formControlName="role" value="ESTUDIANTE" /> ESTUDIANTE
+          </label>
+          <label>
+            <input type="radio" formControlName="role" value="PROFESOR" /> PROFESOR
+          </label>
+          <label>
+            <input type="radio" formControlName="role" value="ADMINISTRATIVO" /> ADMINISTRATIVO
+          </label>
+          <label>
+            <input type="radio" formControlName="role" value="COLABORADOR" /> COLABORADOR
+          </label>
+        </div>
+
+        <!-- Identificación -->
+        <label for="identificacion">Cédula o Pasaporte:</label>
+        <input type="text" id="identificacion" formControlName="identificacion" readonly />
+
+        <!-- Nombres -->
+        <label for="nombres">Nombres:</label>
+        <input type="text" id="name" formControlName="name" />
+
+        <!-- Apellidos -->
+        <label for="apellidos">Apellidos:</label>
+        <input type="text" id="surename" formControlName="surename" />
+
+        <!-- Campos específicos para ESTUDIANTE -->
+        <div *ngIf="editForm.get('role')?.value === 'ESTUDIANTE'">
+          <label for="codigoUnico">Código Único:</label>
+          <input type="text" id="codigoUnico" formControlName="codigoUnico" maxlength="9" />
+
+          <label for="unidadAcademica">Unidad Académica:</label>
+          <input type="text" id="unidadAcademica" formControlName="unidadAcademica" />
+
+          <label for="carrera">Carrera/Programa:</label>
+          <input type="text" id="carrera" formControlName="carrera" />
+        </div>
+
+        <!-- Campos específicos para DOCENTE, ADMINISTRATIVO o COLABORADOR -->
+        <div *ngIf="editForm.get('role')?.value !== 'ESTUDIANTE'">
+          <label for="direccionAdministrativa">Dirección Administrativa:</label>
+          <input type="text" id="direccionAdministrativa" formControlName="direccionAdministrativa" />
+        </div>
+
+
+        <button type="submit" class="edit-btn" [disabled]="!editForm.valid"><img
+            src="../assets/imagenes/png/iconos/guardar.png" width="20px" height="20px"
+            style="  filter: invert(100); margin-right: 10px;">Guardar</button>
+
+        <button type="button" class="delete-btn" (click)="cancelEdit()"><img
+            src="../assets/imagenes/png/iconos/xrojo.png" width="30px" height="20px"
+            style=" filter: contrast(50); margin-right: 10px;">Cancelar</button>
+      </form>
+    </div>
+
+
+
+  </div>
+</body>

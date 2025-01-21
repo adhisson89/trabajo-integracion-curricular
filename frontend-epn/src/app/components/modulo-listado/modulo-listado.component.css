@@ -1,0 +1,517 @@
+/* Contenedor principal */
+.header {
+    position: absolute;
+    top: 10px;
+    left: 30%;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+/* Título con efecto de luz sobre las letras */
+.header h1 {
+    font-family: "teko";
+    font-size: 70px;
+    margin: 15px;
+    border-color: #838488 2px;
+
+    color: transparent;
+    /* El texto es transparente */
+    background: linear-gradient(to right,
+            #A8ACAF,
+            #A8ACAF 40%,
+            rgba(255, 255, 255, 0.8) 50%,
+            #0a369d 60%,
+            #0a369d);
+    /* Degradado dinámico */
+    background-clip: text;
+    /* El fondo se recorta en las letras */
+    -webkit-background-clip: text;
+    /* Compatibilidad con navegadores WebKit */
+    background-size: 200%;
+    /* Amplía el tamaño del degradado para el efecto */
+    animation: lightMove 3s infinite linear;
+    /* Movimiento continuo */
+    white-space: nowrap;
+    /* Evita saltos de línea */
+    overflow: hidden;
+    /* Asegura que nada se desborde */
+    /* Borde en las letras */
+    -webkit-text-stroke: 0.1px #3939395c;
+    /* Grosor y color del borde */
+}
+
+/* Definición de la animación */
+@keyframes lightMove {
+    0% {
+        background-position: 100%;
+        /* Comienza fuera del texto a la derecha */
+    }
+
+    100% {
+        background-position: -100%;
+        /* Termina fuera del texto a la izquierda */
+    }
+}
+
+/* Logo */
+.header .logo2 {
+    position: absolute;
+    top: 20px;
+    left: -80px;
+    height: 50px;
+    width: 90px;
+}
+
+
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "asa";
+}
+
+body {
+    
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 10px;
+    margin: 0;
+}
+
+.container {
+    margin-right: 90px;
+    margin-top: 30px;
+    width: 100%;
+    
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+
+}
+
+h1,
+h2 {
+    letter-spacing: 2px;
+    font-family: "gro";
+    font-size: 25px;
+    text-align: center;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+
+.filter {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.filter label {
+    font-weight: bold;
+}
+
+.filter input {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.filter button {
+    font-size: 15px;
+    text-align: justify;
+    padding: 5px 10px;
+    margin: 5px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007BFF;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.filter button:hover {
+    background-color: #0056b3;
+}
+
+ul {
+    list-style: none;
+}
+
+li {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+}
+
+li:last-child {
+    border-bottom: none;
+
+}
+
+.item-text {
+    font-family: "tit";
+    margin-bottom: 10px;
+
+}
+
+p {
+    margin-right: 20px;
+    font-size: 13px;
+    text-transform: uppercase;
+}
+
+.edit-btn,
+.delete-btn {
+    padding: 5px;
+    margin: 5px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.edit-btn {
+
+    background-color: #4CAF50;
+    color: #fff;
+}
+
+.delete-btn {
+
+    background-color: #bd271c;
+    color: #fff;
+}
+
+.pop-up {
+ 
+    text-align: center;
+    font-size: 18px;
+    color: #333333;
+    font-family: "qua";
+    letter-spacing: 1px;
+    position: relative;
+   
+    top: -30px;
+
+}
+
+.pop-up2 {
+    margin-right: 100px;
+    text-align: left;
+    font-size: 15px;
+    color: #333333;
+    font-family: "qua";
+    /* font-family: "tit"; */
+    letter-spacing: 1px;
+    position: relative;
+    left: 10px;
+    top: -35px;
+}
+
+.deletex-btn {
+    width: 25px;
+    height: 25px;
+    position: relative;
+    left: 410px;
+    background-color: #91221a;
+    color: #fff;
+}
+
+.edit-btn:hover {
+    background-color: #45a049;
+}
+
+.delete-btn:hover {
+    background-color: #d12518;
+}
+
+.edit-form {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    width: 90%; /* Se adapta al ancho del contenedor */
+    max-width: 500px; /* Tamaño máximo */
+    max-height: 650px; /* Tamaño máximo */
+    animation: pop-up 0.5s ease-out;
+    overflow: auto;
+}
+    
+
+.file-container {
+    position: relative;
+    top: -5px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+}
+
+.file-container img {
+    display: block;
+    border-radius: 4px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+
+}
+
+.radio-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.radio-group label {
+    flex: 1;
+    text-align: left;
+    font-size: 10px;
+    cursor: pointer;
+}
+
+.radio-group input {
+    margin-right: 1px;
+}
+
+form label {
+    font-size: 11px;
+    margin-bottom: 1px;
+    color: #333333;
+    font-weight: bold;
+}
+
+form input[type="text"],
+form input[type="file"] {
+    width: 100%;
+    margin: 5px;
+    padding: 5px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    font-size: 13px;
+    text-transform: uppercase;
+}
+
+form input[readonly] {
+    background-color: #e9ecef;
+    color: #6c757d;
+    cursor: not-allowed;
+}
+
+select {
+    width: 100%;
+    margin: 5px;
+    padding: 5px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    font-size: 13px;
+    text-transform: uppercase;
+
+}
+
+button {
+    padding: 5px;
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #a91a1a;
+}
+
+button[type="button"] {
+    background-color: #a91a1a;
+}
+
+button[type="button"]:hover {
+    background-color: #d11b1b;
+}
+
+.error {
+    color: red;
+    font-size: 12px;
+    margin-top: -10px;
+    margin-bottom: 10px;
+}
+
+.confirmation-modal {
+    width: 500px;
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    animation: pop-up 0.5s ease-out;
+}
+
+/* Animación pop-up */
+@keyframes pop-up {
+    from {
+        transform:translate(-50%, -50%) scale(0.8);
+        opacity: 0;
+    }
+
+    to {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+}
+
+.edit-form,
+.confirmation-modal {
+    position: fixed;
+    /* Fija el elemento para que se mantenga en la misma posición en la pantalla */
+    top: 50%;
+    /* Centra verticalmente */
+    left: 50%;
+    /* Centra horizontalmente */
+    transform: translate(-50%, -50%);
+    /* Ajusta el posicionamiento para centrar completamente */
+    z-index: 1000;
+    /* Asegura que se sobreponga sobre otros elementos */
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+    /* Estética */
+    animation: pop-up 0.5s ease-out;
+    /* Aplica la animación */
+}
+
+/* Media Queries */
+@media (min-width: 768px) {
+    .filter {
+        flex-direction: row;
+        align-items: center;
+        gap: 15px;
+    }
+
+    li {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .item-text {
+        flex-grow: 1;
+        margin-bottom: 0;
+    }
+}
+
+@media (min-width: 1024px) {
+    .container {
+        margin-top: 120px;
+        max-width: 700px;
+        margin-bottom: 80px;
+
+    }
+
+    .filter input {
+        width: 300px;
+    }
+
+    .edit-btn,
+    .delete-btn {
+
+        padding: 8px 15px;
+    }
+}
+/* Media Queries */
+@media (max-width: 600px) {
+    .container {
+        width: 100%;
+        height: 500px;
+        margin-right: 0;
+        margin-top: 50px;
+        padding: 10px;
+        max-width: 100%;  /* Asegura que ocupe todo el ancho disponible */
+        overflow: auto;
+    }
+
+    /* Ajuste en el título para pantallas pequeñas */
+    .header h1 {
+        font-size: 40px; /* Disminuye el tamaño del título */
+    }
+
+    /* Ajuste de la imagen del logo */
+    .header .logo2 {
+        top: 10px;
+        left: 10px;  /* Ajuste de posición del logo */
+        height: 40px;
+        width: 70px;
+    }
+  
+    li {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+    /* Asegúrate de que los botones y otros elementos también se adapten */
+    .filter input,
+    .filter button {
+        width: 300px;
+    }
+
+    /* Ajustes adicionales si es necesario */
+    .edit-form,
+    .confirmation-modal {
+        width: 50%;
+        max-width: 50%;
+        padding: 20px;
+    }
+}
+.date-container {
+    margin-top: 30px;
+    margin-right: 20px;
+}
+
+.date-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+
+
+.date-button {
+    width: auto;
+    padding: 5px 20px 10px 20px;
+    font-size: 40px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    background-color: #0000aa;
+    color: white;
+    border-radius: 55px;
+    transition: background-color 0.3s;
+}
+
+.date-button:hover {
+    
+  background-color: #0000aa;
+    transform: scale(1.05);
+    box-shadow: 0px 0px 20px rgba(16, 10, 201, 0.8);
+
+}

@@ -1,0 +1,135 @@
+/* Estilo general */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+   
+}
+
+.container {
+    margin-top: 80px;
+    margin-right: 80px;
+    width: 90%; /* Ajustable para dispositivos pequeños */
+    max-width: 1000px; /* Máximo ancho para tablets y laptops */
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    text-align: center;
+    background-color: #fff;
+}
+
+.header {
+    background: linear-gradient(to right, #0000aa, #4a90e2);
+    padding: 10px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 14px;
+    font-weight: bold;
+    flex-wrap: wrap;
+}
+
+.logo {
+    width: 40px;
+    height: auto;
+    margin-right: 10px;
+}
+
+.header h2 {
+    font-size: 1rem;
+    flex: 1; /* Para ocupar espacio restante */
+    font-family: 'mon';
+    text-align: center;
+}
+
+#video-container { 
+    position: relative;
+    display: inline-block;
+}
+
+#video {
+    padding: 10px;
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    border: 2px solid #ddd;
+}
+
+#overlay-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Permite interactuar con el video, no con el canvas */
+}
+
+
+.status-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80px;
+    height: 80px;
+}
+
+button {
+    font-family: "gro";
+    letter-spacing: 2px;
+    background-color: #0606c4;
+    color: #ffffff;
+    border: none;
+    font-size: 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px;
+    padding: 5px;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0000aa;
+    transform: scale(1.05);
+    box-shadow: 0px 0px 20px rgba(0, 19, 230, 0.8);
+}
+
+
+.date-container {
+    margin-top: 30px;
+    margin-right: 20px;
+}
+
+.date-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+
+
+.date-button {
+    width: auto;
+    padding: 5px 20px 10px 20px;
+    font-size: 40px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    background-color: #0000aa;
+    color: white;
+    border-radius: 55px;
+    transition: background-color 0.3s;
+}
+
+.date-button:hover {
+    background-color: #054e9c;
+}

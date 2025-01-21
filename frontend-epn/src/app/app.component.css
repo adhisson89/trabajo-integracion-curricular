@@ -1,0 +1,63 @@
+/* Reseteo global */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    background-image: url('/assets/imagenes/normal/fondos/EPN/fondo6.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    font-family: 'ground';
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Estilos principales del encabezado */
+.header {
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+.header h1 {
+    letter-spacing: 3px;
+    font-family: "teko";
+    margin: 0 6px 15px 8px;
+    padding: 0 0 20px 0;
+    font-size: 30px;
+    color: #0a369d;
+    align-items: center;
+}
+
+.header h2 {
+    font-family: "teko";
+    letter-spacing: 5px;
+    font-size: 90px;
+    color: #0a369d;
+    margin-left: 50px;
+    position: absolute; /* Para posicionarlo en la esquina derecha */
+    top: 0;
+    left: 1160px; /* Ajusta la distancia al borde derecho */
+
+}
+
+/* Logo */
+.header .logo {
+    margin-right: 10px;
+    height: 140px;
+    width: 150px;
+}
+

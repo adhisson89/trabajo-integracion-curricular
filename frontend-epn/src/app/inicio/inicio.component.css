@@ -1,0 +1,183 @@
+/* Contenedor envolvente para centrar */
+.container-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+}
+
+/* Contenedor principal */
+.container {
+    height: 270px;
+    margin-top: 45px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.415);
+    display: flex;
+    padding: 20px;
+    gap: 20px;
+    overflow: auto;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/* Contenido principal */
+.content {
+    flex: 1;
+    padding: 10px;
+    text-align: center;
+}
+
+.content h1 {
+    font-family: "teko";
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: 40px;
+    color: #0000aa;
+    margin: 5px 0;
+}
+
+.content h2 {
+    margin-top: 5px;
+    font-family: "mon";
+    font-size: 15px;
+    color: #949191;
+}
+
+.content p {
+    margin: 20px;
+    font-family: "asa";
+    font-size: 18px;
+    color: #666;
+    line-height: 1.6;
+    text-align: justify;
+}
+
+/* Botón Admin */
+button.btn_Admin {
+    font-family: "gro";
+    letter-spacing: 2px;
+    background-color: #ffffff;
+    color: #0000aa;
+    font-size: 0.9em;
+    border-radius: 50px;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    left: 90%;
+    margin: 10px;
+    opacity: 0.8;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+button.btn_Admin:hover {
+    background-color: #b9b9b9;
+    color: #ffffff;
+    transform: scale(1.1);
+    box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.8);
+}
+
+/* Botón Empezar */
+button.btn_Empezar {
+    font-family: "gro";
+    letter-spacing: 3px;
+    background-color: #0000aa;
+    color: #ffffff;
+    border: none;
+    padding: 12px 25px;
+    font-size: 1.1em;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: auto;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+button.btn_Empezar:hover {
+    background-color: #ff4040;
+    transform: scale(1.05);
+    box-shadow: 0px 0px 20px rgba(230, 0, 0, 0.8);
+}
+
+/* Ilustraciones */
+.illustration {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.illustration img {
+    width: 200px;
+    height: 200px;
+    margin-right: 20px;
+    border-radius: 10px;
+    object-fit: cover;
+    box-shadow: 0px 0px 25px #0000aa;
+}
+
+.illustration img:hover {
+    box-shadow: 0px 0px 25px #fa0001;
+}
+
+/* Media Queries para pantallas pequeñas (celulares) */
+@media (max-width: 600px) {
+    /* Ajusta el contenedor envolvente */
+    .container-wrapper {
+        height: 50%;
+        width: 50%;
+        padding: 10px; /* Agrega algo de padding para evitar que los elementos se toquen los bordes */
+        box-sizing: border-box;
+    }
+
+    /* Contenedor principal */
+    .container {
+        height: auto; /* Deja que el contenedor ajuste su altura según el contenido */
+        margin-top: 80px; /* Reduce el margen superior */
+        padding: 10px; /* Reduce el padding */
+        gap: 10px; /* Reduce el espacio entre elementos */
+        flex-direction: column; /* Cambia la dirección del flex para apilar los elementos */
+        align-items: center; /* Centra los elementos */
+    }
+
+    /* Contenido principal */
+    .content h1 {
+        font-size: 28px; /* Reduce el tamaño del título */
+        margin: 10px 0; /* Ajusta los márgenes */
+    }
+
+    .content h2 {
+        font-size: 14px; /* Reduce el tamaño del subtítulo */
+        margin-top: 5px;
+    }
+
+    .content p {
+        font-size: 16px; /* Reduce el tamaño de la fuente del párrafo */
+        margin: 10px 0; /* Reduce los márgenes */
+    }
+
+    /* Botón Admin */
+    button.btn_Admin {
+        font-size: 0.8em; /* Reduce el tamaño de la fuente */
+        top: 5px; /* Ajusta la posición */
+        left: 80%; /* Ajusta la posición del botón */
+        margin: 5px; /* Reduce el margen */
+    }
+
+    /* Botón Empezar */
+    button.btn_Empezar {
+        font-size: 1em; /* Reduce el tamaño de la fuente */
+        padding: 10px 20px; /* Ajusta el tamaño del padding */
+        margin-left: 0; /* Alinea el botón a la izquierda */
+        width: 50%; /* Haz que el botón ocupe el 100% del ancho disponible */
+    }
+
+    /* Ilustraciones */
+    .illustration img {
+        width: 150px; /* Reduce el tamaño de la imagen */
+        height: 150px; /* Ajusta la altura de la imagen */
+        margin-right: 0; /* Elimina el margen derecho */
+        margin-bottom: 10px; /* Agrega margen abajo */
+    }
+}
+
+

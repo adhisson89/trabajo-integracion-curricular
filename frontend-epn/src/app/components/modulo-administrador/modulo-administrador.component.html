@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+<body>
+     <!-- Selector de flechas -->
+     <div class="date-container">
+        <div class="date-controls">
+            <button class="date-button" (click)="redirectTo('inicioSesion')"> < </button>
+            <!-- <button class="date-button"> > </button> -->
+        </div>
+    </div>
+    <div class="container">
+        
+        <div class="modules" (click)="redirectTo('moduloRegistro')">
+            <div class="module">
+                <img src="assets/imagenes/png/iconos/registro.png"  />
+                <div class="label">Registro</div>
+            </div>
+            <div class="module" (click)="redirectTo('moduloListado')">
+                <img src="assets/imagenes/png/iconos/lista-corta.png"  />
+                <div class="label">Listado</div>
+            </div>
+        </div>
+       
+    </div>
+</body>
+</html>
